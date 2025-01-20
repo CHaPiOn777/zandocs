@@ -90,6 +90,11 @@ const theme = createTheme({
       fontSize: "16px",
       lineHeight: "22.4px",
     },
+    overline: {
+      fontWeight: 400, // Используем Bold для body1
+      fontSize: "12px",
+      lineHeight: "14px",
+    },
   },
   palette: {
     mode: "light",

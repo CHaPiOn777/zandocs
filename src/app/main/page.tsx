@@ -15,7 +15,7 @@ export const SCMain = styled.main`
   align-items: center;
   justify-content: center;
 `;
-const page = () => {
+const Page = () => {
   return (
     <SCMain>
       <Main />
@@ -28,4 +28,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

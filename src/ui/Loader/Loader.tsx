@@ -1,13 +1,15 @@
 "use client";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, SxProps, Theme } from "@mui/material";
 import React from "react";
 
 const Loader = ({
   children,
   isLoader,
+  sx,
 }: {
   children?: React.ReactNode;
   isLoader: boolean;
+  sx?: SxProps<Theme>;
 }) => {
   return isLoader ? (
     <Box
@@ -17,6 +19,7 @@ const Loader = ({
         alignItems: "center",
         height: "auto",
         width: "100%",
+        ...sx,
       }}
     >
       <CircularProgress color={"info"} />

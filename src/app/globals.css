@@ -35,7 +35,6 @@ body {
   scroll-behavior: smooth;
   box-sizing: border-box;
   position: relative;
-  height: 100vh;
   padding: 0 !important;
 }
 /* ::-webkit-scrollbar {
@@ -97,10 +96,11 @@ h4 {
   font-family: "Acumin Pro", sans-serif;
   font-size: 15px;
   font-weight: 400;
+  line-height: 22px;
   letter-spacing: 0rem;
   text-align: left;
   width: 18rem;
-  padding: 16px 12px;
+  padding: 16px;
   gap: 8px;
 }
 

@@ -3,7 +3,7 @@ import { Theme } from "@emotion/react";
 import { Stack, SxProps, Typography } from "@mui/material";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 const CardWrapper = ({
   children,

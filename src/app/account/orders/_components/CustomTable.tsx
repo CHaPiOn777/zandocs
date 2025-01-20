@@ -1,16 +1,17 @@
-import React, { JSX } from "react";
+import React, { JSX, memo } from "react";
 import {
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Typography,
 } from "@mui/material";
+import * as SC from "./CustomTable.style";
+import CustomButton from "@/ui/Button/CustomButton";
+import Loader from "@/ui/Loader/Loader";
 
-interface Column<T> {
+export interface Column<T> {
   key: keyof T;
   label: string;
   align?: "left" | "center" | "right";
@@ -21,47 +22,76 @@ interface CustomTableProps<T> {
   title?: string;
   columns: Column<T>[];
   rows: T[];
+  isLoading?: boolean;
+  isLoadingTable?: boolean;
+  loadNextPage?: () => void;
 }
 function CustomTable<T>({
   title,
   columns,
   rows,
+  loadNextPage,
+  isLoading,
+  isLoadingTable = false,
 }: CustomTableProps<T>): JSX.Element {
   return (
-    <Paper sx={{ padding: 2 }}>
+    <SC.SPaper sx={{ padding: 2 }}>
       {title && (
         <Typography variant="h6" gutterBottom>
           {title}
         </Typography>
       )}
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {columns.map((column, index) => (
-                <TableCell key={index} align={column.align || "left"}>
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
-                {columns.map((column, colIndex) => (
-                  <TableCell key={colIndex} align={column.align || "left"}>
-                    {column.render
-                      ? column.render(row[column.key], row)
-                      : (row[column.key] as React.ReactNode)}
-                  </TableCell>
+      <Loader sx={{ height: " 80%" }} isLoader={isLoadingTable}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {columns.map((column, index) => (
+                  <SC.TableCellHead key={index} align={column.align || "left"}>
+                    <Typography variant="body1">{column.label}</Typography>
+                  </SC.TableCellHead>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, rowIndex) => (
+                <TableRow key={rowIndex}>
+                  {columns.map((column, colIndex) => (
+                    <SC.STableSell
+                      key={colIndex}
+                      align={column.align || "left"}
+                    >
+                      <Typography variant="body2">
+                        {column.render
+                          ? column.render(row[column.key], row)
+                          : (row[column.key] as React.ReactNode)}
+                      </Typography>
+                    </SC.STableSell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {rows.length % 10 === 0 && !!loadNextPage && (
+          <CustomButton
+            sx={{
+              marginTop: "24px",
+              padding: "16px 64px",
+              opacity: isLoading ? 0.6 : 1,
+              gap: "12px",
+            }}
+            onClick={loadNextPage}
+            size="20"
+            variant="secondary"
+            disabled={isLoading}
+          >
+            Загрузить еще
+          </CustomButton>
+        )}
+      </Loader>
+    </SC.SPaper>
   );
 }
 
-export default CustomTable;
+export default memo(CustomTable);

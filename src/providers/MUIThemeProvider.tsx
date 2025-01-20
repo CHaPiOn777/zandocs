@@ -7,6 +7,8 @@ import appTheme from "@/styles/appTheme";
 import { CssBaseline } from "@mui/material";
 import { getMyInfo } from "@/api/authApi";
 import { useAuthUser } from "@/store/authStore";
+import axios from "axios";
+import { notify } from "@/ui/ToastProvider/ToastProvider";
 
 const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
   const setUser = useAuthUser((state) => state.setUser);
@@ -18,10 +20,12 @@ const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
       try {
         setIsLoading(true); // Включаем индикатор загрузки
         const { data } = await getMyInfo(); // Выполняем запрос
-
+        // console.log(JSON.parse(data));
         setUser(data); // Устанавливаем данные пользователя
       } catch (err) {
-        console.error("Ошибка при получении информации:", err);
+        if (axios.isAxiosError(err)) {
+          notify("error", err?.response?.data.message);
+        }
         setIsLoading(false);
       } finally {
         setIsLoading(false); // Отключаем индикатор загрузки

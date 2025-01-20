@@ -115,6 +115,7 @@ const CustomButton = ({
       disabled={disabled}
       //   fullWidth
       style={{
+        alignItems: "stretch",
         textTransform: "none",
       }}
       sx={(theme) => ({
@@ -126,8 +127,8 @@ const CustomButton = ({
       {disabled ? (
         <CircularProgress
           sx={{ marginLeft: "-32px" }}
-          size={20}
-          color={"info"}
+          size={Number(size)}
+          color={variant === "primary" ? "info" : "primary"}
         />
       ) : null}
       {children}

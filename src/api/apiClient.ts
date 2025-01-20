@@ -7,7 +7,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import Cookies from "js-cookie";
-import { loginUrl, logoutUrl, refreshUrl } from "./authApi";
+import { loginUrl, logoutUrl, refreshUrl, registerUrl } from "./authApi";
 
 type TRequestConfig = InternalAxiosRequestConfig<
   AxiosRequestConfig & { headers: { Authorization?: string; Lang: string } }
@@ -26,7 +26,8 @@ const requestInterceptor: TRequestInterceptor = async (config) => {
 };
 
 const responseInterceptor = async (response: AxiosResponse) => {
-  if (response.config.url === loginUrl || response.config.url === refreshUrl) {
+  if (response.config.url === loginUrl || response.config.url === registerUrl) {
+    console.log(response);
     if (response.data.token) {
       Cookies.set("access_token", response.data.token);
       if (response.data.refresh_token) {

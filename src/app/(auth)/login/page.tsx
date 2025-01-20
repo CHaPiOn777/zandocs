@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import ImageBG from "@/ui/ImageBG/ImageBG";
 import bg from "@/image/BGLogin.png";
@@ -7,21 +8,26 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomButton from "@/ui/Button/CustomButton";
-import { login } from "@/api/authApi";
+import { login, resetPassword } from "@/api/authApi";
 import CustomInput from "@/ui/Inputs/CustomInput";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuthUser } from "@/store/authStore";
+import ResetModal from "@/app/(auth)/login/resetModal";
+import { notify } from "@/ui/ToastProvider/ToastProvider";
+import axios from "axios";
 
 const Inputs = z.object({
   name: z.string().nonempty("Имя пользователя обязательно"),
   password: z.string().min(6, "Пароль должен содержать минимум 6 символов"),
 });
+
 export type LoginForm = z.infer<typeof Inputs>;
 
 const Page = () => {
   const router = useRouter();
   const setIsAuth = useAuthUser((state) => state.setIsAuth);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const { control, handleSubmit } = useForm<LoginForm>({
     mode: "onChange",
@@ -40,12 +46,13 @@ const Page = () => {
         username: name,
         password: password,
       });
+
       setIsAuth(true);
       router.push("/account/profile");
     } catch (error) {
-      console.error("Error during login:", error);
-
-      alert("Login failed. Please check your credentials and try again.");
+      if (axios.isAxiosError(error)) {
+        notify("error", "Вы ввели неверный логин или пароль");
+      }
     } finally {
       setisLoading(false);
     }
@@ -86,13 +93,34 @@ const Page = () => {
           control={control as any}
           label="Имя пользователя или email"
         />
-        <CustomInput
-          name="password"
-          type="password"
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          control={control as any}
-          label={"Пароль"}
-        />
+        <Stack>
+          <CustomInput
+            name="password"
+            type="password"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            control={control as any}
+            label={"Пароль"}
+          />
+
+          <Typography
+            sx={{
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              opacity: 1,
+              "&:hover": {
+                opacity: 0.7,
+              },
+            }}
+            // onClick={resetPasswordAsync}
+            onClick={() => setIsOpenModal(true)}
+            color="#0454FF"
+            mt={2}
+            marginLeft="auto"
+            variant="body2"
+          >
+            Забыли пароль?
+          </Typography>
+        </Stack>
         <CustomButton
           sx={{
             marginTop: "24px",
@@ -105,7 +133,26 @@ const Page = () => {
         >
           Войти
         </CustomButton>
+        <Stack flexDirection="row" mt={2} marginRight="auto" gap={1}>
+          <Typography variant="body2">Ещё нет аккаунта? </Typography>
+          <Typography
+            sx={{
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              opacity: 1,
+              "&:hover": {
+                opacity: 0.7,
+              },
+            }}
+            onClick={() => router.push("/register")}
+            color="#0454FF"
+            variant="body2"
+          >
+            Зарегистрироваться
+          </Typography>
+        </Stack>
       </form>
+      <ResetModal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} />
     </MainCntainer>
   );
 };

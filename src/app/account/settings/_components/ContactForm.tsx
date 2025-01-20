@@ -12,7 +12,7 @@ import { notify } from "@/ui/ToastProvider/ToastProvider";
 
 const Inputs = z.object({
   name: z.string().nonempty("Имя пользователя обязательно"),
-  sourname: z.string().nonempty("Фамилия пользователя обязательна"),
+  sourname: z.string().nonempty("Фамилия обязательна"),
   slug: z.string().nonempty("Никнейм пользователя обязателен"),
   email: z
     .string()

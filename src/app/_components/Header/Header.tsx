@@ -2,7 +2,7 @@
 import * as SC from "./Header.style";
 import { Box, Stack, Typography } from "@mui/material";
 import LogoComponent from "@/ui/Logo/Logo";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Tenge from "@/image/Account/icons/Tenge";
 import Basket from "@/image/Account/icons/Basket";
 import SearchIcon from "@/image/icons/SearchIcon";
@@ -18,6 +18,7 @@ type TMenuItems = {
 };
 const Header = () => {
   const router = useRouter();
+  const pathName = usePathname();
   const menuItems: TMenuItems[] = [
     {
       name: "Главная",
@@ -25,19 +26,19 @@ const Header = () => {
     },
     {
       name: "Документы",
-      link: "/main",
+      link: "/",
     },
     {
       name: "Тарифы",
-      link: "/main",
+      link: "/",
     },
     {
       name: "О компании",
-      link: "/main",
+      link: "/",
     },
     {
       name: "Обучение ZanTech",
-      link: "/main",
+      link: "/",
     },
   ];
   const isAuth = useAuthUser((state) => state.isAuth);
@@ -49,6 +50,7 @@ const Header = () => {
   if (isAuth === null) {
     return null;
   }
+  console.log(pathName);
   return (
     <SC.HeaderBox>
       <SC.Header>
@@ -56,7 +58,11 @@ const Header = () => {
         <menu>
           <SC.List>
             {menuItems.map((item, index) => (
-              <SC.ListItem key={index} onClick={() => router.push(item.link)}>
+              <SC.ListItem
+                $isActive={pathName === item.link}
+                key={index}
+                onClick={() => router.push(item.link)}
+              >
                 <Typography sx={{ lineHeight: 1 }} variant="subtitle2">
                   {item.name}
                 </Typography>
@@ -95,6 +101,7 @@ const Header = () => {
               size="16"
               sx={{ padding: "14px 32px 12px" }}
               variant="primary"
+              onClick={() => router.push("/register")}
             >
               Регистрация
             </CustomButton>

@@ -87,7 +87,7 @@ export default function ToastProvider({
                 backgroundColor: "rgba(0, 0, 0, 0.9)",
                 color: "#FFFFFF",
                 margin: "15px auto ",
-                width: "345px",
+                width: "445px",
               }
             : {}
         }

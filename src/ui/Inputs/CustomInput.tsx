@@ -1,4 +1,5 @@
 import {
+  Box,
   IconButton,
   InputAdornment,
   Stack,
@@ -16,8 +17,11 @@ type CustomInputProps<T extends FieldValues> = {
 
 import styled from "@emotion/styled";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
-export const FieldText = styled(TextField)`
+import ErrorIcon from "@/image/icons/ErrorIcon";
+type TError = {
+  isError?: boolean;
+};
+export const FieldText = styled(TextField)<TError>`
   & .MuiTextField-root {
     background: #e9f1fb;
   }
@@ -65,7 +69,19 @@ const CustomInput = <T extends FieldValues>({
             variant="outlined"
             {...field}
             error={!!error}
-            helperText={error?.message}
+            helperText={
+              error?.message && (
+                <Box display="flex" alignItems="flex-end" gap="4px" mt={1}>
+                  <ErrorIcon />
+                  <Typography
+                    sx={{ textTransform: "math-auto" }}
+                    variant="overline"
+                  >
+                    {error.message}
+                  </Typography>
+                </Box>
+              )
+            }
             InputProps={{
               endAdornment: type === "password" && (
                 <InputAdornment position="end" sx={{ marginLeft: "-46px" }}>

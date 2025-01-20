@@ -1,7 +1,8 @@
-import React from "react";
+"use client";
+import Orders from "@/app/account/orders/_components/Orders";
 
 const page = () => {
-  return <div>Мои заказы</div>;
+  return <Orders />;
 };
 
 export default page;
