@@ -35,6 +35,7 @@ const ImageBG = ({
         }}
         alt="бэкграунд"
         src={bg}
+        quality={100}
       />
     </Box>
   );

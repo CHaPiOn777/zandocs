@@ -12,6 +12,7 @@ type TBtnProps = {
   onClick?: () => void;
   size?: ButtonSize;
   disabled?: boolean;
+  isCircular?: boolean;
 };
 
 const CustomButton = ({
@@ -21,6 +22,7 @@ const CustomButton = ({
   onClick,
   size = "20",
   disabled = false,
+  isCircular = true,
 }: TBtnProps) => {
   // Определяем стили для каждого варианта
   const getVariantStyles = (
@@ -124,7 +126,7 @@ const CustomButton = ({
         ...sx,
       })}
     >
-      {disabled ? (
+      {disabled && isCircular ? (
         <CircularProgress
           sx={{ marginLeft: "-32px" }}
           size={Number(size)}

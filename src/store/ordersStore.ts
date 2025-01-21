@@ -17,6 +17,8 @@ type TOrder = {
 };
 
 type TOrdersState = {
+  ordersPrice: number;
+  setOrdersPrice: (price: number) => void;
   isFirstRender: boolean;
   orders: any[]; // Массив заказов, можно уточнить тип для строгой типизации
   setOrders: (data: TOrder[]) => void;
@@ -27,6 +29,9 @@ export const useOrders = create<TOrdersState>()((set) => ({
   orders: [],
   isFirstRender: true,
   setIsFirstRender: (isFirstRender) => set({ isFirstRender }),
+  ordersPrice: 0,
+  setOrdersPrice: (price: number) => set({ ordersPrice: price }),
+
   setOrders: (data) =>
     set((state) => ({
       orders: [

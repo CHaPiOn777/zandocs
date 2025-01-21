@@ -17,7 +17,7 @@ const theme = createTheme({
     h1: {
       fontWeight: 500, // Используем Bold для h1
       fontSize: "52px",
-      lineHeight: "62.4px",
+      lineHeight: "61.4px",
       // [theme.breakpoints.up("sm")]: {
       //   fontSize: "24px",
       //   lineHeight: "28.8px",

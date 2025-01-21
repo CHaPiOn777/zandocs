@@ -40,7 +40,7 @@ export const getProducts = (page = 1) => {
   return api.get(getProductsURL, {
     params: {
       page, // Номер страницы
-      per_page: 10, // Количество заказов на странице (можно изменить)
+      per_page: 100, // Количество заказов на странице (можно изменить)
     },
   });
 };
@@ -95,4 +95,27 @@ export const resetPassword = (data: {
   new_password: string;
 }) => {
   return api.post<{ message: string }>(resetPasswordURL, data);
+};
+export const createInvoiceURL = "/wp-json/epay/v1/create-invoice/";
+
+export const createInvoice = (data: {
+  amount: number;
+  description: string;
+  items: {
+    product_id: number;
+    quantity: number;
+  }[];
+}) => {
+  return api.post(createInvoiceURL, data);
+};
+export const addToCardByBasketURL = "/wp-json/wc/store/cart/add-item";
+
+export const addToCardByBasket = (data: { id: number; quantity: number }) => {
+  return api.post<{ message: string }>(addToCardByBasketURL, data);
+};
+
+export const getMyBasketURL = "/wp-json/wc/store/cart/";
+
+export const getMyBasket = () => {
+  return api.get<{ message: string }>(getMyBasketURL);
 };

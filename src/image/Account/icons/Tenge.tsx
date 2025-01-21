@@ -1,10 +1,10 @@
 import React from "react";
 
-const Tenge = () => {
+const Tenge = ({ size = 17, color = "#111420" }) => {
   return (
     <svg
-      width="17"
-      height="16"
+      width={size}
+      height={size}
       viewBox="0 0 17 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ const Tenge = () => {
           y="0.140015"
           width="16.0295"
           height="15.86"
-          fill="#111420"
+          fill={color}
         />
       </g>
       <defs>

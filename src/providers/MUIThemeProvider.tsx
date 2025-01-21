@@ -5,14 +5,14 @@ import { ThemeProvider } from "@mui/material/styles";
 import { StyledEngineProvider } from "@mui/material/styles";
 import appTheme from "@/styles/appTheme";
 import { CssBaseline } from "@mui/material";
-import { getMyInfo } from "@/api/authApi";
+import { getMyBasket, getMyInfo } from "@/api/authApi";
 import { useAuthUser } from "@/store/authStore";
 import axios from "axios";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 
 const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
   const setUser = useAuthUser((state) => state.setUser);
-  const user = useAuthUser((state) => state.user);
+
   const setIsLoading = useAuthUser((state) => state.setIsLoading);
   const isAuth = useAuthUser((state) => state.isAuth);
   useEffect(() => {
@@ -20,7 +20,9 @@ const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
       try {
         setIsLoading(true); // Включаем индикатор загрузки
         const { data } = await getMyInfo(); // Выполняем запрос
+        const { data: basket } = await getMyBasket(); // Выполняем запрос
         // console.log(JSON.parse(data));
+        console.log(basket);
         setUser(data); // Устанавливаем данные пользователя
       } catch (err) {
         if (axios.isAxiosError(err)) {
@@ -31,7 +33,6 @@ const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading(false); // Отключаем индикатор загрузки
       }
     };
-    console.log(user);
     if (isAuth) {
       getMyInfoData();
     }

@@ -52,16 +52,13 @@ const Orders = () => {
       try {
         setIsLoading(true); // Включаем индикатор загрузки
         const { data } = await getOrders(String(user.id), page); // Выполняем запрос
-        // axios.post("https://zandocs.kz/wp-json/epay/v1/create-invoice/", {
-        //   amount: 100, // Преобразуем строку в число
-        //   description: "sadsa",
-        // });
+
         // const { dataDD } = await getDownloads(String(user.id), page); // Выполняем запрос
         // await addProduct({
         //   user_id: user.id,
         //   file_id: 2320,
         // }); // Выполняем запрос
-        // const { data123 } = await getMyProducts(page); // Выполняем запрос
+        const { data123 } = await getMyProducts(page); // Выполняем запрос
         setOrders(data);
         // console.log(data);
       } catch (err) {

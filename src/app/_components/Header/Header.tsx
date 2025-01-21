@@ -12,6 +12,7 @@ import UserThumbHead from "@/image/Account/icons/UserThumbHead";
 import { useEffect, useState } from "react";
 import MenuPopover from "@/app/account/_components/MenuPopover";
 import CustomPopover from "@/ui/Popover/CustomPopover";
+import { useOrders } from "@/store/ordersStore";
 type TMenuItems = {
   name: string;
   link: string;
@@ -30,7 +31,7 @@ const Header = () => {
     },
     {
       name: "Тарифы",
-      link: "/",
+      link: "/tarif",
     },
     {
       name: "О компании",
@@ -43,6 +44,8 @@ const Header = () => {
   ];
   const isAuth = useAuthUser((state) => state.isAuth);
   const [isAuthState, setIsAuthState] = useState<boolean | null>(null);
+  const ordersPrice = useOrders((state) => state.ordersPrice);
+
   useEffect(() => {
     setIsAuthState(isAuth);
   }, [isAuth]);
@@ -74,7 +77,7 @@ const Header = () => {
           <Stack direction="row" alignItems="center" gap="8px">
             <Stack direction="row" gap="2px">
               <Typography sx={{ alignSelf: "end" }} variant="body2">
-                0.00
+                {ordersPrice}
               </Typography>
               <Tenge />
             </Stack>
