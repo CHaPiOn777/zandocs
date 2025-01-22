@@ -14,11 +14,7 @@ export const SVG = styled.svg`
     transform: scale(1.15);
   }
 `;
-export const TrashFill = ({
-  width = "24",
-  height = "24",
-  onClick,
-}: IconType) => {
+export const TrashFill = ({ onClick }: IconType) => {
   return (
     <SVG
       onClick={onClick}

@@ -3,21 +3,14 @@ import Line from "@/ui/Line/Line";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import { List, ListItem, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import komfort from "@/image/tarif/komfort.png";
 import standart from "@/image/tarif/standart.png";
 import Tenge from "@/image/Account/icons/Tenge";
-import CheckBoxIcon from "@/image/Documents/CheckBoxIcon";
 import * as SC from "./Subsc.style";
 import CustomButton from "@/ui/Button/CustomButton";
 import CheckBoxIconBlue from "@/image/Documents/CheckBoxIconBlue";
-import {
-  addToCardByBasket,
-  createInvoice,
-  getMyBasket,
-  getMyBasketURL,
-  getProducts,
-} from "@/api/authApi";
+import { addToCardByBasket, createInvoice, getMyBasket } from "@/api/authApi";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -98,7 +91,7 @@ const Subscription = () => {
     try {
       if (isBusket) {
         setisLoadingBasket(true);
-        const { data } = await addToCardByBasket({
+        await addToCardByBasket({
           id: id,
           quantity: 1,
         });

@@ -13,12 +13,11 @@ import { useOrders } from "@/store/ordersStore";
 import CustomButton from "@/ui/Button/CustomButton";
 import Loader from "@/ui/Loader/Loader";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
-import TransitionsModal from "@/ui/Modal/Modal";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import { Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 export type TActiveDocs = {
   name: string;
   id: string;

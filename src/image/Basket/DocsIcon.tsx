@@ -4,7 +4,7 @@ export type IconType = {
   height?: string;
 };
 
-export const DocsIcon = ({ width = "24", height = "24" }: IconType) => {
+export const DocsIcon = () => {
   return (
     <svg
       width="25"

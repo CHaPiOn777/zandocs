@@ -12,8 +12,6 @@ import UserThumbHead from "@/image/Account/icons/UserThumbHead";
 import { useEffect, useState } from "react";
 import MenuPopover from "@/app/account/_components/MenuPopover";
 import CustomPopover from "@/ui/Popover/CustomPopover";
-import { useOrders } from "@/store/ordersStore";
-import { getMyBasket } from "@/api/authApi";
 import { useBasket } from "@/store/basketStore";
 type TMenuItems = {
   name: string;

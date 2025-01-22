@@ -7,7 +7,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 import Cookies from "js-cookie";
-import { loginUrl, logoutUrl, refreshUrl, registerUrl } from "./authApi";
+import { loginUrl, logoutUrl, registerUrl } from "./authApi";
 
 type TRequestConfig = InternalAxiosRequestConfig<
   AxiosRequestConfig & { headers: { Authorization?: string; Lang: string } }

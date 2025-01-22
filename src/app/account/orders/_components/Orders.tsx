@@ -1,19 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import {
-  addProduct,
-  getDownloads,
-  getMyProducts,
-  getOrders,
-  getProducts,
-  resetProduct,
-  resetProductURL,
-} from "@/api/authApi";
+import { getOrders } from "@/api/authApi";
 import CustomTable, {
   Column,
 } from "@/app/account/orders/_components/CustomTable";
 import { useAuthUser } from "@/store/authStore";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useOrders } from "@/store/ordersStore";
 import axios from "axios";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
@@ -61,7 +53,7 @@ const Orders = () => {
         //   file_id: 2360,
         // }); // Выполняем запрос
         // await resetProduct({ user_id: String(user.id) });
-        const { data123 } = await getMyProducts(page); // Выполняем запрос
+        // const { data123 } = await getMyProducts(page); // Выполняем запрос
         setOrders(data);
         // console.log(data);
       } catch (err) {
