@@ -22,6 +22,7 @@ import { notify } from "@/ui/ToastProvider/ToastProvider";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useOrders } from "@/store/ordersStore";
+import { useBasket } from "@/store/basketStore";
 
 type TPropsData = {
   iconImg: React.JSX.Element;
@@ -80,10 +81,8 @@ const Subscription = () => {
       disabled: true,
     },
   ];
-  useEffect(() => {
-    getMyBasket();
-    //   getProducts();
-  }, []);
+  const setCart = useBasket((state) => state.setCart);
+
   const router = useRouter();
   const addBusket = async ({
     id,
@@ -104,13 +103,14 @@ const Subscription = () => {
           quantity: 1,
         });
 
-        notify("success", data.message);
+        notify("success", "Товар добавлен в корзину");
         setOrdersPrice(ordersPrice + price);
-        await getMyBasket();
+        const { data: cart } = await getMyBasket();
+        setCart(cart);
       } else {
         setIsLoadingByeCard(true);
         const { data } = await createInvoice({
-          amount: Number(10),
+          amount: price,
           description: title,
           items: [
             {

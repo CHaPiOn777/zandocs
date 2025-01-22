@@ -97,7 +97,7 @@ const CustomButton = ({
         return {
           fontWeight: 400,
           fontSize: "16px",
-          lineHeight: "20px",
+          lineHeight: "16px",
         };
       case "20":
         return {

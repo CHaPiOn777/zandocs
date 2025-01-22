@@ -119,3 +119,10 @@ export const getMyBasketURL = "/wp-json/wc/store/cart/";
 export const getMyBasket = () => {
   return api.get<{ message: string }>(getMyBasketURL);
 };
+export const removeCartMyBasketURL =
+  "/wp-json/wc/store/cart/items/{cartItemKey}";
+
+export const removeCartMyBasket = (id: string) => {
+  const newUrl = removeCartMyBasketURL.replace("{cartItemKey}", String(id));
+  return api.delete<{ message: string }>(newUrl);
+};

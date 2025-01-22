@@ -9,9 +9,11 @@ import { getMyBasket, getMyInfo } from "@/api/authApi";
 import { useAuthUser } from "@/store/authStore";
 import axios from "axios";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
+import { useBasket } from "@/store/basketStore";
 
 const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
   const setUser = useAuthUser((state) => state.setUser);
+  const setCart = useBasket((state) => state.setCart);
 
   const setIsLoading = useAuthUser((state) => state.setIsLoading);
   const isAuth = useAuthUser((state) => state.isAuth);
@@ -21,8 +23,7 @@ const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading(true); // Включаем индикатор загрузки
         const { data } = await getMyInfo(); // Выполняем запрос
         const { data: basket } = await getMyBasket(); // Выполняем запрос
-        // console.log(JSON.parse(data));
-        console.log(basket);
+        setCart(basket);
         setUser(data); // Устанавливаем данные пользователя
       } catch (err) {
         if (axios.isAxiosError(err)) {

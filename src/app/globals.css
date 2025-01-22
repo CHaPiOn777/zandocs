@@ -112,3 +112,6 @@ h4 {
   width: 24px;
   margin: 0;
 }
+.MuiTableCell-root {
+  border-bottom: 1px solid #8dbaff80;
+}

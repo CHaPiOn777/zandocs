@@ -6,6 +6,8 @@ import {
   getMyProducts,
   getOrders,
   getProducts,
+  resetProduct,
+  resetProductURL,
 } from "@/api/authApi";
 import CustomTable, {
   Column,
@@ -56,8 +58,9 @@ const Orders = () => {
         // const { dataDD } = await getDownloads(String(user.id), page); // Выполняем запрос
         // await addProduct({
         //   user_id: user.id,
-        //   file_id: 2320,
+        //   file_id: 2360,
         // }); // Выполняем запрос
+        // await resetProduct({ user_id: String(user.id) });
         const { data123 } = await getMyProducts(page); // Выполняем запрос
         setOrders(data);
         // console.log(data);
@@ -65,7 +68,6 @@ const Orders = () => {
         if (axios.isAxiosError(err)) {
           notify("error", err?.response?.data.message);
         }
-        setIsLoading(false);
       } finally {
         setIsFirstRender(false);
         setIsLoading(false); // Отключаем индикатор загрузки

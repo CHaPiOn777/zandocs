@@ -27,6 +27,19 @@ export const Header = styled.div`
   max-width: 1228px;
   width: 100%;
 `;
+export const Basket = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  padding: 13px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+  &:hover {
+    background: #0088ff1a;
+  }
+`;
 export const List = styled.ul`
   display: flex;
   gap: 8px;
