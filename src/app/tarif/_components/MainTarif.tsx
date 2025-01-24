@@ -3,7 +3,7 @@ import Container from "@/app/_components/Container/Container";
 import ImageBG from "@/ui/ImageBG/ImageBG";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import { Stack, Typography } from "@mui/material";
-import bg from "@/image/tarif/bg.png";
+import bg from "@/image/Tarif/bg.png";
 import React from "react";
 
 const MainTarif = () => {
