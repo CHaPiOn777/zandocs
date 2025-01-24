@@ -15,18 +15,16 @@ export default function TransitionsModal({
   const handleClose = () => setIsOpenModal(false);
 
   return (
-    <div>
-      <ModalS
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={isOpenModal}
-        onClose={handleClose}
-        closeAfterTransition
-        slots={{ backdrop: StyledBackdrop }}
-      >
-        <Fade in={isOpenModal}>{children}</Fade>
-      </ModalS>
-    </div>
+    <ModalS
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={isOpenModal}
+      onClose={handleClose}
+      closeAfterTransition
+      slots={{ backdrop: StyledBackdrop }}
+    >
+      <Fade in={isOpenModal}>{children}</Fade>
+    </ModalS>
   );
 }
 

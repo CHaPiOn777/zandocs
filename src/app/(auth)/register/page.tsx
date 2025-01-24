@@ -76,10 +76,10 @@ const Page = () => {
           sx={{ textTransform: "uppercase", color: "#2640E3" }}
           variant="h2"
         >
-          Авторизация
+          Регистрация
         </Typography>
         <Typography variant="body1">
-          Войдите, чтобы продолжить работу с вашими документами.
+          Зарегистрируйтесь, чтобы продолжить работу с вашими документами.
         </Typography>
       </Stack>
       <form

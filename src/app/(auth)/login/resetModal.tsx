@@ -6,24 +6,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import TransitionsModal, { TOpenProps } from "@/ui/Modal/Modal";
 import { Stack, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { resetPassword } from "@/api/authApi";
+import { resetPassword, resetPassword2 } from "@/api/authApi";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import CustomInput from "@/ui/Inputs/CustomInput";
 import CustomButton from "@/ui/Button/CustomButton";
 
-const InputsReset = z
-  .object({
-    password1: z.string().nonempty("Это поле обязательно для заполнения"),
-    password2: z.string().nonempty("Это поле обязательно для заполнения"),
-    email: z
-      .string()
-      .email("Некорректный формат email")
-      .nonempty("Email обязателен"),
-  })
-  .refine((data) => data.password1 === data.password2, {
-    message: "Пароли не совпадают",
-    path: ["password2"], // Ошибка будет указана на поле password2
-  });
+const InputsReset = z.object({
+  // password1: z.string().nonempty("Это поле обязательно для заполнения"),
+  // password2: z.string().nonempty("Это поле обязательно для заполнения"),
+  email: z
+    .string()
+    .email("Некорректный формат email")
+    .nonempty("Email обязателен"),
+});
+// .refine((data) => data.password1 === data.password2, {
+//   message: "Пароли не совпадают",
+//   path: ["password2"], // Ошибка будет указана на поле password2
+// });
 
 export type TInputsReset = z.infer<typeof InputsReset>;
 
@@ -34,18 +33,22 @@ const ResetModal = ({ isOpenModal, setIsOpenModal }: TOpenProps) => {
     mode: "onChange",
     resolver: zodResolver(InputsReset),
     defaultValues: {
-      password1: "",
-      password2: "",
+      // password1: "",
+      // password2: "",
       email: "",
     },
   });
   const resetPasswordAsync = async (data: TInputsReset) => {
-    const { email, password1: password } = data;
+    // const { email, password1: password } = data;
+    const { email } = data;
     setIsLoading(true);
     try {
-      const { data } = await resetPassword({
+      // const { data } = await resetPassword({
+      //   email,
+      //   new_password: password,
+      // });
+      const { data } = await resetPassword2({
         email,
-        new_password: password,
       });
 
       notify("success", data.message);
@@ -93,7 +96,7 @@ const ResetModal = ({ isOpenModal, setIsOpenModal }: TOpenProps) => {
             control={control as any}
             label="Введите Ваш Email"
           />
-          <CustomInput
+          {/* <CustomInput
             name="password1"
             type="password"
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -106,7 +109,7 @@ const ResetModal = ({ isOpenModal, setIsOpenModal }: TOpenProps) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             control={control as any}
             label={"Повторите пароль"}
-          />
+          /> */}
           <CustomButton
             size="20"
             disabled={isLoading}

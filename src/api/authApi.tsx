@@ -96,6 +96,14 @@ export const resetPassword = (data: {
 }) => {
   return api.post<{ message: string }>(resetPasswordURL, data);
 };
+export const resetPasswordURL2 = "/wp-json/custom/v1/reset-password";
+
+export const resetPassword2 = (data: {
+  email: string;
+  // new_password: string;
+}) => {
+  return api.post<{ message: string }>(resetPasswordURL2, data);
+};
 export const createInvoiceURL = "/wp-json/epay/v1/create-invoice/";
 
 export const createInvoice = (data: {

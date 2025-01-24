@@ -16,6 +16,14 @@ const nextConfig: NextConfig = {
       // },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/wp-admin/:path*",
+        destination: "https://zandocs.kz/wp-admin/:path*",
+      },
+    ];
+  },
   // async headers() {
   //   return [
   //     {
