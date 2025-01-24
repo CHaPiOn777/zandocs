@@ -5,11 +5,13 @@
     "module": "ESNext",
     "noImplicitAny": true,
     "moduleResolution": "node",
+
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,

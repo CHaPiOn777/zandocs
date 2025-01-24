@@ -4,7 +4,7 @@ import CustomButton from "@/ui/Button/CustomButton";
 import TransitionsModal, { TOpenProps } from "@/ui/Modal/Modal";
 import { Stack, Typography } from "@mui/material";
 import React from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 type TProps = {
   removeItem: (id: string) => void;
   isLoading: boolean;
