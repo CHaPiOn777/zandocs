@@ -18,6 +18,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import Cart from "@/image/Basket/Cart.png";
+
 export type TActiveDocs = {
   name: string;
   id: string;
@@ -137,7 +139,7 @@ const Basket = () => {
         <Loader sx={{ height: " 80%" }} isLoader={!rows?.length}>
           <>
             <CustomTable
-              isImageTitle
+              iconTitle={Cart}
               isBorder={false}
               isLoadingTable={!basket}
               //   loadNextPage={loadNextPage}

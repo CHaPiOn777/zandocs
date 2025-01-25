@@ -1,10 +1,10 @@
 import React from "react";
 
-const Phone = () => {
+const Phone = ({ size = "17" }: { size?: string }) => {
   return (
     <svg
-      width="17"
-      height="17"
+      width={size}
+      height={size}
       viewBox="0 0 17 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

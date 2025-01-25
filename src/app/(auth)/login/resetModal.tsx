@@ -83,8 +83,9 @@ const ResetModal = ({ isOpenModal, setIsOpenModal }: TOpenProps) => {
           Восстановление доступа
         </Typography>
         <Typography variant="body2">
-          Если вы забыли пароль, введите email, указанный при регистрации и
-          новый пароль.
+          Если вы забыли пароль, введите email, указанный при регистрации.
+          На ваш email придёт ссылка, пройдя по которой вы сможете задать новый
+          пароль.
         </Typography>
         <form
           onSubmit={handleSubmit(resetPasswordAsync)}

@@ -37,7 +37,7 @@ export const useOrders = create<TOrdersState>()((set) => ({
   setOrders: (data) =>
     set((state) => ({
       orders: [
-        ...state.orders, // Сохраняем предыдущие заказы
+        ...state.orders,
         ...data.map((item: TOrder) => [
           item.id,
           format(new Date(item.date_created), "dd.MM.yyyy"), // Форматируем дату
@@ -47,6 +47,7 @@ export const useOrders = create<TOrdersState>()((set) => ({
               acc + parseFloat(lineItem.total),
             0
           )} ${item.currency_symbol}`, // Считаем итоговую сумму
+          [...item.line_items],
         ]),
       ],
     })),

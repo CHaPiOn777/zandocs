@@ -55,8 +55,9 @@ const Page = () => {
       setIsAuth(true);
       router.push("/account/profile");
     } catch (error) {
+      console.log(error);
       if (axios.isAxiosError(error)) {
-        notify("error", error?.response?.data.message);
+        notify("error", "Пользователь с таким email уже зарегистрирован");
       }
     } finally {
       setisLoading(false);

@@ -1,13 +1,19 @@
 import { Stack } from "@mui/material";
 import React from "react";
 
-const TitleComponents = ({ children }: { children: React.ReactNode }) => {
+const TitleComponents = ({
+  children,
+  height = "164px",
+}: {
+  children: React.ReactNode;
+  height?: string;
+}) => {
   return (
     <Stack
       sx={{
         background: "var(--titleBG)",
         width: "100vw",
-        height: "164px",
+        height: height,
         alignItems: "center",
         justifyContent: "center",
       }}

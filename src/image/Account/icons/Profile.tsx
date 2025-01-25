@@ -1,6 +1,7 @@
 import React from "react";
 export type TColorIcon = {
   color?: string;
+  size?: string;
 };
 const Profile = ({ color }: TColorIcon) => {
   return (

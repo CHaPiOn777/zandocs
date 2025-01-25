@@ -13,8 +13,7 @@ import {
 import * as SC from "./CustomTable.style";
 import CustomButton from "@/ui/Button/CustomButton";
 import Loader from "@/ui/Loader/Loader";
-import Image from "next/image";
-import Cart from "@/image/Basket/Cart.png";
+import Image, { StaticImageData } from "next/image";
 
 export interface Column<T> {
   key: keyof T;
@@ -32,7 +31,8 @@ interface CustomTableProps<T> {
   loadNextPage?: () => void;
   sx?: SxProps<Theme>;
   isBorder?: boolean;
-  isImageTitle?: boolean;
+  iconTitle: StaticImageData;
+  button?: JSX.Element;
 }
 function CustomTable<T>({
   title,
@@ -43,16 +43,26 @@ function CustomTable<T>({
   isLoadingTable = false,
   sx,
   isBorder = true,
-  isImageTitle = false,
+  iconTitle,
+  button,
 }: CustomTableProps<T>): JSX.Element {
   return (
-    <SC.SPaper sx={{ maxWidth: "832px", padding: 2, ...sx }}>
+    <SC.SPaper sx={{ maxWidth: "832px", padding: "40px 30px", ...sx }}>
       {title && (
         <Stack direction="row" gap={"12px"} mb={2} alignItems={"stretch"}>
-          {isImageTitle && (
-            <Image src={Cart} alt="Документ Иконка" width={34} height={34} />
+          {iconTitle && (
+            <Image
+              quality={100}
+              src={iconTitle}
+              alt="Документ Иконка"
+              width={34}
+              height={34}
+            />
           )}
-          <Typography variant="h3">{title}</Typography>
+          <Typography sx={{ textTransform: "uppercase" }} variant="h3">
+            {title}
+          </Typography>
+          {button && button}
         </Stack>
       )}
       <Loader sx={{ height: " 80%" }} isLoader={isLoadingTable}>

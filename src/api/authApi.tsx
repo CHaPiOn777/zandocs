@@ -44,6 +44,11 @@ export const getProducts = (page = 1) => {
     },
   });
 };
+export const getProductsByIDURL = "/wp-json/wc/v3/products/{id}";
+export const getProductsByID = (id: string) => {
+  const url = getProductsByIDURL.replace("{id}", id);
+  return api.get(url);
+};
 export const getMyProductsURL = "/wp-json/files/v1/available";
 export const getMyProducts = (page = 1) => {
   return api.get(getMyProductsURL, {

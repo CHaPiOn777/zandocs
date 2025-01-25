@@ -1,5 +1,4 @@
 "use client";
-import Docs from "@/image/Account/icons/Docs";
 import Exit from "@/image/Account/icons/Exit";
 import Order from "@/image/Account/icons/Order";
 import Profile from "@/image/Account/icons/Profile";
@@ -35,11 +34,11 @@ const MenuPopover = ({ onMouseLeave }: TLeaveFunc) => {
       title: "Настройки аккаунта",
       icon: <Setting color={addColorByIndex(1)} />,
     },
-    {
-      page: "/account/docs",
-      title: "Мои документы",
-      icon: <Docs color={addColorByIndex(2)} />,
-    },
+    // {
+    //   page: "/account/docs",
+    //   title: "Мои документы",
+    //   icon: <Docs color={addColorByIndex(2)} />,
+    // },
     {
       page: "/account/orders",
       title: "Мои заказы",

@@ -1,10 +1,11 @@
+import { TColorIcon } from "@/image/Account/icons/Profile";
 import React from "react";
 
-const Email = () => {
+const Email = ({ size = "16" }: TColorIcon) => {
   return (
     <svg
-      width="17"
-      height="17"
+      width={size}
+      height={size}
       viewBox="0 0 17 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

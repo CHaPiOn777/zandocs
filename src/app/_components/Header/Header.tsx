@@ -37,7 +37,7 @@ const Header = () => {
     },
     {
       name: "О компании",
-      link: "/",
+      link: "/company",
     },
     {
       name: "Обучение ZanTech",
