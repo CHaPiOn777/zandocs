@@ -1,5 +1,6 @@
 import Container from "@/app/_components/Container/Container";
 import Card from "@/app/main/_components/Features/Card/Card";
+import useIsTablet from "@/hooks/useIsTablet";
 import { Availability } from "@/image/Features/Icons/Availability";
 import { Money } from "@/image/Features/Icons/Money";
 import { Security } from "@/image/Features/Icons/Security";
@@ -9,13 +10,18 @@ import { TimeIcon } from "@/image/Features/Icons/TimeIcon";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import TitleComponents from "@/ui/TitleComponents/TitleComponents";
 import { Typography } from "@mui/material";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
+import { SwiperSlide } from "swiper/react";
+import * as SC from "./Features.style";
+
 export type TDataFeatures = {
   icon: ReactElement;
   title: string;
   desc: string;
 };
 const Features = () => {
+  const isTablet = useIsTablet();
+
   const data: TDataFeatures[] = [
     {
       icon: <TimeIcon />,
@@ -72,11 +78,40 @@ const Features = () => {
           </span>
         </Typography>
       </TitleComponents>
-      <MainCntainer>
-        <Container sx={{ padding: "100px 0", gap: "20px", flexWrap: "wrap" }}>
-          {data.map(({ icon, title, desc }, index) => (
-            <Card icon={icon} title={title} desc={desc} key={index} />
-          ))}
+      <MainCntainer sx={{ minHeight: "max-content" }}>
+        <Container
+          sx={{
+            padding: isTablet ? "50px 0" : "100px 0",
+            gap: "20px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {isTablet ? (
+            <SC.SwiperSt
+              slidesPerView={"auto"}
+              slidesPerGroup={1}
+              // centeredSlides
+              spaceBetween={20}
+              // loop
+
+              // className={styles.swiper}
+              slidesOffsetBefore={0}
+              grabCursor={true}
+              // modules={[Pagination]}
+              // pagination={{ clickable: true }}
+            >
+              {data.map(({ icon, title, desc }, index) => (
+                <SwiperSlide key={index}>
+                  <Card icon={icon} title={title} desc={desc} key={index} />
+                </SwiperSlide>
+              ))}
+            </SC.SwiperSt>
+          ) : (
+            data.map(({ icon, title, desc }, index) => (
+              <Card icon={icon} title={title} desc={desc} key={index} />
+            ))
+          )}
         </Container>
       </MainCntainer>
     </>

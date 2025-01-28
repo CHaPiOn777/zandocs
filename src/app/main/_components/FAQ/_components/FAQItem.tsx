@@ -1,3 +1,4 @@
+"use client";
 import * as SC from "./FAQItem.style";
 import { TDataFAQ } from "@/app/main/_components/FAQ/FAQ";
 import {
@@ -8,6 +9,7 @@ import {
 } from "@mui/material";
 import PlusIcon from "@/image/icons/PlusIcon";
 import MinusIcon from "@/image/icons/MinusIcon";
+import useIsTablet from "@/hooks/useIsTablet";
 
 type TFAQItemPropsChange = {
   handleChange: (
@@ -23,6 +25,8 @@ const FAQItem = ({
   handleChange,
   expanded,
 }: TDataFAQ & TFAQItemPropsChange) => {
+  const isTablet = useIsTablet();
+
   return (
     <SC.SAccordion
       expanded={expanded === number}
@@ -33,7 +37,12 @@ const FAQItem = ({
         id="panel2bh-header"
         sx={{ display: "flex", gap: "40px", margin: 0 }}
       >
-        <Stack direction="row" gap={"40px"} sx={{ padding: "22px 40px" }}>
+        <Stack
+          direction="row"
+          gap={"40px"}
+          maxWidth={isTablet ? "80vw" : "100%"}
+          sx={{ padding: isTablet ? "16px 20px" : "22px 40px" }}
+        >
           <Typography variant="h4">{number}</Typography>
           <Typography sx={{ textTransform: "uppercase" }} variant="h4">
             {title}
@@ -58,10 +67,10 @@ const FAQItem = ({
           </SC.IconWrapper>
         )}
       </AccordionSummary>
-      <AccordionDetails sx={{ marginLeft: "66px" }}>
+      <AccordionDetails sx={{ marginLeft: isTablet ? "36px" : "66px" }}>
         <Typography
-          width={"90%"}
-          sx={{ paddingBottom: "20px" }}
+          width="90%"
+          sx={{ paddingBottom: isTablet ? "10px" : "20px" }}
           variant="body1"
         >
           {desc}{" "}

@@ -2,6 +2,9 @@ import { TDataFeatures } from "@/app/main/_components/Features/Features";
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import styled from "@emotion/styled";
+import { GlobalMedia } from "@/styles/globalStyles";
+import useIsTablet from "@/hooks/useIsTablet";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export const CardSt = styled.div`
   display: flex;
@@ -47,26 +50,46 @@ export const CardSt = styled.div`
     filter: blur(300px); /* Целевое размытие */
     opacity: 0.15; /* Целевая прозрачность */
   }
+  @media ${GlobalMedia.tablet} {
+    width: 325px;
+    padding: 16px 24px;
+  }
 `;
 const Card = ({ icon, title, desc }: TDataFeatures) => {
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
   return (
     <CardSt>
-      {icon}
+      <Box
+        sx={{
+          "& svg": {
+            width: isTablet ? "60px" : "80px",
+            height: isTablet ? "60px" : "80px",
+          },
+        }}
+      >
+        {icon}
+      </Box>
       <Stack spacing={2}>
         <Typography
           sx={{
             textTransform: "uppercase",
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
           }}
-          variant="h4"
+          variant="h5"
           textAlign={"center"}
-          height={"64px"}
+          height={isTablet ? "38px" : "64px"}
         >
           {title}
         </Typography>
         <Box sx={{ width: "100%", height: "1px", background: "#8DBAFF80" }} />
-        <Typography variant="body1" textAlign={"center"} height={"100px"}>
+        <Typography
+          variant="body2"
+          textAlign={"center"}
+          height={isMobile ? "76px" : isTablet ? "90px" : "100px"}
+        >
           {desc}
         </Typography>
       </Stack>

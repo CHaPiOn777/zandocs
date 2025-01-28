@@ -1,4 +1,7 @@
 import { TDataDocuments } from "@/app/main/_components/Documents/Documents";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
+import useIsMobile from "@/hooks/useIsMobile";
+import useIsTablet from "@/hooks/useIsTablet";
 import CheckBoxIcon from "@/image/Documents/CheckBoxIcon";
 import CustomButton from "@/ui/Button/CustomButton";
 import Line from "@/ui/Line/Line";
@@ -8,41 +11,76 @@ import React from "react";
 
 const ContentCard = (props: TDataDocuments) => {
   const { title, desc, list, reverse, image } = props;
+  const isTablet = useIsTablet();
+  const isDesktopXS = useIsDesktopXS();
+  const isMobile = useIsMobile();
+
   return (
-    <Stack direction={reverse ? "row-reverse" : "row"} gap={"130px"}>
-      <Stack direction="column" width={498}>
+    <Stack
+      direction={reverse && !isMobile ? "row-reverse" : "row"}
+      gap={isTablet ? "60px" : "130px"}
+      width="100%"
+    >
+      <Stack
+        direction="column"
+        width={isDesktopXS ? "100%" : isTablet ? 450 : 498}
+      >
         {title}
         <Line />
         <Typography variant={"body1"} mt={3} mb={2}>
           {desc}
         </Typography>
-        <List
-          sx={{
-            gap: "12px",
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: "32px",
-          }}
-        >
-          {list.map((description, index) => (
-            <ListItem
-              key={index}
-              sx={{ gap: "16px", display: "flex", alignItems: "center" }}
-            >
-              <CheckBoxIcon />
-              <Typography variant={"body2"}>{description}</Typography>
-            </ListItem>
-          ))}
-        </List>
+        <Stack direction="row" justifyContent="space-between">
+          <List
+            sx={{
+              gap: isTablet ? "11px" : "17px",
+              display: "flex",
+              flexDirection: "column",
+              marginBottom: "32px",
+              padding: 0,
+            }}
+          >
+            {list.map((description, index) => (
+              <ListItem
+                key={index}
+                sx={{
+                  gap: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: 0,
+                }}
+              >
+                <CheckBoxIcon />
+                <Typography variant={"body2"}>{description}</Typography>
+              </ListItem>
+            ))}
+          </List>
+          {isMobile && (
+            <Image
+              width={108}
+              height={108}
+              alt={"фоновая картинка"}
+              src={image}
+            />
+          )}
+        </Stack>
         <CustomButton
           size="16"
-          sx={{ padding: "20px 0px", width: "498px" }}
+          fullWidth={true}
+          sx={{ padding: "20px 0px", width: "100%" }}
           variant="secondary"
         >
           Смотреть все шаблоны
         </CustomButton>
       </Stack>
-      <Image width={572} height={460} alt={"фоновая картинка"} src={image} />
+      {!isMobile && (
+        <Image
+          width={isDesktopXS ? 320 : isTablet ? 420 : 572}
+          height={isDesktopXS ? 280 : isTablet ? 360 : 460}
+          alt={"фоновая картинка"}
+          src={image}
+        />
+      )}
     </Stack>
   );
 };

@@ -2,8 +2,8 @@
 
 export const GlobalMediaAsNumber = {
   mobile: 576,
-  tablet: 992,
-  desktopXS: 1200,
+  desktopXS: 768,
+  tablet: 1024,
   desktopXL: 3200,
 };
 

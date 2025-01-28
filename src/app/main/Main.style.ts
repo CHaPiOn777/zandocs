@@ -6,4 +6,5 @@ export const MainST = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 70px;
 `;

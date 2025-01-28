@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import styled from "@emotion/styled";
+import { GlobalMedia } from "@/styles/globalStyles";
 
 export const Section = styled.section`
   position: relative;
@@ -10,6 +11,14 @@ export const Section = styled.section`
   justify-content: center;
   overflow: hidden;
   z-index: 1;
+  @media ${GlobalMedia.tablet} {
+    padding: 0px 40px;
+  }
+  @media ${GlobalMedia.mobile} {
+    min-height: max-content;
+
+    padding: 0px 20px;
+  }
 `;
 const MainCntainer = ({
   children,

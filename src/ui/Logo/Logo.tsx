@@ -1,5 +1,7 @@
+"use client";
 import { Logo } from "@/image/icons/Logo";
 import { Stack } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const LogoComponent = ({
@@ -9,9 +11,15 @@ const LogoComponent = ({
   width?: number;
   height?: number;
 }) => {
+  const router = useRouter();
   return (
-    <Stack width={width} height={height}>
-      <Logo />
+    <Stack
+      sx={{ cursor: "pointer" }}
+      onClick={() => router.push("/main")}
+      width={width}
+      height={height}
+    >
+      <Logo width={width} height={height} />
     </Stack>
   );
 };

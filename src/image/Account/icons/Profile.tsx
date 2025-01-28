@@ -1,8 +1,11 @@
 import React from "react";
+export type TOnClick = {
+  onClick?: () => void;
+};
 export type TColorIcon = {
   color?: string;
   size?: string;
-};
+} & TOnClick;
 const Profile = ({ color }: TColorIcon) => {
   return (
     <svg

@@ -1,3 +1,6 @@
+"use client";
+
+import useIsTablet from "@/hooks/useIsTablet";
 import { Theme } from "@emotion/react";
 import { Stack, SxProps } from "@mui/material";
 import React from "react";
@@ -11,10 +14,16 @@ const Container = ({
   column?: boolean;
   sx?: SxProps<Theme>;
 }) => {
+  const isTablet = useIsTablet();
+
   return (
     <Stack
       direction={column ? "column" : "row"}
-      sx={{ width: "1228px", maxHeight: "max-content", ...sx }}
+      sx={{
+        width: isTablet ? "100%" : "1228px",
+        maxHeight: "max-content",
+        ...sx,
+      }}
     >
       {children}
     </Stack>

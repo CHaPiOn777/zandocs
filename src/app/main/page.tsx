@@ -7,8 +7,14 @@ import Features from "@/app/main/_components/Features/Features";
 import Main from "@/app/main/_components/Main/Main";
 import Steps from "@/app/main/_components/Steps/Steps";
 import * as SC from "./Main.style";
+import useIsReady from "@/hooks/useIsReady";
 
 const Page = () => {
+  const ready = useIsReady();
+
+  if (!ready) {
+    return null;
+  }
   return (
     <SC.MainST>
       <Main />

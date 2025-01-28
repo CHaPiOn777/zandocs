@@ -22,7 +22,7 @@ export default function RootLayout({
         <MUIThemeProvider>
           <ToastProvider>
             <Header />
-            <main style={{ marginTop: "70px" }}>{children}</main>
+            {children}
             <Footer />
           </ToastProvider>
         </MUIThemeProvider>

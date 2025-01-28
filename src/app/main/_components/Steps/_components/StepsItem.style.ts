@@ -1,3 +1,4 @@
+import { GlobalMedia } from "@/styles/globalStyles";
 import styled from "@emotion/styled";
 
 interface StackNumberProps {
@@ -48,5 +49,9 @@ export const Container = styled.div<StackNumberProps>`
   }
   &:hover > .desc {
     opacity: 1;
+  }
+  @media ${GlobalMedia.tablet} {
+    flex-direction: column;
+    align-items: center;
   }
 `;

@@ -9,6 +9,7 @@
     --foreground: #ededed;
   }
 }
+
 @font-face {
   font-family: "AcuminPro";
   src: url("/fonts/Acumin-BdPro.woff2") format("woff2");

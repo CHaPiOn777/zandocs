@@ -13,6 +13,7 @@ type TBtnProps = {
   size?: ButtonSize;
   disabled?: boolean;
   isCircular?: boolean;
+  fullWidth?: boolean;
 };
 
 const CustomButton = ({
@@ -23,6 +24,7 @@ const CustomButton = ({
   size = "20",
   disabled = false,
   isCircular = true,
+  fullWidth = false,
 }: TBtnProps) => {
   // Определяем стили для каждого варианта
   const getVariantStyles = (
@@ -115,7 +117,7 @@ const CustomButton = ({
       type={"submit"}
       onClick={onClick}
       disabled={disabled}
-      //   fullWidth
+      fullWidth={fullWidth}
       style={{
         alignItems: "stretch",
         textTransform: "none",

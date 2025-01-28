@@ -10,6 +10,9 @@ import image1 from "@/image/Documents/01.png";
 import image2 from "@/image/Documents/02.png";
 import ContentCard from "@/app/main/_components/Documents/_components/ContentCard";
 import { StaticImageData } from "next/image";
+import useIsTablet from "@/hooks/useIsTablet";
+import Container from "@/app/_components/Container/Container";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 export type TDataDocuments = {
   title: React.JSX.Element;
   desc: string;
@@ -18,6 +21,9 @@ export type TDataDocuments = {
   image: StaticImageData;
 };
 const Documents = () => {
+  const isTablet = useIsTablet();
+  const isDesktopXS = useIsDesktopXS();
+
   const dataObj: TDataDocuments[] = [
     {
       title: (
@@ -28,9 +34,9 @@ const Documents = () => {
               color: "#2640E3",
             }}
           >
-            старта
-          </span>{" "}
-          вашего
+            старта{" "}
+          </span>
+          вашего{" "}
           <span
             style={{
               color: "#2640E3",
@@ -88,7 +94,7 @@ const Documents = () => {
           >
             юридические
           </span>{" "}
-          документы{" "}
+          документы <br />
           <span
             style={{
               color: "#2640E3",
@@ -101,24 +107,27 @@ const Documents = () => {
       <MainCntainer
         sx={{
           background: "#c2e5ff20",
-          paddingBottom: "100px",
+          // paddingBottom: "100px",
         }}
       >
-        <ImageBG bg={bg} height="120%" />
-        <List
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "40px",
-            marginTop: "100px",
-          }}
-        >
-          {dataObj.map((item, index) => (
-            <ListItem key={index}>
-              <ContentCard {...item} />
-            </ListItem>
-          ))}
-        </List>
+        <Container sx={{ margin: isDesktopXS ? "48px 0" : "100px 0" }}>
+          <List
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: isDesktopXS ? "32px" : "80px",
+              padding: 0,
+              width: "100%",
+            }}
+          >
+            {dataObj.map((item, index) => (
+              <ListItem sx={{ padding: 0 }} key={index}>
+                <ContentCard {...item} />
+              </ListItem>
+            ))}
+          </List>
+        </Container>
+        <ImageBG bg={bg} height={isTablet ? "100%" : "120%"} />
       </MainCntainer>
     </>
   );

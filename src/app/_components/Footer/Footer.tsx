@@ -13,6 +13,7 @@ import MenuItemComponent from "@/app/_components/Footer/_components/MenuItem";
 import Location from "@/image/Footer/Location";
 import Insta from "@/image/icons/Insta";
 import Telega from "@/image/icons/Telega";
+import useIsReady from "@/hooks/useIsReady";
 export type TPropsMenu = {
   title: string;
   list: string[];
@@ -38,6 +39,11 @@ const Footer = () => {
       icons: [<Location key={1} />, <Phone key={2} />, <Email key={3} />],
     },
   ];
+  const ready = useIsReady();
+
+  if (!ready) {
+    return null;
+  }
   return (
     <SC.Footer>
       <Stack>

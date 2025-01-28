@@ -1,3 +1,4 @@
+import { GlobalMedia } from "@/styles/globalStyles";
 import styled from "@emotion/styled";
 import { Accordion } from "@mui/material";
 
@@ -41,5 +42,13 @@ export const IconWrapper = styled.div<StackNumberProps>`
   & > svg {
     opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
     visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+  }
+  @media ${GlobalMedia.tablet} {
+    width: 66px;
+    height: 60px;
+  }
+  @media ${GlobalMedia.mobile} {
+    width: 46px;
+    height: 46px;
   }
 `;
