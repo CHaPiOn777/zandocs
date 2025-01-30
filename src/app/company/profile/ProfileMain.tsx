@@ -9,9 +9,15 @@ import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import TitleComponents from "@/ui/TitleComponents/TitleComponents";
 import { useRouter } from "next/navigation";
+import useIsTablet from "@/hooks/useIsTablet";
+import useIsMobile from "@/hooks/useIsMobile";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 
 const ProfileMain = () => {
   const router = useRouter();
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
+  const isDesktopXS = useIsDesktopXS();
   return (
     <>
       <TitleComponents height="74px">
@@ -60,17 +66,24 @@ const ProfileMain = () => {
           </Typography>
         </Container>
       </TitleComponents>
-      <MainCntainer>
-        <Container sx={{ margin: "100px", gap: "24px" }}>
+      <MainCntainer sx={{ padding: isMobile ? 0 : undefined }}>
+        <Container
+          sx={{ margin: isMobile ? "32px 0 0" : "100px 0", gap: "24px" }}
+        >
           <Stack
             sx={{
-              padding: "48px 56px",
+              padding: isMobile
+                ? "0 16px 32px"
+                : isTablet
+                ? "32px"
+                : "48px 56px",
               borderRadius: "4px",
-              gap: "144px",
-              flexDirection: "row",
+              gap: isTablet ? "2rem" : "144px",
+              flexDirection: isMobile ? "column" : "row",
               alignItems: "center",
-              background:
-                "linear-gradient(264.94deg, rgba(150, 193, 242, 0) 13.42%, #96C1F2 95.93%)",
+              background: isMobile
+                ? "linear-gradient(180deg, rgba(150, 193, 242, 0) 13.42%, #96C1F2 95.93%)"
+                : "linear-gradient(264.94deg, rgba(150, 193, 242, 0) 13.42%, #96C1F2 95.93%)",
             }}
           >
             <Stack gap={"8px"}>
@@ -78,10 +91,11 @@ const ProfileMain = () => {
                 quality={100}
                 style={{
                   objectFit: "cover",
+                  width: isMobile ? "90vw" : isDesktopXS ? "238px" : "auto",
+                  height: "auto",
+                  borderRadius: "8px",
                   // backgroundPosition: "center center",
                 }}
-                width={340}
-                height={402}
                 alt="Aizada Mustafina"
                 src={avatar}
               />
@@ -96,13 +110,23 @@ const ProfileMain = () => {
               </Typography>
               <Typography variant="body2">Основатель Zandocs.kz</Typography>
             </Stack>
-            <Stack gap="20px">
+            <Stack
+              sx={{
+                borderRadius: "8px",
+                borderImageSlice: 1,
+                border: isMobile ? "none" : "1px solid",
+                borderImageSource:
+                  "linear-gradient(89.15deg, rgba(150, 193, 242, 0) 27.48%, #96C1F2 99.23%)",
+                padding: isDesktopXS ? "20px 20px 20px 0" : "80px 60px 80px 0",
+              }}
+              gap="20px"
+            >
               <Typography sx={{ color: "#2640E3" }} variant="body2">
                 Об основателе Zandocs.kz
               </Typography>
               <Typography
                 mt="12px"
-                sx={{ textTransform: "uppercase" }}
+                // sx={{ textTransform: "uppercase" }}
                 variant="h4"
               >
                 Айзада Мустафина — юрист с международным опытом и основатель
@@ -111,7 +135,7 @@ const ProfileMain = () => {
               </Typography>
               <Typography
                 mt="12px"
-                sx={{ textTransform: "uppercase" }}
+                // sx={{ textTransform: "uppercase" }}
                 variant="h5"
               >
                 Её миссия — сделать право доступным и понятным для каждого.

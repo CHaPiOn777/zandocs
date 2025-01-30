@@ -3,7 +3,7 @@ import useIsTablet from "@/hooks/useIsTablet";
 import { Box } from "@mui/material";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
-import React from "react";
+import React, { memo } from "react";
 
 const ImageBG = ({
   bg,
@@ -11,24 +11,30 @@ const ImageBG = ({
   left = "0",
   height = "700px",
   opacity = 1,
+  reverce = false,
+  width,
 }: {
   bg: string | StaticImport;
   top?: string;
   left?: string;
   height?: string;
   opacity?: number;
+  reverce?: boolean;
+  width?: string | null;
 }) => {
   const isTablet = useIsTablet();
+  console.log(width);
   return (
     <Box
       sx={{
-        width: isTablet ? "150vw" : "100vw",
+        width: width ? width : isTablet ? "150vw" : "100vw",
         height: height,
         position: "absolute",
         top: top,
         left: left,
         zIndex: -1,
         opacity: opacity,
+        transform: reverce ? "scaleX(-1)" : "scaleX(1)",
       }}
     >
       <Image
@@ -45,4 +51,4 @@ const ImageBG = ({
   );
 };
 
-export default ImageBG;
+export default memo(ImageBG);

@@ -20,7 +20,8 @@ const Container = ({
     <Stack
       direction={column ? "column" : "row"}
       sx={{
-        width: isTablet ? "100%" : "1228px",
+        maxWidth: isTablet ? "100%" : "1228px",
+        width: "100%",
         maxHeight: "max-content",
         ...sx,
       }}

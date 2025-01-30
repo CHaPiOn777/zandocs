@@ -16,6 +16,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useOrders } from "@/store/ordersStore";
 import { useBasket } from "@/store/basketStore";
+import useIsMobile from "@/hooks/useIsMobile";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 
 type TPropsData = {
   iconImg: React.JSX.Element;
@@ -75,6 +77,8 @@ const Subscription = () => {
     },
   ];
   const setCart = useBasket((state) => state.setCart);
+  const isMobile = useIsMobile();
+  const isDesktopXS = useIsDesktopXS();
 
   const router = useRouter();
   const addBusket = async ({
@@ -129,10 +133,13 @@ const Subscription = () => {
 
   return (
     <MainCntainer sx={{ background: "#0088FF0D" }}>
-      <Container sx={{ margin: "90px 0", gap: "24px" }} column>
-        <Stack gap={"16px"} alignItems="center">
+      <Container
+        sx={{ margin: isMobile ? "50px 0" : "90px 0", gap: "24px" }}
+        column
+      >
+        <Stack id="tarifPlan" gap={"16px"} alignItems="center">
           <Typography
-            width={"720px"}
+            maxWidth={"720px"}
             sx={{ textTransform: "uppercase", textAlign: "center" }}
             variant="h2"
           >
@@ -163,8 +170,18 @@ const Subscription = () => {
               ) => (
                 <SC.ListItemST key={index}>
                   <SC.TitleWrap>
-                    {iconImg}
-                    <Stack>
+                    <Stack
+                      sx={{
+                        padding: isMobile ? "6px" : "10px",
+                        background: "#D4EAFD",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      {iconImg}
+                    </Stack>
+                    <Stack sx={{ gap: "8px" }}>
                       <Typography sx={{ color: "#8B8CA0" }} variant="body1">
                         Подписка
                       </Typography>
@@ -181,13 +198,18 @@ const Subscription = () => {
                       sx={{
                         textTransform: "uppercase",
                         color: "#2640E3",
-                        lineHeight: "31.4px",
+                        lineHeight: isMobile
+                          ? "18px !important"
+                          : "31.4px !important",
                       }}
                       variant="h1"
                     >
                       {priceStr}
                     </Typography>
-                    <Tenge size={40} color={"#2640E3"} />
+                    <Tenge
+                      size={isMobile ? 20 : isDesktopXS ? 30 : 40}
+                      color={"#2640E3"}
+                    />
                     <Typography
                       sx={{ color: "#8B8CA0", alignSelf: "flex-end" }}
                       variant="body1"
@@ -219,7 +241,7 @@ const Subscription = () => {
                   </List>
                   <Stack
                     marginTop={"auto"}
-                    direction="row"
+                    direction={isMobile ? "column" : "row"}
                     gap={"12px"}
                     width="100%"
                   >

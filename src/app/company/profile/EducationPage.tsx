@@ -8,6 +8,7 @@ import React from "react";
 import bg from "@/image/Profile/bgEducation.png";
 import iconEdication from "@/image/Profile/iconEdication.png";
 import Image from "next/image";
+import useIsTablet from "@/hooks/useIsTablet";
 
 const EducationPage = () => {
   const data = [
@@ -31,10 +32,11 @@ const EducationPage = () => {
       desc: "Университет KIMEP, Алматы, Казахстан (2015–2020)",
     },
   ];
+  const isTablet = useIsTablet();
   return (
     <>
       <TitleComponents height="74px">
-        <Container>
+        <Container sx={{ paddingLeft: isTablet ? "20px" : "0" }}>
           <Typography
             sx={{ textTransform: "uppercase", textAlign: "left" }}
             variant={"h3"}
@@ -46,7 +48,7 @@ const EducationPage = () => {
       <MainCntainer sx={{ background: "#F3F9FE", minHeight: "auto" }}>
         <Container
           sx={{
-            margin: "80px 0 80px 104px",
+            margin: isTablet ? "40px 0" : "80px 0 80px 104px",
             gap: "24px",
           }}
           column

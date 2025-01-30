@@ -33,8 +33,8 @@ body {
   z-index: -10;
   scrollbar-width: none;
   will-change: scroll-position;
-  scroll-behavior: smooth;
-  box-sizing: border-box;
+  scroll-behavior: smooth !important;
+  box-sizing: border-box !important;
   position: relative;
   padding: 0 !important;
 }

@@ -1,4 +1,6 @@
 import Container from "@/app/_components/Container/Container";
+import useIsMobile from "@/hooks/useIsMobile";
+import useIsTablet from "@/hooks/useIsTablet";
 import Adress from "@/image/Account/icons/Adress";
 import Email from "@/image/Footer/Email";
 import Phone from "@/image/Footer/Phone";
@@ -31,13 +33,20 @@ const CompanyContacts = () => {
       info: "ZanDoc",
     },
   ];
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
+
   return (
     <MainCntainer sx={{ background: "#e5f5ffd" }}>
       <Container
-        sx={{ margin: "200px 0", gap: "64px", alignItems: "center" }}
+        sx={{
+          margin: isTablet ? "64px 0" : "200px 0",
+          gap: "64px",
+          alignItems: "center",
+        }}
         column
       >
-        <Stack alignItems="center">
+        <Stack id="contacts" alignItems="center">
           <Typography
             sx={{ textTransform: "uppercase", marginBottom: "16px" }}
             variant="h2"
@@ -53,11 +62,25 @@ const CompanyContacts = () => {
           </Typography>
           <Line />
         </Stack>
-        <List sx={{ display: "flex", gap: "23px" }}>
+        <List
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "23px",
+            width: "100vw",
+            padding: isTablet ? "0 25px" : 0,
+            justifyContent: "center",
+          }}
+        >
           {data.map(({ icon, title, info }, index) => (
             <ListItem
               key={index}
               sx={{
+                flex: isMobile
+                  ? "0 0 100%"
+                  : isTablet
+                  ? "0 0 calc(50% - 23px)"
+                  : "0 0 calc(25% - 23px)",
                 padding: "48px 40px 64px",
                 borderRadius: "4px",
                 display: "flex",

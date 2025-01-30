@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useAuthUser } from "@/store/authStore";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import axios from "axios";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const Inputs = z.object({
   first_name: z.string().nonempty("Имя пользователя обязательно"),
@@ -63,16 +64,19 @@ const Page = () => {
       setisLoading(false);
     }
   };
+  const isMobile = useIsMobile();
 
   return (
     <MainCntainer
       sx={{
         padding: "20px",
-        gap: "100px",
+        gap: isMobile ? "40px" : "100px",
+
+        flexDirection: isMobile ? "column" : "row",
       }}
     >
       <ImageBG top={"-100px"} height={"1150px"} bg={bg} />
-      <Stack width={"400px"} gap={"64px"} mt="100px">
+      <Stack width={"400px"} gap={isMobile ? "20px" : "64px"} mt="140px">
         <Typography
           sx={{ textTransform: "uppercase", color: "#2640E3" }}
           variant="h2"
@@ -86,11 +90,12 @@ const Page = () => {
       <form
         onSubmit={handleSubmit(onSubmit)}
         style={{
-          width: "500px",
+          width: isMobile ? "calc(100vw - 40px)" : "500px",
+
           display: "flex",
           flexDirection: "column",
           gap: "24px",
-          marginTop: "100px",
+          marginTop: isMobile ? 0 : "140px",
         }}
       >
         <Stack gap="18px" flexDirection={"row"}>

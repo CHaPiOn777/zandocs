@@ -3,14 +3,21 @@
 import Container from "@/app/_components/Container/Container";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import firstImg from "@/image/company/contentCompany/1.png";
+import firstImgTablet from "@/image/company/contentCompany/1tablet.png";
 import twiceImg from "@/image/company/contentCompany/2.png";
+import twiceImgTablet from "@/image/company/contentCompany/2tablet.png";
 import { List, ListItem, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import LightIcon from "@/image/company/contentCompany/icons/LightIcon";
 import ScalesIcon from "@/image/company/contentCompany/icons/ScalesIcon";
 import ClockIcon from "@/image/company/contentCompany/icons/ClockIcon";
+import useIsTablet from "@/hooks/useIsTablet";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const CompanyContent = () => {
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
+
   const descData = [
     {
       icon: <LightIcon />,
@@ -58,7 +65,7 @@ const CompanyContent = () => {
           </Typography>
         </>
       ),
-      img: firstImg,
+      img: isTablet ? firstImgTablet : firstImg,
     },
     {
       title: (
@@ -74,7 +81,7 @@ const CompanyContent = () => {
           решениям
         </Typography>
       ),
-      topDesc: "Почему выберают именно нас",
+      topDesc: "Почему выбирают именно нас",
       desc: (
         <List
           sx={{
@@ -111,7 +118,7 @@ const CompanyContent = () => {
           ))}
         </List>
       ),
-      img: twiceImg,
+      img: isTablet ? twiceImgTablet : twiceImg,
     },
   ];
   return (
@@ -134,25 +141,34 @@ const CompanyContent = () => {
             <ListItem
               key={index}
               sx={{
-                padding: index !== 1 ? "40px 0 40px 40px" : "40px 40px 40px 0",
-                flexDirection: index === 1 ? "row-reverse" : "row",
+                flexDirection: isTablet
+                  ? "column"
+                  : index === 1
+                  ? "row-reverse"
+                  : "row",
 
                 display: "flex",
                 gap: "40px",
                 borderRadius: "8px", // Закругление углов
                 position: "relative", // Для фона
-                background:
-                  index === 1
-                    ? "linear-gradient(#E8F3FF, #E8F3FF) padding-box, linear-gradient(89.15deg, rgba(150, 193, 242, 0) 27.48%, #96C1F2 99.23%) border-box"
-                    : "linear-gradient(#E8F3FF, #E8F3FF) padding-box, linear-gradient(-89.15deg, rgba(150, 193, 242, 0) 27.48%, #96C1F2 99.23%) border-box",
-                border: "3px solid transparent",
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
+                ...(isMobile
+                  ? { padding: 0 }
+                  : {
+                      background:
+                        index === 1
+                          ? "linear-gradient(#E8F3FF, #E8F3FF) padding-box, linear-gradient(89.15deg, rgba(150, 193, 242, 0) 27.48%, #96C1F2 99.23%) border-box"
+                          : "linear-gradient(#E8F3FF, #E8F3FF) padding-box, linear-gradient(-89.15deg, rgba(150, 193, 242, 0) 27.48%, #96C1F2 99.23%) border-box",
+                      border: "3px solid transparent",
+                      backgroundOrigin: "border-box",
+                      backgroundClip: "padding-box, border-box",
+                      padding:
+                        index !== 1 ? "40px 0 40px 40px" : "40px 40px 40px 0",
+                    }),
               }}
             >
               <Stack
                 sx={{
-                  maxWidth: "546px",
+                  maxWidth: isTablet ? "100%" : "546px",
                   gap: "16px",
                 }}
               >
@@ -164,9 +180,13 @@ const CompanyContent = () => {
               </Stack>
 
               <Image
-                style={{ borderRadius: "8px" }}
-                width={602}
-                height={428}
+                style={{
+                  borderRadius: "8px",
+                  width: isTablet ? "85vw" : "auto",
+                  height: "auto",
+                }}
+                // width={isTablet ? 608 : 602}
+                // height={isTablet ? 274 : 428}
                 alt={topDesc}
                 src={img}
               />

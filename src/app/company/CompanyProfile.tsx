@@ -10,14 +10,18 @@ import Quotes from "@/image/company/profile/Quotes";
 import Image from "next/image";
 import RightArrowIcon from "@/image/icons/RightArrowIcon";
 import { useRouter } from "next/navigation";
+import useIsTablet from "@/hooks/useIsTablet";
+import useIsMobile from "@/hooks/useIsMobile";
 const CompanyProfile = () => {
   const router = useRouter();
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
   return (
     <MainCntainer sx={{ height: "max-content", background: "#009cff0d" }}>
       <Container
         sx={{
-          margin: "100px 0",
-          gap: "100px",
+          margin: isMobile ? "20px 0 60px" : "100px 0",
+          gap: isMobile ? "80px" : "100px",
           alignItems: "center",
         }}
         column
@@ -33,8 +37,12 @@ const CompanyProfile = () => {
           </Typography>
         </Stack>
         <Stack
-          direction="row"
-          sx={{ alignItems: "flex-end", alignSelf: "flex-end" }}
+          direction={isTablet ? "column" : "row"}
+          sx={{
+            gap: "46px",
+            alignItems: isTablet ? "center" : "flex-end",
+            alignSelf: isTablet ? "center" : "flex-end",
+          }}
         >
           <Stack gap="8px" alignItems="center">
             <Stack
@@ -77,7 +85,7 @@ const CompanyProfile = () => {
             sx={{
               opacity: 1,
               transition: "all .3s ease",
-              paddingLeft: "275px",
+              paddingLeft: isTablet ? "0" : "275px",
               cursor: "pointer",
               "&:hover": {
                 opacity: 0.6,

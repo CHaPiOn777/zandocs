@@ -1,15 +1,18 @@
 "use client";
 import Container from "@/app/_components/Container/Container";
+import useIsTablet from "@/hooks/useIsTablet";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import TitleComponents from "@/ui/TitleComponents/TitleComponents";
 import { Typography } from "@mui/material";
 import React from "react";
 
 const ExperiencePage = () => {
+  const isTablet = useIsTablet();
+
   return (
     <>
       <TitleComponents height="74px">
-        <Container>
+        <Container sx={{ paddingLeft: isTablet ? "20px" : "0" }}>
           <Typography
             sx={{ textTransform: "uppercase", textAlign: "left" }}
             variant={"h3"}
@@ -21,7 +24,7 @@ const ExperiencePage = () => {
       <MainCntainer sx={{ background: "#F3F9FE", minHeight: "auto" }}>
         <Container
           sx={{
-            margin: "80px 0 80px 104px",
+            margin: isTablet ? "40px 0" : "80px 0 80px 104px",
             gap: "24px",
             color: "#333B47",
           }}
