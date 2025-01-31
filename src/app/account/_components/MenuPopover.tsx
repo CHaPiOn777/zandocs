@@ -20,7 +20,6 @@ export type TLeaveFunc = {
   onMouseLeave?: () => void;
 };
 import { styled } from "@mui/material/styles";
-import { Global } from "@emotion/react";
 const Root = styled("div")(({ theme }) => ({
   height: "100%",
   position: "relative",
@@ -29,11 +28,11 @@ const Root = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
   }),
 }));
-const StyledBox = styled("div")(({ theme }) => ({
+const StyledBox = styled("div")(({}) => ({
   backgroundColor: "#fff",
 }));
 
-const Puller = styled("div")(({ theme }) => ({
+const Puller = styled("div")(({}) => ({
   width: "10%",
   height: 6,
   backgroundColor: "#d6ecff",
@@ -125,62 +124,62 @@ const MenuPopover = ({ onMouseLeave }: TLeaveFunc) => {
     </List>
   );
 
-  // if (isTablet) {
-  //   return (
-  //     <Root>
-  //       <CssBaseline />
-  //       {/* <Global
-  //         styles={{
-  //           ".MuiDrawer-root > .MuiPaper-root": {
-  //             height: "30%",
-  //             overflow: drawerOpen ? "visible" : "hidden",
-  //           },
-  //         }}
-  //       /> */}
+  if (false) {
+    return (
+      <Root>
+        <CssBaseline />
+        {/* <Global
+          styles={{
+            ".MuiDrawer-root > .MuiPaper-root": {
+              height: "30%",
+              overflow: drawerOpen ? "visible" : "hidden",
+            },
+          }}
+        /> */}
 
-  //       <Typography
-  //         variant="h5"
-  //         sx={{ cursor: "pointer" }}
-  //         onClick={toggleDrawer(true)}
-  //       >
-  //         Открыть меню
-  //       </Typography>
-  //       <SwipeableDrawer
-  //         anchor="bottom"
-  //         open={drawerOpen}
-  //         onClose={toggleDrawer(false)}
-  //         onOpen={toggleDrawer(true)}
-  //       >
-  //         <StyledBox
-  //           sx={{
-  //             height: "100%",
-  //             position: "absolute",
-  //             top: "-56px",
-  //             borderTopLeftRadius: 8,
-  //             borderTopRightRadius: 8,
-  //             visibility: "visible",
-  //             right: 0,
-  //             left: 0,
-  //           }}
-  //         >
-  //           <Puller />
+        <Typography
+          variant="h5"
+          sx={{ cursor: "pointer" }}
+          onClick={toggleDrawer(true)}
+        >
+          Открыть меню
+        </Typography>
+        <SwipeableDrawer
+          anchor="bottom"
+          open={drawerOpen}
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
+        >
+          <StyledBox
+            sx={{
+              height: "100%",
+              position: "absolute",
+              top: "-56px",
+              borderTopLeftRadius: 8,
+              borderTopRightRadius: 8,
+              visibility: "visible",
+              right: 0,
+              left: 0,
+            }}
+          >
+            <Puller />
 
-  //           <Typography
-  //             sx={{
-  //               textTransform: "uppercase",
-  //               paddingLeft: "32px",
-  //               paddingTop: "20px",
-  //             }}
-  //             variant="h5"
-  //           >
-  //             Личный кабинет
-  //           </Typography>
-  //           {menuContent}
-  //         </StyledBox>
-  //       </SwipeableDrawer>
-  //     </Root>
-  //   );
-  // }
+            <Typography
+              sx={{
+                textTransform: "uppercase",
+                paddingLeft: "32px",
+                paddingTop: "20px",
+              }}
+              variant="h5"
+            >
+              Личный кабинет
+            </Typography>
+            {menuContent}
+          </StyledBox>
+        </SwipeableDrawer>
+      </Root>
+    );
+  }
 
   return (
     <CardWrapper size="small" onMouseLeave={onMouseLeave}>
