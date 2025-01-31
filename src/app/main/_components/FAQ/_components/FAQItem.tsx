@@ -10,6 +10,8 @@ import {
 import PlusIcon from "@/image/icons/PlusIcon";
 import MinusIcon from "@/image/icons/MinusIcon";
 import useIsTablet from "@/hooks/useIsTablet";
+import useIsMobile from "@/hooks/useIsMobile";
+import { memo } from "react";
 
 type TFAQItemPropsChange = {
   handleChange: (
@@ -26,6 +28,7 @@ const FAQItem = ({
   expanded,
 }: TDataFAQ & TFAQItemPropsChange) => {
   const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
 
   return (
     <SC.SAccordion
@@ -39,9 +42,15 @@ const FAQItem = ({
       >
         <Stack
           direction="row"
-          gap={"40px"}
-          maxWidth={isTablet ? "80vw" : "100%"}
-          sx={{ padding: isTablet ? "16px 20px" : "22px 40px" }}
+          gap={isMobile ? "12px" : "40px"}
+          maxWidth={isMobile ? "70vw" : isTablet ? "80vw" : "100%"}
+          sx={{
+            padding: isMobile
+              ? "8px 6px"
+              : isTablet
+              ? "16px 20px"
+              : "22px 40px",
+          }}
         >
           <Typography variant="h4">{number}</Typography>
           <Typography sx={{ textTransform: "uppercase" }} variant="h4">
@@ -89,4 +98,4 @@ const FAQItem = ({
   );
 };
 
-export default FAQItem;
+export default memo(FAQItem);

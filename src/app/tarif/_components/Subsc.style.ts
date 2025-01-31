@@ -28,6 +28,11 @@ export const ListItemST = styled(ListItem)`
   @media ${GlobalMedia.tablet} {
     width: 96vw;
   }
+  @media ${GlobalMedia.mobile} {
+    padding: 24px 16px;
+
+    width: 96vw;
+  }
 `;
 export const TitleWrap = styled(Stack)`
   gap: 16px;

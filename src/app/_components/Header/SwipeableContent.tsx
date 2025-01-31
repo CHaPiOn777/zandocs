@@ -16,7 +16,7 @@ const SwipeableContent = ({ onClick }: { onClick: () => void }) => {
   return (
     <Stack
       sx={{
-        height: "100%",
+        height: "100vh",
         width: isMobile ? "100vw" : "420px",
         padding: "24px 20px",
         background: "#F3F9FE",

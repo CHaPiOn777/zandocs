@@ -64,7 +64,7 @@ export const responseErrorInterceptor = (error: AxiosError) => {
 };
 
 export const api: AxiosInstance = axios.create({
-  baseURL: "https://zandocs.kz",
+  baseURL: "https://api.zandocs.kz",
   timeout: 100000,
 });
 

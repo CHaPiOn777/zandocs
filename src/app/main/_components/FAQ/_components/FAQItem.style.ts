@@ -10,7 +10,7 @@ export const SAccordion = styled(Accordion)<StackNumberProps>`
   backdrop-filter: blur(15px);
   box-shadow: 0px 8px 24px -0.86px #1521331a;
   background: #f3f9fe;
-  transition: all 0.4s ease;
+  transition: all 0.2s ease;
   border-radius: 4px;
   & .MuiAccordionSummary-content {
     margin: 0;

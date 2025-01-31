@@ -44,8 +44,8 @@ const ImageWrapper = styled.div<{ isVisible: boolean }>`
   width: 604px;
   height: 360px;
   @media ${GlobalMedia.mobile} {
-    width: 100%;
-    height: 214px;
+    width: 100vw;
+    height: auto;
   }
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
@@ -169,7 +169,7 @@ const Steps = () => {
                     position: "absolute",
                     background: "#3374ff30",
                     top: "25px",
-                    left: "90px",
+                    left: isMobile ? "71px" : "90px",
                     zIndex: -1,
                   }}
                 />

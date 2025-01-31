@@ -1,7 +1,7 @@
 import { api } from "@/api/apiClient";
 import { TUserData } from "@/store/authStore";
 
-export const apiHost = "https://zandocs.kz";
+export const apiHost = "https://api.zandocs.kz";
 export const loginUrl = "/wp-json/jwt-auth/v1/token";
 export const refreshUrl = "/wp-json/jwt-auth/v1/token/refresh";
 export const logoutUrl = "/wp-json/jwt-auth/v1/logout";

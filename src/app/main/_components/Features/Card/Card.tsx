@@ -51,7 +51,8 @@ export const CardSt = styled.div`
     opacity: 0.15; /* Целевая прозрачность */
   }
   @media ${GlobalMedia.tablet} {
-    width: 325px;
+    width: 90vw;
+    max-width: 320px;
     padding: 16px 24px;
   }
 `;

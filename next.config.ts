@@ -22,9 +22,12 @@ const nextConfig: NextConfig = {
         source: "/wp-admin/:path*",
         destination: "https://zandocs.kz/wp-admin/:path*",
       },
+      {
+        source: "/api/:path*",
+        destination: "https://api.zandocs.kz/wp-json/:path*",
+      },
     ];
   },
-  output: "export",
   // async headers() {
   //   return [
   //     {
