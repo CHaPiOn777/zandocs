@@ -13,6 +13,7 @@ import ScalesIcon from "@/image/company/contentCompany/icons/ScalesIcon";
 import ClockIcon from "@/image/company/contentCompany/icons/ClockIcon";
 import useIsTablet from "@/hooks/useIsTablet";
 import useIsMobile from "@/hooks/useIsMobile";
+import useIsReady from "@/hooks/useIsReady";
 
 const CompanyContent = () => {
   const isTablet = useIsTablet();
@@ -35,7 +36,10 @@ const CompanyContent = () => {
       desc: "Минимум усилий для создания профессиональных документов",
     },
   ];
-
+  const ready = useIsReady();
+  if (!ready) {
+    return null;
+  }
   const data = [
     {
       title: (
@@ -182,7 +186,7 @@ const CompanyContent = () => {
               <Image
                 style={{
                   borderRadius: "8px",
-                  width: isTablet ? "85vw" : "auto",
+                  width: isTablet ? "85vw" : "602px",
                   height: "auto",
                 }}
                 // width={isTablet ? 608 : 602}

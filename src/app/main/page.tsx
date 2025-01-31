@@ -8,21 +8,21 @@ import Main from "@/app/main/_components/Main/Main";
 import Steps from "@/app/main/_components/Steps/Steps";
 import * as SC from "./Main.style";
 import useIsReady from "@/hooks/useIsReady";
+import Loader from "@/ui/Loader/Loader";
 
 const Page = () => {
   const ready = useIsReady();
 
-  if (!ready) {
-    return null;
-  }
   return (
     <SC.MainST>
-      <Main />
-      <AboutCompany />
-      <Features />
-      <Documents />
-      <Steps />
-      <FAQ />
+      <Loader sx={{ height: "100vh" }} isLoader={!ready}>
+        <Main />
+        <AboutCompany />
+        <Features />
+        <Documents />
+        <Steps />
+        <FAQ />
+      </Loader>
     </SC.MainST>
   );
 };

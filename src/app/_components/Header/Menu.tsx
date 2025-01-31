@@ -29,10 +29,10 @@ const Menu = ({ onClick }: TOnClick) => {
       name: "О компании",
       link: "/company",
     },
-    {
-      name: "Обучение ZanTech",
-      link: "/",
-    },
+    // {
+    //   name: "Обучение ZanTech",
+    //   link: "/",
+    // },
   ];
   return (
     <menu>

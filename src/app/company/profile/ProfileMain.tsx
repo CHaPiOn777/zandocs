@@ -91,7 +91,7 @@ const ProfileMain = () => {
                 quality={100}
                 style={{
                   objectFit: "cover",
-                  width: isMobile ? "90vw" : isDesktopXS ? "238px" : "auto",
+                  width: isMobile ? "90vw" : isDesktopXS ? "238px" : "330px",
                   height: "auto",
                   borderRadius: "8px",
                   // backgroundPosition: "center center",
