@@ -87,9 +87,9 @@ export default function ToastProvider({
                 backgroundColor: "rgba(0, 0, 0, 0.9)",
                 color: "#FFFFFF",
                 margin: "15px auto ",
-                width: "445px",
+                width: "100vw",
               }
-            : {}
+            : { width: "max-content" }
         }
         icon={({ type }) => {
           if (type === "success") return <SuccessIcon />;

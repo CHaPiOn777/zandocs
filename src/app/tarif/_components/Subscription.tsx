@@ -18,6 +18,7 @@ import { useOrders } from "@/store/ordersStore";
 import { useBasket } from "@/store/basketStore";
 import useIsMobile from "@/hooks/useIsMobile";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
+import { useAuthUser } from "@/store/authStore";
 
 type TPropsData = {
   iconImg: React.JSX.Element;
@@ -76,6 +77,8 @@ const Subscription = () => {
       disabled: true,
     },
   ];
+  const isAuth = useAuthUser((state) => state.isAuth);
+
   const setCart = useBasket((state) => state.setCart);
   const isMobile = useIsMobile();
   const isDesktopXS = useIsDesktopXS();
@@ -92,6 +95,42 @@ const Subscription = () => {
     title?: string;
     isBusket?: boolean;
   }) => {
+    if (!isAuth) {
+      return notify(
+        "error",
+        <div>
+          <Typography variant="body2">
+            Сначала авторизуйтесь.{" "}
+            <Typography
+              variant="body2"
+              component="span"
+              onClick={() => router.push("login")}
+              sx={{
+                color: "#2640E3",
+                position: "relative",
+                cursor: "pointer",
+                "&::after": {
+                  content: '""', // Добавляем пустое содержимое
+                  position: "absolute",
+                  bottom: "-4px", // Линия располагается под текстом
+                  left: "50%", // Центрируем линию по горизонтали
+                  width: "0%", // Изначальная ширина
+                  height: "1px", // Толщина линии
+                  backgroundColor: "#2640E3", // Цвет линии
+                  transition: "all 0.2s ease", // Плавный переход
+                  transform: "translateX(-50%)", // Сдвигаем к центру
+                },
+                "&:hover::after": {
+                  width: "40px", // Линия расширяется до всей ширины текста
+                },
+              }}
+            >
+              Вход
+            </Typography>
+          </Typography>
+        </div>
+      );
+    }
     try {
       if (isBusket) {
         setisLoadingBasket(true);

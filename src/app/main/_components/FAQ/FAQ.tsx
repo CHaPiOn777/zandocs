@@ -8,6 +8,7 @@ import React from "react";
 import bg from "@/image/BGLST.png";
 import Line from "@/ui/Line/Line";
 import CustomButton from "@/ui/Button/CustomButton";
+import { useRouter } from "next/navigation";
 
 export type TDataFAQ = {
   title: string;
@@ -45,7 +46,7 @@ const FAQ = () => {
     },
   ];
   const [expanded, setExpanded] = React.useState<string | false>(false);
-
+  const router = useRouter();
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
@@ -135,6 +136,7 @@ const FAQ = () => {
             size="20"
             sx={{ padding: "20px 32px", marginTop: "48px" }}
             variant="secondary"
+            onClick={() => router.push("/company")}
           >
             Узнать больше о компании
           </CustomButton>
