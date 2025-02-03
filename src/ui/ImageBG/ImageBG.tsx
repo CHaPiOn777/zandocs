@@ -23,7 +23,6 @@ const ImageBG = ({
   width?: string | null;
 }) => {
   const isTablet = useIsTablet();
-  console.log(width);
   return (
     <Box
       sx={{
