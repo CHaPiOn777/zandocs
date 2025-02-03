@@ -9,6 +9,7 @@ import CustomInput from "@/ui/Inputs/CustomInput";
 import CustomButton from "@/ui/Button/CustomButton";
 import { updateMyData } from "@/api/authApi";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 
 const Inputs = z.object({
   name: z.string().nonempty("Имя пользователя обязательно"),
@@ -56,6 +57,8 @@ const ContactForm = () => {
       setIsLoading(false);
     }
   };
+  const isDesktopXS = useIsDesktopXS();
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -65,7 +68,7 @@ const ContactForm = () => {
         gap: "24px",
       }}
     >
-      <Stack direction={"row"} gap={"48px"}>
+      <Stack direction={"row"} gap={isDesktopXS ? "24px" : "48px"}>
         <CustomInput
           name="name"
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

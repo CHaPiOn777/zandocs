@@ -9,7 +9,7 @@ type TUSerAuth = {
 };
 
 export const useBasket = create<TUSerAuth>()((set) => ({
-  cart: [],
+  cart: null,
   setCart: (cart) => set({ cart }),
   isLoading: false,
   setIsLoading: (isLoading: boolean) => set({ isLoading }),

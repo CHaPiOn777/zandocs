@@ -18,6 +18,7 @@ const Loader = ({
         justifyContent: "center",
         alignItems: "center",
         height: "auto",
+        minHeight: "60vh",
         width: "100%",
         ...sx,
       }}

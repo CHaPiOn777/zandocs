@@ -1,4 +1,5 @@
 "use client";
+import { GlobalMedia } from "@/styles/globalStyles";
 import { Theme } from "@emotion/react";
 import { Stack, SxProps, Typography } from "@mui/material";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
@@ -27,15 +28,28 @@ const CardWrapper = ({
           padding: "40px 30px",
           gap: "32px",
           width: "830px",
+          [`@media ${GlobalMedia.tablet}`]: {
+            width: "70vw",
+            // minWidth: "150px",
+          },
+          [`@media ${GlobalMedia.desktopXS}`]: {
+            width: "calc(100vw - 40px)",
+
+            // minWidth: "150px",
+          },
+          [`@media ${GlobalMedia.mobile}`]: {
+            width: "calc(100vw - 40px)",
+            // minWidth: "150px",
+          },
           // height: "auto",
         };
       case "small":
         return {
           gap: "24px",
           marginRight: "auto",
-          padding: "32px 0",
+          // padding: "12px 0",
           width: "298px",
-          minWidth: "298px",
+          // minWidth: "298px",
           height: "min-content",
           //   fontFamily: '"Acumin Pro"',
           fontWeight: 400,

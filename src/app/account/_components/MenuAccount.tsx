@@ -4,6 +4,7 @@ import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import Container from "@/app/_components/Container/Container";
 import Loader from "@/ui/Loader/Loader";
 import { useAuthUser } from "@/store/authStore";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const MenuAccount = ({
   children,
@@ -11,7 +12,7 @@ const MenuAccount = ({
   children?: React.ReactNode;
 }>) => {
   const user = useAuthUser((state) => state.user);
-
+  const isMobile = useIsMobile();
   return (
     <MainCntainer
       sx={{
@@ -22,7 +23,13 @@ const MenuAccount = ({
         padding: "150px 0",
       }}
     >
-      <Container>
+      <Container
+        sx={{
+          gap: "20px",
+          padding: isMobile ? "0" : "20px",
+          justifyContent: isMobile ? "center" : "",
+        }}
+      >
         <MenuPopover />
         {children && <Loader isLoader={!user}>{children}</Loader>}
       </Container>

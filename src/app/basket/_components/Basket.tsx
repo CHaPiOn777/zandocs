@@ -19,6 +19,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import Cart from "@/image/Basket/Cart.png";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export type TActiveDocs = {
   name: string;
@@ -26,9 +27,16 @@ export type TActiveDocs = {
 };
 const Basket = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const isMobile = useIsMobile();
 
   const basket = useBasket((state) => state.cart);
-  const columns = ["Наименование товара", "Цена", "Количество", "Подытог", " "];
+  const columns = [
+    "Товар",
+    "Цена",
+    // "Количество",
+    "Подытог",
+    isMobile ? "Удалить" : " ",
+  ];
   const formattedHeaders = columns.map((label, index) => ({
     label: label,
     align: label === "Количество" || label === " " ? "center" : "left",
@@ -82,25 +90,26 @@ const Basket = () => {
             key={index}
             style={{ display: "flex", gap: "30px", alignItems: "center" }}
           >
-            <DocsIcon />
+            {!isMobile && <DocsIcon />}
             {item.name}
           </span>,
           item.prices.price + " " + item.prices.currency_symbol,
-          <span
-            style={{
-              border: "1px solid #8DBAFF80",
-              padding: "4px 8px",
-              borderRadius: "4px",
-              width: "24px",
-            }}
-            key={index + "quantity"}
-          >
-            {item.quantity}
-          </span>,
+          // <span
+          //   style={{
+          //     border: "1px solid #8DBAFF80",
+          //     padding: "4px 8px",
+          //     borderRadius: "4px",
+          //     width: "24px",
+          //   }}
+          //   key={index + "quantity"}
+          // >
+          //   {item.quantity}
+          // </span>,
 
           item.quantity * Number(item.prices.price) +
             " " +
             item.prices.currency_symbol,
+
           <TrashFill
             onClick={() => (
               setActiveDocs({ id: item.key, name: item.name }),
@@ -132,7 +141,20 @@ const Basket = () => {
       setIsLoadingByeCard(false);
     }
   };
-
+  if (basket?.items_count === 0) {
+    return (
+      <MainCntainer sx={{ background: "#F3F9FE" }}>
+        <Container
+          sx={{ margin: "300px 0", gap: "24px", alignItems: "center" }}
+          column
+        >
+          <Typography variant="h3">
+            Вы пока не выбрали ни одного товара
+          </Typography>
+        </Container>
+      </MainCntainer>
+    );
+  }
   return (
     <MainCntainer sx={{ background: "#F3F9FE" }}>
       <Container sx={{ margin: "100px 0", gap: "24px" }} column>
@@ -146,7 +168,7 @@ const Basket = () => {
               rows={rows}
               sx={{
                 maxWidth: "100%",
-                paddingBottom: "0",
+                paddingBottom: isMobile ? "auto" : "0",
                 border: "1px solid #8dbaff80",
               }}
               isLoading={isLoadingByeCard}
@@ -159,9 +181,10 @@ const Basket = () => {
                 display: "flex",
                 flexDirection: "column",
                 gap: "24px",
-                width: "416px",
+                width: isMobile ? "calc(100vw - 40px)" : "416px",
                 border: "1px solid #8DBAFF80",
                 padding: "20px",
+                borderRadius: "4px",
                 marginLeft: "auto",
               }}
             >

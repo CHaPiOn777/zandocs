@@ -12,6 +12,7 @@ import { notify } from "@/ui/ToastProvider/ToastProvider";
 import { Box, Stack, Typography } from "@mui/material";
 import CustomButton from "@/ui/Button/CustomButton";
 import DocsIcon from "@/image/Account/Docs.png";
+import useIsMobile from "@/hooks/useIsMobile";
 
 type TDataTableCollapse = {
   id: number;
@@ -24,6 +25,7 @@ const Orders = () => {
   const user = useAuthUser((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
   const orders = useOrders((state) => state.orders);
+  const isMobile = useIsMobile();
   const setOrders = useOrders((state) => state.setOrders);
   const setIsFirstRender = useOrders((state) => state.setIsFirstRender);
   const isFirstRender = useOrders((state) => state.isFirstRender);
@@ -46,7 +48,7 @@ const Orders = () => {
       key: "3",
     },
     {
-      label: "Действия",
+      label: isMobile ? "" : "Действия",
       key: "4",
     },
   ];
@@ -64,7 +66,7 @@ const Orders = () => {
       key: "2",
     },
     {
-      label: "Загрузка",
+      label: isMobile ? "" : "Загрузка",
       key: "3",
     },
   ];
