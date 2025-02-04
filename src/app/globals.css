@@ -38,10 +38,14 @@ body {
   position: relative;
   padding: 0 !important;
 }
-/* ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-} */
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
 span {
   font-size: inherit;
   font-weight: inherit;
@@ -49,6 +53,7 @@ span {
   font-family: inherit;
 }
 * {
+  -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
   padding: 0;
   margin: 0;

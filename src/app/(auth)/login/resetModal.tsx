@@ -10,6 +10,7 @@ import { resetPassword, resetPassword2 } from "@/api/authApi";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import CustomInput from "@/ui/Inputs/CustomInput";
 import CustomButton from "@/ui/Button/CustomButton";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 
 const InputsReset = z.object({
   // password1: z.string().nonempty("Это поле обязательно для заполнения"),
@@ -28,6 +29,7 @@ export type TInputsReset = z.infer<typeof InputsReset>;
 
 const ResetModal = ({ isOpenModal, setIsOpenModal }: TOpenProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const isDesktopXS = useIsDesktopXS();
 
   const { control, handleSubmit, reset } = useForm<TInputsReset>({
     mode: "onChange",
@@ -67,7 +69,7 @@ const ResetModal = ({ isOpenModal, setIsOpenModal }: TOpenProps) => {
           boxShadow: "0px 8px 16px 0px #8E8DD01F",
           background: "#F3F9FE",
           borderRadius: "4px",
-          padding: "60px",
+          padding: isDesktopXS ? "30px" : "60px",
           maxWidth: "604px",
           gap: "24px",
           "&:focus-visible": {

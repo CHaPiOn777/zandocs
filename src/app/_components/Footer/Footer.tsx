@@ -40,9 +40,9 @@ const Footer = () => {
     {
       title: "Контакты",
       list: [
-        "8657 Elmwood Avenue, IN 46947",
-        "(910) 658–2992",
-        "Cryptocurrency@mail.com",
+        "Митина 4/1, Алматы, Республика Казахстан",
+        "+7 (771) 378 80 39",
+        "info@zandocs.kz",
       ],
       icons: [<Location key={1} />, <Phone key={2} />, <Email key={3} />],
       isLink: false,
@@ -55,11 +55,11 @@ const Footer = () => {
     },
     {
       name: "Публичная оферта",
-      link: "",
+      link: "/oferta",
     },
     {
       name: "Политика конфиденциальности",
-      link: "",
+      link: "/private",
     },
   ];
   const ready = useIsReady();

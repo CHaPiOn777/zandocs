@@ -6,8 +6,12 @@ export const ListST = styled(List)`
   display: flex;
   gap: 20px;
   margin-top: 20px;
+  width: 100%;
+  padding: 0 30px;
   @media ${GlobalMedia.tablet} {
+    padding: 0;
     flex-direction: column;
+    align-items: center;
   }
 `;
 export const ListItemST = styled(ListItem)`
@@ -18,7 +22,8 @@ export const ListItemST = styled(ListItem)`
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
-  width: 604px;
+  width: calc(100% - 60px);
+  max-width: 604px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   &:hover {
@@ -26,12 +31,17 @@ export const ListItemST = styled(ListItem)`
     box-shadow: 0px 8px 20px 4.14px #00173a21;
   }
   @media ${GlobalMedia.tablet} {
-    width: 96vw;
+    max-width: 96vw;
+
+    @media (hover: none) and (pointer: coarse) {
+      &:hover {
+        background: #f3f9feb2;
+        box-shadow: none;
+      }
+    }
   }
   @media ${GlobalMedia.mobile} {
     padding: 24px 16px;
-
-    width: 96vw;
   }
 `;
 export const TitleWrap = styled(Stack)`

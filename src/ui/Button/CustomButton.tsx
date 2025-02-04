@@ -1,3 +1,5 @@
+"use client";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import { Button, CircularProgress, SxProps, Theme } from "@mui/material";
 import React, { memo } from "react";
 
@@ -26,6 +28,7 @@ const CustomButton = ({
   isCircular = true,
   fullWidth = false,
 }: TBtnProps) => {
+  const isDesktopXS = useIsDesktopXS();
   // Определяем стили для каждого варианта
   const getVariantStyles = (
     theme: Theme,
@@ -39,7 +42,7 @@ const CustomButton = ({
           color: theme.palette.primary.light,
           borderRadius: "4px",
           overflow: "hidden",
-          padding: "20px 32px",
+          padding: isDesktopXS ? "18px 28px" : "20px 32px",
 
           transition: "all 0.2s ease",
           zIndex: 1,
@@ -73,7 +76,7 @@ const CustomButton = ({
         };
       case "secondary":
         return {
-          padding: "20px 32px",
+          padding: isDesktopXS ? "18px 28px" : "20px 32px",
           backgroundColor: theme.palette.background.default,
           color: theme.palette.text.secondary,
           "&:disable": {
@@ -105,8 +108,8 @@ const CustomButton = ({
         return {
           //   fontFamily: '"Acumin Pro"',
           fontWeight: 400,
-          fontSize: "20px",
-          lineHeight: "24px",
+          fontSize: isDesktopXS ? "16px" : "20px",
+          lineHeight: isDesktopXS ? "16px" : "20px",
         };
       default:
         return {};
@@ -121,6 +124,7 @@ const CustomButton = ({
       style={{
         alignItems: "stretch",
         textTransform: "none",
+        textWrap: "nowrap",
       }}
       sx={(theme) => ({
         ...getVariantSize(size),
