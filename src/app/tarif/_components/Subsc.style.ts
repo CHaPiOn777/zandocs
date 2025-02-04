@@ -42,6 +42,8 @@ export const ListItemST = styled(ListItem)`
   }
   @media ${GlobalMedia.mobile} {
     padding: 24px 16px;
+    width: 100vw;
+    max-width: 100vw;
   }
 `;
 export const TitleWrap = styled(Stack)`
