@@ -13,7 +13,7 @@ export const TrashIcon = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1420_35622)">
+      <g clipPath="url(#clip0_1420_35622)">
         <path
           d="M2.41406 4.5H3.7474H14.4141"
           stroke="#2916B9"

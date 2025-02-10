@@ -2,8 +2,8 @@
 import bg from "@/image/main/bgMain.png";
 import { Typography } from "@mui/material";
 import Container from "@/app/_components/Container/Container";
-import CustomButton from "@/ui/Button/CustomButton";
 import ImageBG from "@/ui/ImageBG/ImageBG";
+import CustomButton from "@/ui/Button/CustomButton";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import useIsTablet from "@/hooks/useIsTablet";
 import useIsMobile from "@/hooks/useIsMobile";

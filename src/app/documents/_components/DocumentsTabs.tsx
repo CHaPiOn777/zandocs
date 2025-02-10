@@ -1,0 +1,153 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import Container from "@/app/_components/Container/Container";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
+import useIsMobile from "@/hooks/useIsMobile";
+import BusinessIcon from "@/image/DocumentsPage/icons/BusinessIcon";
+import DocsIcon from "@/image/DocumentsPage/icons/DocsIcon";
+import GiftIcons from "@/image/DocumentsPage/icons/GiftIcons";
+import UsersIcon from "@/image/DocumentsPage/icons/UsersIcon";
+import MainCntainer from "@/ui/MainCntainer/MainCntainer";
+import * as SC from "./Documents.style";
+import { motion } from "framer-motion";
+
+import { Box, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import { getProducts } from "@/api/authApi";
+import { notify } from "@/ui/ToastProvider/ToastProvider";
+import axios from "axios";
+
+import DocumentsCard, {
+  TDocument,
+} from "@/app/documents/_components/DocumentsCard";
+
+const DocumentsTabs = () => {
+  const [activeTab, setActiveTab] = React.useState(0);
+  const isMobile = useIsMobile();
+  const isDesctopXS = useIsDesktopXS();
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setActiveTab(newValue);
+  };
+  const tabsItems = [
+    {
+      icon: <DocsIcon />,
+      label: "Все документы",
+    },
+    {
+      icon: <BusinessIcon />,
+      label: "Документы для бизнеса",
+    },
+    {
+      icon: <UsersIcon />,
+      label: "Документы для частных лиц",
+    },
+    {
+      icon: <GiftIcons />,
+      label: "Бесплатные документы",
+    },
+  ];
+  const [docs, setDocs] = useState([]);
+  const returnDataByType = useCallback(
+    (type: string) => {
+      return docs?.filter((item: any) =>
+        item.categories.some((category: any) =>
+          category.name.toLowerCase().includes(type)
+        )
+      );
+    },
+    [docs]
+  );
+  const businessDocs = returnDataByType("документы для бизнеса");
+  const usersDocs = returnDataByType("документы для частных лиц");
+  const freeDocs = returnDataByType("бесплатные документы");
+  const allDocs = returnDataByType("документы");
+
+  console.log(businessDocs, usersDocs, freeDocs, allDocs);
+  useEffect(() => {
+    const getDocuments = async () => {
+      try {
+        const { data } = await getProducts();
+        setDocs(data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          notify(
+            "error",
+            "Произошла ошибка при загрузке документов, перезагрузите пожалуйста страницу"
+          );
+        }
+      }
+    };
+    getDocuments();
+  }, []);
+  const visibleContent = (index: number | string): TDocument[] => {
+    const returnData: Record<string, any> = {
+      0: allDocs,
+      1: businessDocs,
+      2: usersDocs,
+      3: freeDocs,
+    };
+    return returnData[index];
+  };
+
+  return (
+    <MainCntainer
+      sx={{
+        minHeight: isDesctopXS ? "max-content" : "",
+        padding: isMobile ? 0 : "",
+      }}
+    >
+      <Container
+        sx={{
+          margin: isMobile ? "196px 0 0" : isDesctopXS ? "160px 0" : "170px 0",
+          gap: "24px",
+        }}
+        column
+      >
+        <Box sx={{ maxWidth: "100%", bgcolor: "transparent" }}>
+          <SC.TabsSt
+            value={activeTab}
+            onChange={handleChange}
+            variant="scrollable"
+            scrollButtons
+            allowScrollButtonsMobile
+            aria-label="scrollable force tabs example"
+          >
+            {tabsItems.map(({ label, icon }, index) => (
+              <SC.TabSt
+                wrapped
+                iconPosition="start"
+                icon={icon}
+                key={index}
+                label={
+                  <Typography sx={{ color: "#111420" }} variant="body1">
+                    {label}
+                  </Typography>
+                }
+              />
+            ))}
+          </SC.TabsSt>
+        </Box>
+        <Box sx={{ padding: "8px 16px", borderLeft: "2px solid #2640e3" }}>
+          <Typography variant="body2">
+            {"Показано 1–13 из 13 шаблонов"}
+          </Typography>
+        </Box>
+        <motion.div
+          key={activeTab} // ключ обязателен для анимации при смене табов
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          <SC.ListS>
+            {visibleContent(activeTab).map((item, index) => (
+              <DocumentsCard document={item} key={index} />
+            ))}
+          </SC.ListS>
+        </motion.div>
+      </Container>
+    </MainCntainer>
+  );
+};
+
+export default DocumentsTabs;

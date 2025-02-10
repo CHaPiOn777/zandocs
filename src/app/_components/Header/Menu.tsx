@@ -19,7 +19,7 @@ const Menu = ({ onClick }: TOnClick) => {
     },
     {
       name: "Документы",
-      link: "/",
+      link: "/documents",
     },
     {
       name: "Тарифы",

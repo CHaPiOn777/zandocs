@@ -59,7 +59,7 @@ const theme = createTheme({
       lineHeight: "33.6px",
       [createTheme().breakpoints.down("md")]: {
         fontSize: "18px", // Для sm и выше
-        lineHeight: "25.2px",
+        lineHeight: "18px",
       },
       [createTheme().breakpoints.down("sm")]: {
         fontSize: "16px", // Для sm и выше
@@ -69,7 +69,7 @@ const theme = createTheme({
     h5: {
       fontWeight: 400, // Используем Bold для h1
       fontSize: "18px",
-      lineHeight: "25.2px",
+      lineHeight: "18px",
       [createTheme().breakpoints.down("md")]: {
         fontSize: "16px", // Для sm и выше
         lineHeight: "22.4px",
@@ -119,7 +119,7 @@ const theme = createTheme({
     body1: {
       fontWeight: 400, // Используем Bold для body1
       fontSize: "18px",
-      lineHeight: "25.2px",
+      lineHeight: "18px",
       [createTheme().breakpoints.down("md")]: {
         fontSize: "16px", // Для sm и выше
         lineHeight: "20.8px",
