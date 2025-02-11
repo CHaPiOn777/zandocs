@@ -12,18 +12,18 @@ import * as SC from "./Documents.style";
 import { motion } from "framer-motion";
 
 import { Box, Typography } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
-import { getProducts } from "@/api/authApi";
-import { notify } from "@/ui/ToastProvider/ToastProvider";
-import axios from "axios";
+import React, { useCallback, useEffect } from "react";
 
 import DocumentsCard, {
   TDocument,
 } from "@/app/documents/_components/DocumentsCard";
+import { useDocsStore } from "@/store/docsStore";
 
 const DocumentsTabs = () => {
   const [activeTab, setActiveTab] = React.useState(0);
   const isMobile = useIsMobile();
+  const docs = useDocsStore((state) => state.docs); // Zustand: функция для установки документов
+
   const isDesctopXS = useIsDesktopXS();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
@@ -46,7 +46,7 @@ const DocumentsTabs = () => {
       label: "Бесплатные документы",
     },
   ];
-  const [docs, setDocs] = useState([]);
+
   const returnDataByType = useCallback(
     (type: string) => {
       return docs?.filter((item: any) =>
@@ -62,23 +62,7 @@ const DocumentsTabs = () => {
   const freeDocs = returnDataByType("бесплатные документы");
   const allDocs = returnDataByType("документы");
 
-  console.log(businessDocs, usersDocs, freeDocs, allDocs);
-  useEffect(() => {
-    const getDocuments = async () => {
-      try {
-        const { data } = await getProducts();
-        setDocs(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          notify(
-            "error",
-            "Произошла ошибка при загрузке документов, перезагрузите пожалуйста страницу"
-          );
-        }
-      }
-    };
-    getDocuments();
-  }, []);
+  useEffect(() => {}, []);
   const visibleContent = (index: number | string): TDocument[] => {
     const returnData: Record<string, any> = {
       0: allDocs,
@@ -98,8 +82,8 @@ const DocumentsTabs = () => {
     >
       <Container
         sx={{
-          margin: isMobile ? "196px 0 0" : isDesctopXS ? "160px 0" : "170px 0",
-          gap: "24px",
+          margin: "50px 0",
+          gap: "36px",
         }}
         column
       >

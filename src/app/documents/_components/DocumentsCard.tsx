@@ -7,13 +7,15 @@ import docsImg from "@/image/DocumentsPage/docsCard.png";
 import { Stack, Typography } from "@mui/material";
 import CustomButton from "@/ui/Button/CustomButton";
 import Share from "@/image/DocumentsPage/icons/Share";
+import { useRouter } from "next/navigation";
 export type TDocument = {
   name: string;
   price: number;
+  id: number;
 };
 const DocumentsCard = ({ document }: { document: TDocument }) => {
   const [isHover, setIsHover] = useState(false);
-  console.log(document);
+  const router = useRouter();
   return (
     <SC.ListItemS
       onMouseLeave={() => setIsHover(false)}
@@ -64,6 +66,7 @@ const DocumentsCard = ({ document }: { document: TDocument }) => {
           sx={{ padding: "14px 32px" }}
           variant="primary"
           size={"16"}
+          onClick={() => router.push(`/documents/${document.id}`)}
         >
           Выбрать шаблон
         </CustomButton>

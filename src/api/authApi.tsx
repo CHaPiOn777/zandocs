@@ -36,19 +36,26 @@ export const getDownloads = (id: string, page = 1) => {
   });
 };
 export const getProductsURL = "/wp-json/wc/v3/products";
-export const getProducts = (page = 1) => {
-  return api.get(getProductsURL, {
+export const getProducts = async (page = 1) => {
+  const result = await api.get(getProductsURL, {
     params: {
       page, // Номер страницы
       per_page: 100, // Количество заказов на странице (можно изменить)
     },
   });
+  return result.data;
 };
 export const getProductsByIDURL = "/wp-json/wc/v3/products/{id}";
 export const getProductsByID = (id: string) => {
   const url = getProductsByIDURL.replace("{id}", id);
   return api.get(url);
 };
+// export const setProductsByIDURL =
+//   "/wp-content/plugins/my-custom-plugin/update-product.php";
+// export const setProductsByID = (body) => {
+//   // const url = setProductsByIDURL.replace("{id}", id);
+//   return api.post(setProductsByIDURL, body);
+// };
 export const getMyProductsURL = "/wp-json/files/v1/available";
 export const getMyProducts = (page = 1) => {
   return api.get(getMyProductsURL, {

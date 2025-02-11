@@ -22,7 +22,7 @@ const DocumentsPage = () => {
     >
       <Container
         sx={{
-          margin: isMobile ? "196px 0 0" : isDesctopXS ? "160px 0" : "170px 0",
+          margin: isMobile ? "196px 0 0" : isDesctopXS ? "160px 0" : "200px 0",
           gap: "24px",
         }}
         column

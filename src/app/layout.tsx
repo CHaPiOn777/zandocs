@@ -5,18 +5,22 @@ import MUIThemeProvider from "@/providers/MUIThemeProvider";
 import Footer from "@/app/_components/Footer/Footer";
 import Header from "@/app/_components/Header/Header";
 import ToastProvider from "@/ui/ToastProvider/ToastProvider";
-
+import { getProducts } from "@/api/authApi";
+import DocumentsClient from "@/app/_components/DocumentsClient";
+import AuthAndCartLoader from "@/app/_components/AuthAndCartLoader";
 export const metadata: Metadata = {
   title: "Zandocs",
   description:
     "Надёжный и удобный конструктор документов для бизнеса и частных лиц",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const documents = await getProducts();
+
   return (
     <html lang="ru">
       {/* <head>
@@ -37,6 +41,8 @@ export default function RootLayout({
         <MUIThemeProvider>
           <ToastProvider>
             <Header />
+            <AuthAndCartLoader />
+            <DocumentsClient initialDocs={documents} />
             {children}
             <Footer />
           </ToastProvider>
