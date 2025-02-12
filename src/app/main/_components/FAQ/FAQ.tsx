@@ -9,6 +9,7 @@ import bg from "@/image/BGLST.png";
 import Line from "@/ui/Line/Line";
 import CustomButton from "@/ui/Button/CustomButton";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 export type TDataFAQ = {
   title: string;
@@ -85,62 +86,85 @@ const FAQ = () => {
         }}
       >
         <Container sx={{ marginTop: "80px", gap: "8px" }} column>
-          {dataObj.map((item) => (
-            <FAQItem
-              handleChange={handleChange}
-              expanded={expanded}
+          {dataObj.map((item, index) => (
+            <motion.div
               key={item.number}
-              {...item}
-            />
+              initial={{ opacity: 0, x: 160, scale: 0.7 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }} // Анимация запускается при появлении
+              viewport={{ once: true, amount: 0.5 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+              transition={{
+                duration: 0.4,
+                delay: 0.2 * index,
+                ease: "easeOut",
+              }}
+            >
+              <FAQItem
+                handleChange={handleChange}
+                expanded={expanded}
+                {...item}
+              />
+            </motion.div>
           ))}
         </Container>
-        <Stack mt={"150px"} alignItems={"center"}>
-          <Typography
-            maxWidth={"1228px"}
-            sx={{ textTransform: "uppercase" }}
-            textAlign={"center"}
-            variant="h3"
-            mb={2}
-          >
-            Zandocs.kz — это{" "}
-            <span
-              style={{
-                color: "#2640E3",
-              }}
+        <motion.div
+          // key={item.number}
+          initial={{ opacity: 0, y: 160, scale: 0.7 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.5 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
+          }}
+        >
+          <Stack mt={"150px"} alignItems={"center"}>
+            <Typography
+              maxWidth={"1228px"}
+              sx={{ textTransform: "uppercase" }}
+              textAlign={"center"}
+              variant="h3"
+              mb={2}
             >
-              инновационная{" "}
-            </span>
-            платформа для{" "}
-            <span
-              style={{
-                color: "#2640E3",
-              }}
+              Zandocs.kz — это{" "}
+              <span
+                style={{
+                  color: "#2640E3",
+                }}
+              >
+                инновационная{" "}
+              </span>
+              платформа для{" "}
+              <span
+                style={{
+                  color: "#2640E3",
+                }}
+              >
+                создания и автоматизации
+              </span>{" "}
+              юридических документов
+            </Typography>
+            <Line />
+            <Typography
+              variant="body1"
+              textAlign="center"
+              maxWidth="900px"
+              mt={3}
             >
-              создания и автоматизации
-            </span>{" "}
-            юридических документов
-          </Typography>
-          <Line />
-          <Typography
-            variant="body1"
-            textAlign="center"
-            maxWidth="900px"
-            mt={3}
-          >
-            Мы помогаем бизнесу и частным лицам легко и быстро оформлять важные
-            юридические документы, экономя время и ресурсы. Наша миссия —
-            сделать юридические услуги доступными, понятными и удобными
-            для каждого.
-          </Typography>
-          <CustomButton
-            size="20"
-            sx={{ padding: "20px 32px", marginTop: "48px" }}
-            variant="secondary"
-            onClick={() => router.push("/company")}
-          >
-            Узнать больше о компании
-          </CustomButton>
-        </Stack>
+              Мы помогаем бизнесу и частным лицам легко и быстро оформлять
+              важные юридические документы, экономя время и ресурсы. Наша
+              миссия — сделать юридические услуги доступными, понятными
+              и удобными для каждого.
+            </Typography>
+            <CustomButton
+              size="20"
+              sx={{ padding: "20px 32px", marginTop: "48px" }}
+              variant="secondary"
+              onClick={() => router.push("/company")}
+            >
+              Узнать больше о компании
+            </CustomButton>
+          </Stack>
+        </motion.div>
         <ImageBG height={"940px"} bg={bg} opacity={0.5} />
       </MainCntainer>
     </>

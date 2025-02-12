@@ -7,8 +7,8 @@ import Phone from "@/image/Footer/Phone";
 import Insta from "@/image/icons/Insta";
 import Line from "@/ui/Line/Line";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
-import { List, ListItem, Stack, Typography } from "@mui/material";
-import React from "react";
+import { ListItem, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 
 const CompanyContacts = () => {
   const data = [
@@ -46,7 +46,18 @@ const CompanyContacts = () => {
         }}
         column
       >
-        <Stack id="contacts" alignItems="center">
+        <motion.div
+          id="contacts"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+          initial={{ opacity: 0, filter: "blur(10px)", y: -40 }}
+          whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.4 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
           <Typography
             sx={{ textTransform: "uppercase", marginBottom: "16px" }}
             variant="h2"
@@ -61,9 +72,10 @@ const CompanyContacts = () => {
             с нами
           </Typography>
           <Line />
-        </Stack>
-        <List
-          sx={{
+        </motion.div>
+        <motion.ul
+          id="contacts"
+          style={{
             display: "flex",
             flexWrap: "wrap",
             gap: "23px",
@@ -71,6 +83,10 @@ const CompanyContacts = () => {
             padding: isTablet ? "0 25px" : 0,
             justifyContent: "center",
           }}
+          initial={{ opacity: 0, filter: "blur(10px)", x: -100 }}
+          whileInView={{ opacity: 1, filter: "blur(0px)", x: 0 }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.4 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           {data.map(({ icon, title, info }, index) => (
             <ListItem
@@ -109,7 +125,7 @@ const CompanyContacts = () => {
               <Typography variant="body1">{info}</Typography>
             </ListItem>
           ))}
-        </List>
+        </motion.ul>
       </Container>
     </MainCntainer>
   );

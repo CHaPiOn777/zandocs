@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import Tenge from "@/image/Account/icons/Tenge";
 import FormPodpiska from "@/app/documents/[id]/_components/FormPodpiska";
+import parse from "html-react-parser";
+import { motion } from "framer-motion";
 
 const DocsContent = ({ id }: { id: string }) => {
   const isMobile = useIsMobile();
@@ -25,8 +27,9 @@ const DocsContent = ({ id }: { id: string }) => {
     () => documents.filter((docs) => docs.id == id),
     [documents, id]
   );
-  const cleanText = useMemo(
-    () => documentById[0]?.description.replace(/<\/?p>/g, ""),
+
+  const parseText = useMemo(
+    () => parse(documentById[0]?.description),
     [documentById[0]?.description]
   );
   if (!documentById.length || !documents) {
@@ -34,25 +37,68 @@ const DocsContent = ({ id }: { id: string }) => {
   }
 
   return (
-    <MainCntainer sx={{ background: "#F3F9FE" }}>
+    <MainCntainer sx={{ background: "#edf7ff" }}>
       <Container
         sx={{ margin: isMobile ? "96px 0 " : "200px 0", gap: "24px" }}
         column
       >
-        <CustomButton
-          sx={{
-            padding: "12px 16px",
-            width: isMobile ? "calc(100vw - 32px)" : "200px",
-            marginLeft: "auto",
+        <motion.div
+          initial={{
+            opacity: 0,
+            filter: "blur(10px)",
+            x: 200,
           }}
-          variant="secondary"
-          size="16"
-          fullWidth={isMobile}
-          onClick={() => router.back()}
+          style={{ marginLeft: "auto" }}
+          whileInView={{
+            opacity: 1,
+            filter: "blur(0px)",
+
+            x: 0,
+          }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
+          }}
         >
-          Назад
-        </CustomButton>
-        <Stack direction={isMobile ? "column" : "row"} spacing={"24px"}>
+          <CustomButton
+            sx={{
+              padding: "12px 16px",
+              width: isMobile ? "calc(100vw - 32px)" : "200px",
+            }}
+            variant="secondary"
+            size="16"
+            fullWidth={isMobile}
+            onClick={() => router.push("/documents")}
+          >
+            Назад
+          </CustomButton>
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+            filter: "blur(10px)",
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+          }}
+          style={{
+            marginLeft: "auto",
+            display: "flex",
+            gap: "24px",
+            flexDirection: isMobile ? "column" : "row",
+          }}
+          viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
+          }}
+        >
           <Stack
             spacing={3}
             sx={{
@@ -91,14 +137,19 @@ const DocsContent = ({ id }: { id: string }) => {
               {documentById[0]?.name}
             </Typography>
             <Line />
-            <Typography variant={"body2"} component={"span"}>
-              {cleanText}
-            </Typography>
-            <Stack direction={"row"} spacing={1}>
+            {/* <Typography variant={"body2"} component={"span"}> */}
+            {parseText}
+            {/* </Typography> */}
+
+            <Stack
+              direction={"row"}
+              sx={{ paddingBottom: "24px" }}
+              spacing={1}
+              alignItems={"center"}
+            >
               <Typography
                 variant={"h3"}
                 sx={{
-                  paddingBottom: "24px",
                   color: "#2640E3",
                   lineHeight: "1rem !important",
                 }}
@@ -107,7 +158,9 @@ const DocsContent = ({ id }: { id: string }) => {
                   ? "Бесплатно"
                   : documentById[0]?.price}
               </Typography>
-              {documentById[0]?.price !== "0" && <Tenge color={"#2640E3"} />}
+              {documentById[0]?.price !== "0" && (
+                <Tenge color={"#2640E3"} size={isMobile ? 14 : 16} />
+              )}
             </Stack>
             <CustomButton
               sx={{
@@ -146,8 +199,23 @@ const DocsContent = ({ id }: { id: string }) => {
               alt={documentById[0]?.images[0].alt}
             />
           )}
-        </Stack>
-        {isActiveForm && <FormPodpiska />}
+        </motion.div>
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={
+            isActiveForm
+              ? { height: "auto", opacity: 1 }
+              : { height: 0, opacity: 0 }
+          }
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          style={{
+            overflow: "hidden",
+            // background: "lightblue",
+            // padding: isActiveForm ? "10px" : "0px",
+          }} // overflow нужен, чтобы контент не вылезал
+        >
+          <FormPodpiska />
+        </motion.div>
       </Container>
     </MainCntainer>
   );

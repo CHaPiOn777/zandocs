@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import Cart from "@/image/Basket/Cart.png";
 import useIsMobile from "@/hooks/useIsMobile";
+import { motion } from "framer-motion";
 
 export type TActiveDocs = {
   name: string;
@@ -157,9 +158,33 @@ const Basket = () => {
   }
   return (
     <MainCntainer sx={{ background: "#F3F9FE" }}>
-      <Container sx={{ margin: "100px 0", gap: "24px" }} column>
+      <Container column>
         <Loader sx={{ height: " 80%" }} isLoader={!rows?.length}>
-          <>
+          <motion.div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+              margin: "100px 0",
+            }}
+            // key={item.number}
+            initial={{
+              opacity: 0,
+              filter: "blur(10px)",
+              scale: 0.8,
+            }}
+            whileInView={{
+              opacity: 1,
+              filter: "blur(0px)",
+              scale: 1,
+            }} // Анимация за // Анимация запускается при появлении
+            viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+            transition={{
+              duration: 0.4,
+              // delay: 0.2 * index,
+              ease: "easeOut",
+            }}
+          >
             <CustomTable
               iconTitle={Cart}
               isBorder={false}
@@ -240,7 +265,7 @@ const Basket = () => {
                 Оформить заказ
               </CustomButton>
             </Box>
-          </>
+          </motion.div>
         </Loader>
       </Container>
       <DeleteModal

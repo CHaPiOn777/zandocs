@@ -5,6 +5,7 @@ import Container from "@/app/_components/Container/Container";
 import Loader from "@/ui/Loader/Loader";
 import { useAuthUser } from "@/store/authStore";
 import useIsMobile from "@/hooks/useIsMobile";
+import { motion } from "framer-motion";
 
 const MenuAccount = ({
   children,
@@ -30,7 +31,27 @@ const MenuAccount = ({
           justifyContent: isMobile ? "center" : "",
         }}
       >
-        <MenuPopover />
+        <motion.div
+          // key={item.number}
+          initial={{
+            opacity: 0,
+            filter: "blur(10px)",
+            x: -200,
+          }}
+          whileInView={{
+            opacity: 1,
+            filter: "blur(0px)",
+            x: 0,
+          }} // Анимация за // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
+          }}
+        >
+          <MenuPopover />
+        </motion.div>
         {children && <Loader isLoader={!user}>{children}</Loader>}
       </Container>
     </MainCntainer>

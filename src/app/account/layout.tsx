@@ -8,7 +8,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   const ready = useIsReady();
   return (
     <Loader sx={{ height: "100vh" }} isLoader={!ready}>
-      <MenuAccount>{children}</MenuAccount>
+      <MenuAccount> {children}</MenuAccount>
     </Loader>
   );
 };

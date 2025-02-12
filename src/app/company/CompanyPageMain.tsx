@@ -6,9 +6,10 @@ import bgMobile from "@/image/company/bgMobile.png";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import Container from "@/app/_components/Container/Container";
 import ImageBG from "@/ui/ImageBG/ImageBG";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import useIsTablet from "@/hooks/useIsTablet";
 import useIsMobile from "@/hooks/useIsMobile";
+import { motion } from "framer-motion";
 
 const CompanyPageMain = () => {
   const isTablet = useIsTablet();
@@ -33,8 +34,26 @@ const CompanyPageMain = () => {
         }}
         column
       >
-        <Box
-          sx={{
+        <motion.div
+          // key={item.number}
+          initial={{
+            opacity: 0,
+            filter: "blur(10px)",
+            x: -200,
+          }}
+          whileInView={{
+            opacity: 1,
+            filter: "blur(0px)",
+
+            x: 0,
+          }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
+          }}
+          style={{
             borderRadius: "4px",
             padding: "36px 40px",
             background: "#FFFFFF99",
@@ -69,7 +88,7 @@ const CompanyPageMain = () => {
           >
             Ваш надежный партнер в&nbsp;юридических&nbsp;услугах
           </Typography>
-        </Box>
+        </motion.div>
       </Container>
       <ImageBG
         top={"80px"}

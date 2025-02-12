@@ -8,6 +8,7 @@ import React from "react";
 import useIsMobile from "@/hooks/useIsMobile";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
+import { motion } from "framer-motion";
 
 const DocumentsPage = () => {
   const isMobile = useIsMobile();
@@ -27,56 +28,78 @@ const DocumentsPage = () => {
         }}
         column
       >
-        <Stack
-          sx={{
-            background: "#F3F9FE99",
-            backdropFilter: "blur(31px)",
-            width: isDesctopXS ? "460px" : "520px",
-            borderRadius: "4px",
-            padding: "36px 40px",
-            ...(isMobile
-              ? {
-                  width: "100%",
-                  marginTop: "180px",
-                  background:
-                    "linear-gradient(179.13deg, rgba(255, 255, 255, 0) 33.16%, rgba(0, 136, 255, 0.4) 115.27%)",
-                }
-              : {}),
+        <motion.div
+          // key={item.number}
+          initial={{
+            opacity: 0,
+            filter: "blur(10px)",
+            x: -200,
+          }}
+          // style={{ marginLeft: "auto" }}
+          whileInView={{
+            opacity: 1,
+            filter: "blur(0px)",
+
+            x: 0,
+          }} // Анимация за // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
           }}
         >
-          <Typography
+          <Stack
             sx={{
-              textTransform: "uppercase",
-              textAlign: isMobile ? "center" : "left",
+              background: "#F3F9FE99",
+              backdropFilter: "blur(31px)",
+              width: isDesctopXS ? "460px" : "520px",
+              borderRadius: "4px",
+              padding: "36px 40px",
+              ...(isMobile
+                ? {
+                    width: "100%",
+                    marginTop: "180px",
+                    background:
+                      "linear-gradient(179.13deg, rgba(255, 255, 255, 0) 33.16%, rgba(0, 136, 255, 0.4) 115.27%)",
+                  }
+                : {}),
             }}
-            variant="h2"
           >
-            <span
-              style={{
-                color: "#2640E3",
+            <Typography
+              sx={{
+                textTransform: "uppercase",
+                textAlign: isMobile ? "center" : "left",
               }}
+              variant="h2"
             >
-              юридические{" "}
-            </span>
-            документы{" "}
-            <span
-              style={{
-                color: "#2640E3",
-              }}
+              <span
+                style={{
+                  color: "#2640E3",
+                }}
+              >
+                юридические{" "}
+              </span>
+              документы{" "}
+              <span
+                style={{
+                  color: "#2640E3",
+                }}
+              >
+                быстро&nbsp;
+              </span>
+              и легко
+            </Typography>
+            <Typography
+              sx={{ textAlign: isMobile ? "center" : "left" }}
+              variant="body1"
+              mt={2}
             >
-              быстро&nbsp;
-            </span>
-            и легко
-          </Typography>
-          <Typography
-            sx={{ textAlign: isMobile ? "center" : "left" }}
-            variant="body1"
-            mt={2}
-          >
-            Сэкономьте время и деньги — создавайте юридические документы
-            самостоятельно, без помощи юриста. Быстро, просто и доступно.
-          </Typography>
-        </Stack>
+              Сэкономьте время и деньги — создавайте юридические документы
+              самостоятельно, без помощи юриста. Быстро, просто и доступно.
+            </Typography>
+          </Stack>
+        </motion.div>
       </Container>
       <ImageBG
         top={isMobile ? "80px" : ""}

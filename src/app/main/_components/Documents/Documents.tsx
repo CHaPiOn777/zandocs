@@ -13,6 +13,8 @@ import { StaticImageData } from "next/image";
 import useIsTablet from "@/hooks/useIsTablet";
 import Container from "@/app/_components/Container/Container";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
+import { motion } from "framer-motion";
+
 export type TDataDocuments = {
   title: React.JSX.Element;
   desc: string;
@@ -121,9 +123,18 @@ const Documents = () => {
             }}
           >
             {dataObj.map((item, index) => (
-              <ListItem sx={{ padding: 0 }} key={index}>
-                <ContentCard {...item} />
-              </ListItem>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index === 0 ? -90 : 90 }}
+                whileInView={{ opacity: 1, x: 0 }} // Анимация запускается при появлении
+                viewport={{ once: true, amount: 0.5 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                // style={{ position: "absolute", top: top, left: left, zIndex: -1 }}
+              >
+                <ListItem sx={{ padding: 0 }}>
+                  <ContentCard {...item} />
+                </ListItem>
+              </motion.div>
             ))}
           </List>
         </Container>

@@ -54,6 +54,8 @@ export const Basket = styled.div`
 export const List = styled.ul`
   display: flex;
   gap: 8px;
+  list-style-type: none;
+
   align-items: center;
   @media ${GlobalMedia.tablet} {
     flex-direction: column;
@@ -65,6 +67,7 @@ export const List = styled.ul`
 `;
 export const ListItem = styled.li<TIsActive>`
   padding: 32px 12px;
+  margin-left: 0;
   /* border-radius: 4px; */
   cursor: pointer;
   transition: all 0.2s ease-in-out;

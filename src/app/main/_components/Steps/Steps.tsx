@@ -18,6 +18,9 @@ import useIsTablet from "@/hooks/useIsTablet";
 import useIsMobile from "@/hooks/useIsMobile";
 import Container from "@/app/_components/Container/Container";
 import { GlobalMedia } from "@/styles/globalStyles";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+
 export type TPropsSteps = {
   id: number;
   title: string;
@@ -59,6 +62,8 @@ const Steps = () => {
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
   const [step, setStep] = useState(1);
+  const router = useRouter();
+
   const dataObj: TPropsSteps[] = [
     {
       id: 1,
@@ -125,80 +130,94 @@ const Steps = () => {
           sx={{ margin: isTablet ? "40px 0" : "100px 0", alignItems: "center" }}
           column
         >
-          <Stack
-            flexDirection={isTablet ? "column-reverse" : "row"}
-            sx={{ gap: isTablet ? "40px" : "120px", position: "relative" }}
-            alignItems="center"
+          <motion.div
+            initial={{ opacity: 0, y: 160 }}
+            whileInView={{ opacity: 1, y: 0 }} // Анимация запускается при появлении
+            viewport={{ once: true, amount: 0.5 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <List
-              sx={{
-                display: "flex",
-                position: "relative",
-                flexDirection: isTablet ? "row" : "column",
-                gap: isTablet ? "30px" : "67px",
-                alignItems: isTablet ? "flex-start" : "center",
-                padding: 0,
-              }}
+            <Stack
+              flexDirection={isTablet ? "column-reverse" : "row"}
+              sx={{ gap: isTablet ? "40px" : "120px", position: "relative" }}
+              alignItems="center"
             >
-              {dataObj.map((item) => (
-                <ListItem
-                  sx={{ padding: 0, display: "flex", flexDirection: "row" }}
-                  key={item.id}
-                >
-                  <StepsItem step={step} setStep={setStep} {...item} />
-                </ListItem>
-              ))}
-              {!isTablet && (
-                <Box
-                  height="220px"
-                  width="2px"
-                  sx={{
-                    position: "absolute",
-                    background: "#3374ff30",
-                    top: "40px",
-                    left: "24px",
-                    zIndex: -1,
-                  }}
-                />
-              )}
-              {isTablet && (
-                <Box
-                  height="2px"
-                  width="65%"
-                  sx={{
-                    position: "absolute",
-                    background: "#3374ff30",
-                    top: "25px",
-                    left: isMobile ? "71px" : "90px",
-                    zIndex: -1,
-                  }}
-                />
-              )}
-            </List>
+              <List
+                sx={{
+                  display: "flex",
+                  position: "relative",
+                  flexDirection: isTablet ? "row" : "column",
+                  gap: isTablet ? "30px" : "67px",
+                  alignItems: isTablet ? "flex-start" : "center",
+                  padding: 0,
+                }}
+              >
+                {dataObj.map((item, index) => (
+                  <ListItem
+                    key={index}
+                    sx={{ padding: 0, display: "flex", flexDirection: "row" }}
+                  >
+                    <StepsItem step={step} setStep={setStep} {...item} />
+                  </ListItem>
+                ))}
+                {!isTablet && (
+                  <Box
+                    height="220px"
+                    width="2px"
+                    sx={{
+                      position: "absolute",
+                      background: "#3374ff30",
+                      top: "40px",
+                      left: "24px",
+                      zIndex: -1,
+                    }}
+                  />
+                )}
+                {isTablet && (
+                  <Box
+                    height="2px"
+                    width="65%"
+                    sx={{
+                      position: "absolute",
+                      background: "#3374ff30",
+                      top: "25px",
+                      left: isMobile ? "71px" : "90px",
+                      zIndex: -1,
+                    }}
+                  />
+                )}
+              </List>
 
-            {step === dataObj[0].id && (
-              <ImageWrapper isVisible={step === dataObj[0].id}>
-                {dataObj[0].image}
-              </ImageWrapper>
-            )}
-            {step === dataObj[1].id && (
-              <ImageWrapper isVisible={step === dataObj[1].id}>
-                {dataObj[1].image}
-              </ImageWrapper>
-            )}
-            {step === dataObj[2].id && (
-              <ImageWrapper isVisible={step === dataObj[2].id}>
-                {dataObj[2].image}
-              </ImageWrapper>
-            )}
-          </Stack>
-          <CustomButton
-            size={isMobile ? "16" : "20"}
-            sx={{ width: isMobile ? "100%" : "430px", marginTop: "48px" }}
-            variant="primary"
-          >
-            Создать документ
-          </CustomButton>
+              {step === dataObj[0].id && (
+                <ImageWrapper isVisible={step === dataObj[0].id}>
+                  {dataObj[0].image}
+                </ImageWrapper>
+              )}
+              {step === dataObj[1].id && (
+                <ImageWrapper isVisible={step === dataObj[1].id}>
+                  {dataObj[1].image}
+                </ImageWrapper>
+              )}
+              {step === dataObj[2].id && (
+                <ImageWrapper isVisible={step === dataObj[2].id}>
+                  {dataObj[2].image}
+                </ImageWrapper>
+              )}
+            </Stack>
+
+            <CustomButton
+              size={isMobile ? "16" : "20"}
+              sx={{ width: isMobile ? "100%" : "430px", marginTop: "48px" }}
+              variant="primary"
+              onClick={() => router.push("/documents")}
+            >
+              Создать документ
+            </CustomButton>
+          </motion.div>
         </Container>
         <ImageBG top={isTablet ? "100px" : "0"} bg={bg} />
       </MainCntainer>

@@ -13,6 +13,7 @@ import { Typography } from "@mui/material";
 import { ReactElement } from "react";
 import { SwiperSlide } from "swiper/react";
 import * as SC from "./Features.style";
+import { motion } from "framer-motion";
 
 export type TDataFeatures = {
   icon: ReactElement;
@@ -109,7 +110,29 @@ const Features = () => {
             </SC.SwiperSt>
           ) : (
             data.map(({ icon, title, desc }, index) => (
-              <Card icon={icon} title={title} desc={desc} key={index} />
+              <motion.div
+                key={index}
+                initial={{
+                  opacity: 0,
+                  // x: index >= 3 ? 160 : -160,
+                  scale: 1.1,
+                  // filter: "blur(5px)",
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                  scale: 1,
+                  // filter: "blur(0px)",
+                }} // Анимация запускается при появлении
+                viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+                transition={{
+                  delay: 0.2 * index,
+                  duration: 0.4,
+                  ease: "easeOut",
+                }}
+              >
+                <Card icon={icon} title={title} desc={desc} />
+              </motion.div>
             ))
           )}
         </Container>

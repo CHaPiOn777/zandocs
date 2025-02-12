@@ -2,11 +2,12 @@
 import Container from "@/app/_components/Container/Container";
 import ImageBG from "@/ui/ImageBG/ImageBG";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import bg from "@/image/Tarif/bg.png";
 import React from "react";
 import useIsTablet from "@/hooks/useIsTablet";
 import useIsMobile from "@/hooks/useIsMobile";
+import { motion } from "framer-motion";
 
 const MainTarif = () => {
   const isTablet = useIsTablet();
@@ -20,8 +21,26 @@ const MainTarif = () => {
         }}
         column
       >
-        <Stack
-          sx={{
+        <motion.div
+          initial={{
+            opacity: 0,
+            filter: "blur(10px)",
+            x: -200,
+          }}
+          // style={{ marginLeft: "auto" }}
+          whileInView={{
+            opacity: 1,
+            filter: "blur(0px)",
+
+            x: 0,
+          }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
+          }}
+          style={{
             background: "#F3F9FE99",
             backdropFilter: "blur(31px)",
             width: "520px",
@@ -69,7 +88,7 @@ const MainTarif = () => {
             Выберите оптимальное решение, <br /> соответствующее вашим
             потребностям и целям
           </Typography>
-        </Stack>
+        </motion.div>
       </Container>
       <ImageBG
         top={isMobile ? "80px" : "0"}

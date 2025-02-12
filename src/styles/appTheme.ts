@@ -119,7 +119,7 @@ const theme = createTheme({
     body1: {
       fontWeight: 400, // Используем Bold для body1
       fontSize: "18px",
-      lineHeight: "18px",
+      lineHeight: "22px",
       [createTheme().breakpoints.down("md")]: {
         fontSize: "16px", // Для sm и выше
         lineHeight: "20.8px",

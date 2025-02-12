@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useAuthUser } from "@/store/authStore";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import axios from "axios";
+import { motion } from "framer-motion";
 import useIsMobile from "@/hooks/useIsMobile";
 
 const Inputs = z.object({
@@ -67,97 +68,117 @@ const Page = () => {
   const isMobile = useIsMobile();
 
   return (
-    <MainCntainer
-      sx={{
-        padding: "20px",
-        gap: isMobile ? "40px" : "100px",
-
-        flexDirection: isMobile ? "column" : "row",
-      }}
-    >
+    <MainCntainer>
       <ImageBG top={"-100px"} height={"1150px"} bg={bg} />
-      <Stack width={"400px"} gap={isMobile ? "20px" : "64px"} mt="140px">
-        <Typography
-          sx={{ textTransform: "uppercase", color: "#2640E3" }}
-          variant="h2"
-        >
-          Регистрация
-        </Typography>
-        <Typography variant="body1">
-          Зарегистрируйтесь, чтобы продолжить работу с&nbsp;вашими документами.
-        </Typography>
-      </Stack>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
+      <motion.div
+        // key={item.number}
+        initial={{
+          opacity: 0,
+          filter: "blur(10px)",
+          scale: 0.8,
+        }}
         style={{
-          width: isMobile ? "calc(100vw - 40px)" : "500px",
-
+          padding: "20px",
+          gap: isMobile ? "40px" : "100px",
+          flexDirection: isMobile ? "column" : "row",
           display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-          marginTop: isMobile ? 0 : "140px",
+        }}
+        whileInView={{
+          opacity: 1,
+          filter: "blur(0px)",
+          scale: 1,
+        }} // Анимация за // Анимация запускается при появлении
+        viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+        transition={{
+          duration: 0.4,
+          // delay: 0.2 * index,
+          ease: "easeOut",
         }}
       >
-        <Stack gap="18px" flexDirection={"row"}>
-          <CustomInput
-            name="first_name"
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            control={control as any}
-            label="Имя"
-          />
-          <CustomInput
-            name="last_name"
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            control={control as any}
-            label="Фамилия"
-          />
-        </Stack>
-        <CustomInput
-          name="email"
-          type="email"
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          control={control as any}
-          label={"Email"}
-        />
-        <CustomInput
-          name="password"
-          type="password"
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          control={control as any}
-          label={"Пароль"}
-        />
-
-        <CustomButton
-          sx={{
-            marginTop: "24px",
-            width: "100%",
-            opacity: isLoading ? 0.6 : 1,
-            gap: "12px",
-          }}
-          variant="primary"
-          disabled={isLoading}
-        >
-          Регистрация
-        </CustomButton>
-        <Stack flexDirection="row" mt={2} marginRight="auto" gap={1}>
-          <Typography variant="body2">Уже есть аккаунт? </Typography>
+        <Stack width={"400px"} gap={isMobile ? "20px" : "64px"} mt="140px">
           <Typography
-            sx={{
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              opacity: 1,
-              "&:hover": {
-                opacity: 0.7,
-              },
-            }}
-            onClick={() => router.push("/login")}
-            color="#0454FF"
-            variant="body2"
+            sx={{ textTransform: "uppercase", color: "#2640E3" }}
+            variant="h2"
           >
-            Войти
+            Регистрация
+          </Typography>
+          <Typography variant="body1">
+            Зарегистрируйтесь, чтобы продолжить работу с&nbsp;вашими
+            документами.
           </Typography>
         </Stack>
-      </form>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={{
+            width: isMobile ? "calc(100vw - 40px)" : "500px",
+
+            display: "flex",
+            flexDirection: "column",
+            gap: "24px",
+            marginTop: isMobile ? 0 : "140px",
+          }}
+        >
+          <Stack gap="18px" flexDirection={"row"}>
+            <CustomInput
+              name="first_name"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              control={control as any}
+              label="Имя"
+            />
+            <CustomInput
+              name="last_name"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              control={control as any}
+              label="Фамилия"
+            />
+          </Stack>
+          <CustomInput
+            name="email"
+            type="email"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            control={control as any}
+            label={"Email"}
+          />
+          <CustomInput
+            name="password"
+            type="password"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            control={control as any}
+            label={"Пароль"}
+          />
+
+          <CustomButton
+            sx={{
+              marginTop: "24px",
+              width: "100%",
+              opacity: isLoading ? 0.6 : 1,
+              gap: "12px",
+            }}
+            variant="primary"
+            disabled={isLoading}
+          >
+            Регистрация
+          </CustomButton>
+          <Stack flexDirection="row" mt={2} marginRight="auto" gap={1}>
+            <Typography variant="body2">Уже есть аккаунт? </Typography>
+            <Typography
+              sx={{
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                opacity: 1,
+                "&:hover": {
+                  opacity: 0.7,
+                },
+              }}
+              onClick={() => router.push("/login")}
+              color="#0454FF"
+              variant="body2"
+            >
+              Войти
+            </Typography>
+          </Stack>
+        </form>
+      </motion.div>
     </MainCntainer>
   );
 };

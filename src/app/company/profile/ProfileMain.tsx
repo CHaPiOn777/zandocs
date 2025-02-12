@@ -11,6 +11,7 @@ import TitleComponents from "@/ui/TitleComponents/TitleComponents";
 import { useRouter } from "next/navigation";
 import useIsTablet from "@/hooks/useIsTablet";
 import useIsMobile from "@/hooks/useIsMobile";
+import { motion } from "framer-motion";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 
 const ProfileMain = () => {
@@ -70,14 +71,16 @@ const ProfileMain = () => {
         <Container
           sx={{ margin: isMobile ? "32px 0 0" : "100px 0", gap: "24px" }}
         >
-          <Stack
-            sx={{
+          <motion.ul
+            id="contacts"
+            style={{
               padding: isMobile
                 ? "0 16px 32px"
                 : isTablet
                 ? "32px"
                 : "48px 56px",
               borderRadius: "4px",
+              display: "flex",
               gap: isTablet ? "2rem" : "144px",
               flexDirection: isMobile ? "column" : "row",
               alignItems: "center",
@@ -85,6 +88,10 @@ const ProfileMain = () => {
                 ? "linear-gradient(180deg, rgba(150, 193, 242, 0) 13.42%, #96C1F2 95.93%)"
                 : "linear-gradient(264.94deg, rgba(150, 193, 242, 0) 13.42%, #96C1F2 95.93%)",
             }}
+            initial={{ opacity: 0, filter: "blur(10px)", x: 300 }}
+            whileInView={{ opacity: 1, filter: "blur(0px)", x: 0 }} // Анимация запускается при появлении
+            viewport={{ once: true, amount: 0.4 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <Stack gap={"8px"}>
               <Image
@@ -141,7 +148,7 @@ const ProfileMain = () => {
                 Её миссия — сделать право доступным и понятным для каждого.
               </Typography>
             </Stack>
-          </Stack>
+          </motion.ul>
         </Container>
         <ImageBG height="1030px" bg={bg} />
       </MainCntainer>

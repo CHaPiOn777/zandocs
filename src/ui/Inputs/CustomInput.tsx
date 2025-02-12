@@ -13,6 +13,7 @@ type CustomInputProps<T extends FieldValues> = {
   name: Path<T>;
   label: string;
   type?: string;
+  width?: string;
 };
 
 import styled from "@emotion/styled";
@@ -51,6 +52,7 @@ const CustomInput = <T extends FieldValues>({
   control,
   name,
   label,
+  width = "100%",
   type = "text",
 }: CustomInputProps<T>) => {
   const [isShowIcon, setIsShowIcon] = useState(false);
@@ -62,7 +64,7 @@ const CustomInput = <T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <Stack width={"100%"}>
+        <Stack width={width}>
           <Typography variant="subtitle1">{label}</Typography>
           <FieldText
             type={isShowIcon ? "text" : type}

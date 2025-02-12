@@ -7,6 +7,7 @@ import CustomButton from "@/ui/Button/CustomButton";
 import Line from "@/ui/Line/Line";
 import { List, ListItem, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const ContentCard = (props: TDataDocuments) => {
@@ -14,6 +15,7 @@ const ContentCard = (props: TDataDocuments) => {
   const isTablet = useIsTablet();
   const isDesktopXS = useIsDesktopXS();
   const isMobile = useIsMobile();
+  const router = useRouter();
 
   return (
     <Stack
@@ -69,6 +71,7 @@ const ContentCard = (props: TDataDocuments) => {
           fullWidth={true}
           sx={{ padding: "20px 0px", width: "100%" }}
           variant="secondary"
+          onClick={() => router.push("/documents")}
         >
           Смотреть все шаблоны
         </CustomButton>

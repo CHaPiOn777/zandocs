@@ -1,12 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CustomButton from "@/ui/Button/CustomButton";
-import CustomInput from "@/ui/Inputs/CustomInput";
-import { useState } from "react";
-import useIsMobile from "@/hooks/useIsMobile";
-import { downloadFileFromResponse } from "@/hooks/downloadFile";
+import CustomFormDocs from "@/ui/CustomFormDocs/CustomFormDocs";
 
 const Inputs = z.object({
   city: z.string(),
@@ -28,80 +25,121 @@ const Inputs = z.object({
 export type Raspiska = z.infer<typeof Inputs>;
 const FormPodpiska = () => {
   const formFields = [
-    {
-      name: "city",
-      type: "text",
-      label: "Укажите город ",
-    },
-    {
-      name: "date",
-      type: "date",
-      label: "Укажите дату составления ",
-    },
-    {
-      name: "name",
-      type: "text",
-      label: "Укажите полное ФИО заемщика ",
-    },
-    {
-      name: "inn1",
-      type: "number",
-      label: "Укажите ИИН заемщика ",
-    },
-    {
-      name: "adress",
-      type: "text",
-      label: "Укажите адрес заемщика ",
-    },
-    {
-      name: "name2",
-      type: "text",
-      label: "Укажите Ф.И.О. займодавца ",
-    },
-    {
-      name: "inn2",
-      type: "number",
-      label: "Укажите ИИН займодавца",
-    },
-    {
-      name: "adress2",
-      type: "text",
-      label: "Укажите адрес займодавца ",
-    },
-    {
-      name: "summa",
-      type: "text",
-      label: "Укажите сумму цифрами и прописью ",
-    },
-    {
-      name: "variant",
-      type: "text",
-      label: "Каким способом были переданы денежные средства?",
-    },
-    {
-      name: "srokVozvr",
-      type: "date",
-      label: "Укажите срок возврата ",
-    },
-    {
-      name: "procent",
-      type: "text",
-      label: "Укажите процент или напишите 'без процентов' ",
-    },
-    {
-      name: "reqizits",
-      type: "text",
-      label: "Укажите реквизиты",
-    },
-    {
-      name: "neustoika",
-      type: "text",
-      label:
-        "Укажите размер неустойки, например, 'в соответствии с законодательством' или '0.1% за каждый день просрочки' ",
-    },
-  ];
+    [
+      {
+        variant: "title",
+        name: "Общие положения",
+      },
+      {
+        variant: "input",
+        name: "city",
+        type: "text",
+        label: "Укажите город ",
+      },
+      {
+        variant: "input",
+        name: "date",
+        type: "date",
+        xs: 6,
+        label: "Укажите дату составления ",
+      },
+      {
+        variant: "input",
+        name: "srokVozvr",
+        type: "date",
+        xs: 6,
+        label: "Укажите срок возврата ",
+      },
+      {
+        variant: "input",
+        name: "summa",
+        type: "text",
+        label: "Укажите сумму цифрами и прописью ",
+      },
 
-  const isMobile = useIsMobile();
+      {
+        variant: "input",
+        name: "procent",
+        type: "text",
+        label: `Укажите процент или напишите "без процентов" `,
+      },
+      {
+        variant: "input",
+        name: "reqizits",
+        type: "text",
+        label: "Укажите реквизиты",
+      },
+      {
+        variant: "input",
+        name: "neustoika",
+        type: "text",
+        label: `Укажите размер неустойки, например, "в соответствии с законодательством" или "0.1% за каждый день просрочки" `,
+      },
+      {
+        variant: "radio",
+        name: "variant",
+        type: "radio",
+        radioVariant: [
+          {
+            value: "перечислены на банковский счет ",
+            label: "Перечислены на банковский счет ",
+          },
+          { value: "наличными", label: "Наличными" },
+        ],
+        label: "Каким способом были переданы денежные средства?",
+      },
+    ],
+    [
+      {
+        variant: "title",
+        name: "Участник 1",
+        type: "input",
+      },
+      {
+        variant: "input",
+        name: "name",
+        type: "text",
+        label: "Укажите полное ФИО заемщика ",
+      },
+      {
+        variant: "input",
+        name: "inn1",
+        type: "number",
+        label: "Укажите ИИН заемщика ",
+      },
+      {
+        variant: "input",
+        name: "adress",
+        type: "text",
+        label: "Укажите адрес заемщика ",
+      },
+    ],
+    [
+      {
+        variant: "title",
+        name: "Участник 2",
+        type: "input",
+      },
+      {
+        variant: "input",
+        name: "name2",
+        type: "text",
+        label: "Укажите Ф.И.О. займодавца ",
+      },
+      {
+        variant: "input",
+        name: "inn2",
+        type: "number",
+        label: "Укажите ИИН займодавца",
+      },
+      {
+        variant: "input",
+        name: "adress2",
+        type: "text",
+        label: "Укажите адрес займодавца ",
+      },
+    ],
+  ];
 
   const { control, handleSubmit } = useForm<Raspiska>({
     mode: "onChange",
@@ -110,10 +148,10 @@ const FormPodpiska = () => {
       city: "",
       date: "",
       name: "",
-      inn1: "0",
+      inn1: "",
       adress: "",
       name2: "",
-      inn2: "0",
+      inn2: "",
       adress2: "",
       summa: "",
       variant: "",
@@ -124,66 +162,13 @@ const FormPodpiska = () => {
     },
   });
 
-  const [loading, setLoading] = useState(false);
-
-  const onSubmit = async (data: Raspiska) => {
-    setLoading(true);
-    try {
-      const response = await fetch("/api/generate-doc", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          templateFile: "raspiska.docx",
-          variables: data,
-        }),
-      });
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("Ошибка при генерации документа");
-      }
-
-      downloadFileFromResponse(response, "raspiska.docx");
-    } catch (error) {
-      console.error("Ошибка:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{
-        width: "100%",
-
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-        marginTop: isMobile ? 0 : "140px",
-      }}
-    >
-      {formFields.map(({ name, type, label }, index) => (
-        <CustomInput
-          key={index}
-          name={name}
-          type={type}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          control={control as any}
-          label={label}
-        />
-      ))}
-      <CustomButton
-        sx={{
-          marginTop: "24px",
-          width: "100%",
-          opacity: loading ? 0.6 : 1,
-          gap: "12px",
-        }}
-        variant="primary"
-        disabled={loading}
-      >
-        Скачать документ
-      </CustomButton>
-    </form>
+    <CustomFormDocs
+      control={control}
+      handleSubmit={handleSubmit}
+      formFields={formFields}
+      docsName={"raspiska.docx"}
+    />
   );
 };
 

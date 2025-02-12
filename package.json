@@ -20,6 +20,7 @@
     "date-fns": "^4.1.0",
     "docxtemplater": "^3.59.0",
     "framer-motion": "^12.4.1",
+    "html-react-parser": "^5.2.2",
     "http-proxy-middleware": "^3.0.3",
     "js-cookie": "^3.0.5",
     "next": "15.1.3",

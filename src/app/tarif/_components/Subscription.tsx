@@ -19,6 +19,7 @@ import { useBasket } from "@/store/basketStore";
 import useIsMobile from "@/hooks/useIsMobile";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import { useAuthUser } from "@/store/authStore";
+import { motion } from "framer-motion";
 
 type TPropsData = {
   iconImg: React.JSX.Element;
@@ -176,7 +177,32 @@ const Subscription = () => {
         sx={{ margin: isMobile ? "50px 0" : "90px 0", gap: "24px" }}
         column
       >
-        <Stack id="tarifPlan" gap={"16px"} alignItems="center">
+        <motion.div
+          // key={item.number}
+          initial={{
+            opacity: 0,
+            filter: "blur(10px)",
+            scale: 0.8,
+          }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            alignItems: "center",
+          }}
+          // style={{ marginLeft: "auto" }}
+          whileInView={{
+            opacity: 1,
+            filter: "blur(0px)",
+            scale: 1,
+          }} // Анимация за // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{
+            duration: 0.4,
+            // delay: 0.2 * index,
+            ease: "easeOut",
+          }}
+        >
           <Typography
             maxWidth={"720px"}
             sx={{ textTransform: "uppercase", textAlign: "center" }}
@@ -201,7 +227,7 @@ const Subscription = () => {
           </Typography>
           <Line />
 
-          <SC.ListST>
+          <SC.ListST id="tarifPlan">
             {data.map(
               (
                 { iconImg, title, price, data, disabled, id, priceStr },
@@ -320,7 +346,7 @@ const Subscription = () => {
               )
             )}
           </SC.ListST>
-        </Stack>
+        </motion.div>
       </Container>
     </MainCntainer>
   );

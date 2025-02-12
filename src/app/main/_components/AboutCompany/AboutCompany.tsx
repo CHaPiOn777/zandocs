@@ -10,8 +10,11 @@ import Container from "@/app/_components/Container/Container";
 import CustomButton from "@/ui/Button/CustomButton";
 import Line from "@/ui/Line/Line";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const AboutCompany = () => {
+  const router = useRouter();
   const isDesktopXS = useIsDesktopXS();
   return (
     <MainCntainer>
@@ -25,56 +28,72 @@ const AboutCompany = () => {
         }}
         column={isDesktopXS}
       >
-        <Image
-          src={img}
-          width={isDesktopXS ? 300 : 462}
-          height={isDesktopXS ? 270 : 400}
-          alt="ноутбук"
-        />
-        <Stack
-          width={isDesktopXS ? "100%" : "550px"}
-          gap={"24px"}
-          alignItems={isDesktopXS ? "center" : "left"}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <Typography
-            sx={{ textTransform: "uppercase" }}
-            textAlign={isDesktopXS ? "center" : "left"}
-            variant="h3"
+          <Image
+            src={img}
+            width={isDesktopXS ? 300 : 462}
+            height={isDesktopXS ? 270 : 400}
+            alt="ноутбук"
+          />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }} // Анимация запускается при появлении
+          viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <Stack
+            width={isDesktopXS ? "100%" : "550px"}
+            gap={"24px"}
+            alignItems={isDesktopXS ? "center" : "left"}
           >
-            <span
-              style={{
-                color: "#2640E3",
-              }}
+            <Typography
+              sx={{ textTransform: "uppercase" }}
+              textAlign={isDesktopXS ? "center" : "left"}
+              variant="h3"
             >
-              удобные решения
-            </span>{" "}
-            для юридической{" "}
-            <span
-              style={{
-                color: "#2640E3",
-              }}
+              <span
+                style={{
+                  color: "#2640E3",
+                }}
+              >
+                удобные решения
+              </span>{" "}
+              для юридической{" "}
+              <span
+                style={{
+                  color: "#2640E3",
+                }}
+              >
+                поддержки бизнеса и частных
+              </span>{" "}
+              клиентов
+            </Typography>
+            <Line />
+            <Typography
+              variant="body1"
+              textAlign={isDesktopXS ? "center" : "left"}
             >
-              поддержки бизнеса и частных
-            </span>{" "}
-            клиентов
-          </Typography>
-          <Line />
-          <Typography
-            variant="body1"
-            textAlign={isDesktopXS ? "center" : "left"}
-          >
-            Мы предлагаем уникальные инструменты для быстрого и простого
-            создания юридически значимых документов, которые&nbsp;соответствуют
-            актуальным стандартам и законодательству.
-          </Typography>
-          <CustomButton
-            fullWidth={isDesktopXS}
-            sx={{ maxWidth: "100%", marginTop: "24px" }}
-            variant="primary"
-          >
-            Создать документ
-          </CustomButton>
-        </Stack>
+              Мы предлагаем уникальные инструменты для быстрого и простого
+              создания юридически значимых документов,
+              которые&nbsp;соответствуют актуальным стандартам
+              и законодательству.
+            </Typography>
+            <CustomButton
+              fullWidth={isDesktopXS}
+              sx={{ maxWidth: "100%", marginTop: "24px" }}
+              variant="primary"
+              onClick={() => router.push("/documents")}
+            >
+              Создать документ
+            </CustomButton>
+          </Stack>
+        </motion.div>
       </Container>
     </MainCntainer>
   );

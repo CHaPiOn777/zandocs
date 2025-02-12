@@ -37,11 +37,11 @@ const DocumentsCard = ({ document }: { document: TDocument }) => {
         p={2}
       >
         <Typography variant="body1">{document.name}</Typography>
-        <Stack flexDirection="row" alignItems="center" gap="4px" width="100%">
-          <Typography sx={{ color: "#2640E3" }} variant="body2">
+        <Stack flexDirection="row" alignItems="stretch" gap="4px" width="100%">
+          <Typography sx={{ color: "#2640E3" }} variant="body1">
             {document.price}
           </Typography>
-          <Tenge size={14} color="#2640E3" />
+          <Tenge size={16} color="#2640E3" />
         </Stack>
       </Stack>
 

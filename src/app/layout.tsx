@@ -8,6 +8,8 @@ import ToastProvider from "@/ui/ToastProvider/ToastProvider";
 import { getProducts } from "@/api/authApi";
 import DocumentsClient from "@/app/_components/DocumentsClient";
 import AuthAndCartLoader from "@/app/_components/AuthAndCartLoader";
+import { Suspense } from "react";
+import { CircularProgress } from "@mui/material";
 export const metadata: Metadata = {
   title: "Zandocs",
   description:
@@ -40,11 +42,13 @@ export default async function RootLayout({
       <body>
         <MUIThemeProvider>
           <ToastProvider>
-            <Header />
-            <AuthAndCartLoader />
-            <DocumentsClient initialDocs={documents} />
-            {children}
-            <Footer />
+            <Suspense fallback={<CircularProgress color={"info"} />}>
+              <Header />
+              <AuthAndCartLoader />
+              <DocumentsClient initialDocs={documents} />
+              {children}
+              <Footer />
+            </Suspense>
           </ToastProvider>
         </MUIThemeProvider>
       </body>

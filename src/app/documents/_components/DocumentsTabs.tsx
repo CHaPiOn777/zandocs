@@ -125,7 +125,29 @@ const DocumentsTabs = () => {
         >
           <SC.ListS>
             {visibleContent(activeTab).map((item, index) => (
-              <DocumentsCard document={item} key={index} />
+              <motion.div
+                key={index}
+                initial={{
+                  opacity: 0,
+                  scale: 0.9,
+                  transformOrigin: "center center",
+                }}
+                style={{ transformOrigin: "center" }}
+                whileInView={{
+                  opacity: 1,
+                  scale: 1,
+                  transformOrigin: "center center",
+                }} // Анимация запускается при появлении
+                viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+                transition={{
+                  duration: 0.4,
+                  delay: 0.1 * index,
+                  // delay: 0.2 * index,
+                  ease: "easeOut",
+                }}
+              >
+                <DocumentsCard document={item} />
+              </motion.div>
             ))}
           </SC.ListS>
         </motion.div>
