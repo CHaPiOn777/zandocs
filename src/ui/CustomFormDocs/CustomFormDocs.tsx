@@ -19,7 +19,7 @@ type TPropsDocs = {
   control: any;
   handleSubmit: any;
   formFields: TFormFields[][];
-  flags: Record<string, boolean>;
+  flags?: Record<string, boolean>;
 };
 const CustomFormDocs = <T,>({
   docsName,
