@@ -57,7 +57,7 @@ const ImageBG = ({
           }}
           alt="бэкграунд"
           src={bg}
-          quality={100}
+          // quality={100}
         />
       </Box>
     </motion.div>

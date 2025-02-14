@@ -87,7 +87,7 @@ const ActPriemki = () => {
     [
       {
         variant: "title",
-        name: "Передающяя сторона",
+        name: "Передающая сторона",
       },
       {
         variant: "input",
