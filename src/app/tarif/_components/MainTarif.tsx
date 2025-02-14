@@ -34,7 +34,7 @@ const MainTarif = () => {
 
             x: 0,
           }} // Анимация запускается при появлении
-          viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          viewport={{ once: true }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
           transition={{
             duration: 0.4,
             // delay: 0.2 * index,

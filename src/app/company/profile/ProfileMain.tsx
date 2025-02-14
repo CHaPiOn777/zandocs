@@ -90,7 +90,7 @@ const ProfileMain = () => {
             }}
             initial={{ opacity: 0, filter: "blur(10px)", x: 300 }}
             whileInView={{ opacity: 1, filter: "blur(0px)", x: 0 }} // Анимация запускается при появлении
-            viewport={{ once: true, amount: 0.4 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+            viewport={{ once: true }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <Stack gap={"8px"}>

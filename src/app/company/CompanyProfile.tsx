@@ -31,7 +31,7 @@ const CompanyProfile = () => {
           }}
           initial={{ opacity: 0, filter: "blur(10px)", scale: 0.6 }}
           whileInView={{ opacity: 1, filter: "blur(0px)", scale: 1 }} // Анимация запускается при появлении
-          viewport={{ once: true, amount: 0.4 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <Stack alignItems="center" gap="40px" maxWidth="980px">

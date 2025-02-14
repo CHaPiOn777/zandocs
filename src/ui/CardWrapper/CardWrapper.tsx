@@ -29,7 +29,7 @@ const CardWrapper = ({
           gap: "32px",
           width: "830px",
           [`@media ${GlobalMedia.tablet}`]: {
-            width: "70vw",
+            width: "calc(100vw - 298px - 60px)",
             // minWidth: "150px",
           },
           [`@media ${GlobalMedia.desktopXS}`]: {

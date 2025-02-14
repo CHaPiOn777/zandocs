@@ -28,10 +28,17 @@ const ImageBG = ({
     <motion.div
       initial={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }} // Добавляем размытие
       whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }} // Анимация запускается при появлении
-      viewport={{ once: true, amount: 0.2 }} // `on
+      viewport={{ once: true }} // `on
       // animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
-      style={{ position: "absolute", top: top, left: left, zIndex: -1 }}
+      style={{
+        position: "absolute",
+        top: top,
+        left: left,
+        zIndex: -1,
+        width: width ? width : isTablet ? "150vw" : "100vw",
+        height: height,
+      }}
     >
       <Box
         sx={{

@@ -23,7 +23,6 @@ const DocumentsTabs = () => {
   const [activeTab, setActiveTab] = React.useState(0);
   const isMobile = useIsMobile();
   const docs = useDocsStore((state) => state.docs); // Zustand: функция для установки документов
-
   const isDesctopXS = useIsDesktopXS();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);

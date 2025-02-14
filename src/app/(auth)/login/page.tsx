@@ -89,10 +89,16 @@ const Page = () => {
           ease: "easeOut",
         }}
       >
-        <Stack width={"400px"} gap={isMobile ? "20px" : "64px"} mt="140px">
+        <Stack
+          maxWidth={"400px"}
+          gap={isMobile ? "20px" : "64px"}
+          mt="140px"
+          alignItems="center"
+        >
           <Typography
             sx={{ textTransform: "uppercase", color: "#2640E3" }}
             variant="h2"
+            alignSelf={"flex-start"}
           >
             Авторизация
           </Typography>
@@ -157,7 +163,7 @@ const Page = () => {
           >
             Войти
           </CustomButton>
-          <Stack flexDirection="row" mt={2} marginRight="auto" gap={1}>
+          <Stack flexDirection="row" mt={2} marginLeft="auto" gap={1}>
             <Typography variant="body2">Ещё нет аккаунта? </Typography>
             <Typography
               sx={{

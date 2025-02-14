@@ -7,7 +7,7 @@ import useIsMobile from "@/hooks/useIsMobile";
 import { downloadFileFromResponse } from "@/hooks/downloadFile";
 import { Grid, Typography } from "@mui/material";
 import CustomRadio from "@/ui/CustomRadio/CustomRadio";
-type TFormFields = {
+export type TFormFields = {
   variant?: string;
   name: string;
   type?: string;
@@ -19,28 +19,38 @@ type TPropsDocs = {
   control: any;
   handleSubmit: any;
   formFields: TFormFields[][];
+  flags: Record<string, boolean>;
 };
 const CustomFormDocs = <T,>({
   docsName,
   control,
   handleSubmit,
   formFields,
+  flags,
 }: TPropsDocs) => {
   const [loading, setLoading] = useState(false);
   const isMobile = useIsMobile();
 
   const onSubmit = async (data: T) => {
     setLoading(true);
+    const newData = flags ? { ...data, ...flags } : data;
+    const array =
+      typeof newData === "object" &&
+      "array" in newData! &&
+      typeof newData.array === "string"
+        ? newData.array.split("; ").map((item) => ({ value: item }))
+        : null;
+
     try {
       const response = await fetch("/api/generate-doc", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           templateFile: docsName,
-          variables: data,
+          variables: array ? { ...newData, array } : newData,
         }),
       });
-      console.log(response);
+
       if (!response.ok) {
         throw new Error("Ошибка при генерации документа");
       }

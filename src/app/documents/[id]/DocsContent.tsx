@@ -3,7 +3,7 @@
 import { useDocsStore } from "@/store/docsStore";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import Image from "next/image";
-import React, { useMemo, useState } from "react";
+import React, { ReactElement, useMemo, useState } from "react";
 import Container from "@/app/_components/Container/Container";
 import useIsMobile from "@/hooks/useIsMobile";
 import { Box, Stack, Typography } from "@mui/material";
@@ -16,6 +16,9 @@ import Tenge from "@/image/Account/icons/Tenge";
 import FormPodpiska from "@/app/documents/[id]/_components/FormPodpiska";
 import parse from "html-react-parser";
 import { motion } from "framer-motion";
+import ActPriemki from "@/app/documents/[id]/_components/ActPriemki";
+import Doverennost from "@/app/documents/[id]/_components/Doverennost";
+import Zaim from "@/app/documents/[id]/_components/Zaim";
 
 const DocsContent = ({ id }: { id: string }) => {
   const isMobile = useIsMobile();
@@ -35,7 +38,15 @@ const DocsContent = ({ id }: { id: string }) => {
   if (!documentById.length || !documents) {
     return <Loading />;
   }
-
+  const returnDocsById = (id: string) => {
+    const data: Record<string, ReactElement> = {
+      3958: <FormPodpiska />,
+      7642: <ActPriemki />,
+      7650: <Doverennost />,
+      7652: <Zaim />,
+    };
+    return data[id];
+  };
   return (
     <MainCntainer sx={{ background: "#edf7ff" }}>
       <Container
@@ -214,7 +225,7 @@ const DocsContent = ({ id }: { id: string }) => {
             // padding: isActiveForm ? "10px" : "0px",
           }} // overflow нужен, чтобы контент не вылезал
         >
-          <FormPodpiska />
+          {returnDocsById(id)}
         </motion.div>
       </Container>
     </MainCntainer>

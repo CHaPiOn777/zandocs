@@ -92,7 +92,7 @@ const FormPodpiska = () => {
     [
       {
         variant: "title",
-        name: "Участник 1",
+        name: "Данные Займодавца",
         type: "input",
       },
       {
@@ -117,7 +117,7 @@ const FormPodpiska = () => {
     [
       {
         variant: "title",
-        name: "Участник 2",
+        name: "Данные Заемщика",
         type: "input",
       },
       {

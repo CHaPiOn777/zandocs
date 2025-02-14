@@ -6,6 +6,7 @@ import Loader from "@/ui/Loader/Loader";
 import { useAuthUser } from "@/store/authStore";
 import useIsMobile from "@/hooks/useIsMobile";
 import { motion } from "framer-motion";
+import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 
 const MenuAccount = ({
   children,
@@ -14,6 +15,7 @@ const MenuAccount = ({
 }>) => {
   const user = useAuthUser((state) => state.user);
   const isMobile = useIsMobile();
+  const isDesktopXS = useIsDesktopXS();
   return (
     <MainCntainer
       sx={{
@@ -26,7 +28,7 @@ const MenuAccount = ({
     >
       <Container
         sx={{
-          gap: "20px",
+          gap: isDesktopXS ? "0" : "20px",
           padding: isMobile ? "0" : "20px",
           justifyContent: isMobile ? "center" : "",
         }}
