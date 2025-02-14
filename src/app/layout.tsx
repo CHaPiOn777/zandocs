@@ -10,6 +10,8 @@ import DocumentsClient from "@/app/_components/DocumentsClient";
 import AuthAndCartLoader from "@/app/_components/AuthAndCartLoader";
 import { Suspense } from "react";
 import { CircularProgress } from "@mui/material";
+import Head from "next/head";
+
 export const metadata: Metadata = {
   title: "Zandocs",
   description:
@@ -25,20 +27,18 @@ export default async function RootLayout({
 
   return (
     <html lang="ru">
-      {/* <head>
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
+      <Head>
+        <title>Zandocs</title>
+        <meta
+          name="description"
+          content="Zandocs — Конструктор документов. Зандокс, zandocs: создавайте и редактируйте документы онлайн."
         />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
+        {/* Метатег keywords уже не оказывает существенного влияния на SEO, но его можно добавить */}
+        <meta
+          name="keywords"
+          content="Конструктор документов, зандокс, zandocs"
         />
-      </head> */}
+      </Head>
       <body>
         <MUIThemeProvider>
           <ToastProvider>
