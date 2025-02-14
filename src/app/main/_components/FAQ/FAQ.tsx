@@ -91,10 +91,10 @@ const FAQ = () => {
               key={item.number}
               initial={{ opacity: 0, x: 160, scale: 0.7 }}
               whileInView={{ opacity: 1, x: 0, scale: 1 }} // Анимация запускается при появлении
-              viewport={{ once: true, amount: 0.5 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+              viewport={{ once: true, amount: 0.4 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
               transition={{
-                duration: 0.4,
-                delay: 0.2 * index,
+                duration: 0.3,
+                delay: 0.13 * index,
                 ease: "easeOut",
               }}
             >
@@ -108,9 +108,9 @@ const FAQ = () => {
         </Container>
         <motion.div
           // key={item.number}
-          initial={{ opacity: 0, y: 160, scale: 0.7 }}
+          initial={{ opacity: 0, y: 160, scale: 0.8 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }} // Анимация запускается при появлении
-          viewport={{ once: true, amount: 0.5 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+          viewport={{ once: true, amount: 0.2 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
           transition={{
             duration: 0.4,
             // delay: 0.2 * index,
