@@ -3,23 +3,16 @@ import Line from "@/ui/Line/Line";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import { List, ListItem, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import komfort from "@/image/Tarif/komfort.png";
 import standart from "@/image/Tarif/standart.png";
 import Tenge from "@/image/Account/icons/Tenge";
 import * as SC from "./Subsc.style";
-import CustomButton from "@/ui/Button/CustomButton";
 import CheckBoxIconBlue from "@/image/Documents/CheckBoxIconBlue";
-import { addToCardByBasket, createInvoice, getMyBasket } from "@/api/authApi";
-import { notify } from "@/ui/ToastProvider/ToastProvider";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import { useOrders } from "@/store/ordersStore";
-import { useBasket } from "@/store/basketStore";
 import useIsMobile from "@/hooks/useIsMobile";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
-import { useAuthUser } from "@/store/authStore";
 import { motion } from "framer-motion";
+import ButtonsBuy from "@/ui/ButtonsBuy/ButtonsBuy";
 
 type TPropsData = {
   iconImg: React.JSX.Element;
@@ -32,12 +25,6 @@ type TPropsData = {
 };
 
 const Subscription = () => {
-  const [isLoadingBasket, setisLoadingBasket] = useState<boolean>(false);
-  const [isLoadingByeCard, setIsLoadingByeCard] = useState<boolean>(false);
-  const setIsFirstRender = useOrders((state) => state.setIsFirstRender);
-  const setOrdersPrice = useOrders((state) => state.setOrdersPrice);
-  const ordersPrice = useOrders((state) => state.ordersPrice);
-
   const data: TPropsData[] = [
     {
       iconImg: (
@@ -78,98 +65,9 @@ const Subscription = () => {
       disabled: true,
     },
   ];
-  const isAuth = useAuthUser((state) => state.isAuth);
 
-  const setCart = useBasket((state) => state.setCart);
   const isMobile = useIsMobile();
   const isDesktopXS = useIsDesktopXS();
-
-  const router = useRouter();
-  const addBusket = async ({
-    id,
-    price,
-    title = "Покупка товара",
-    isBusket = false,
-  }: {
-    id: number;
-    price: number;
-    title?: string;
-    isBusket?: boolean;
-  }) => {
-    if (!isAuth) {
-      return notify(
-        "error",
-        <div>
-          <Typography variant="body2">
-            Сначала авторизуйтесь.{" "}
-            <Typography
-              variant="body2"
-              component="span"
-              onClick={() => router.push("login")}
-              sx={{
-                color: "#2640E3",
-                position: "relative",
-                cursor: "pointer",
-                "&::after": {
-                  content: '""', // Добавляем пустое содержимое
-                  position: "absolute",
-                  bottom: "-4px", // Линия располагается под текстом
-                  left: "50%", // Центрируем линию по горизонтали
-                  width: "0%", // Изначальная ширина
-                  height: "1px", // Толщина линии
-                  backgroundColor: "#2640E3", // Цвет линии
-                  transition: "all 0.2s ease", // Плавный переход
-                  transform: "translateX(-50%)", // Сдвигаем к центру
-                },
-                "&:hover::after": {
-                  width: "40px", // Линия расширяется до всей ширины текста
-                },
-              }}
-            >
-              Вход
-            </Typography>
-          </Typography>
-        </div>
-      );
-    }
-    try {
-      if (isBusket) {
-        setisLoadingBasket(true);
-        await addToCardByBasket({
-          id: id,
-          quantity: 1,
-        });
-
-        notify("success", "Товар добавлен в корзину");
-        setOrdersPrice(ordersPrice + price);
-        const { data: cart } = await getMyBasket();
-        setCart(cart);
-      } else {
-        setIsLoadingByeCard(true);
-        const { data } = await createInvoice({
-          amount: price,
-          description: title,
-          items: [
-            {
-              product_id: id,
-              quantity: 1,
-            },
-          ],
-        });
-        router.push(data.data.invoice_url);
-        notify("success", data.message);
-      }
-
-      setIsFirstRender(true);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        notify("error", error?.response?.data.message);
-      }
-    } finally {
-      setisLoadingBasket(false);
-      setIsLoadingByeCard(false);
-    }
-  };
 
   return (
     <MainCntainer sx={{ background: "#0088FF0D" }}>
@@ -304,44 +202,12 @@ const Subscription = () => {
                       </ListItem>
                     ))}
                   </List>
-                  <Stack
-                    marginTop={"auto"}
-                    direction={isMobile ? "column" : "row"}
-                    gap={"12px"}
-                    width="100%"
-                  >
-                    {!disabled && (
-                      <CustomButton
-                        sx={{
-                          marginTop: "auto",
-                          width: "100%",
-                          opacity: disabled || isLoadingBasket ? 0.6 : 1,
-                          gap: "12px",
-                        }}
-                        size="20"
-                        variant="secondary"
-                        onClick={() => addBusket({ id, price, isBusket: true })}
-                        disabled={isLoadingBasket || disabled}
-                        isCircular={disabled ? false : true}
-                      >
-                        В корзину
-                      </CustomButton>
-                    )}
-                    <CustomButton
-                      sx={{
-                        width: "100%",
-                        opacity: disabled || isLoadingByeCard ? 0.6 : 1,
-                        gap: "12px",
-                      }}
-                      size="20"
-                      variant="primary"
-                      onClick={() => addBusket({ id, price, title })}
-                      disabled={isLoadingByeCard || disabled}
-                      isCircular={disabled ? false : true}
-                    >
-                      {disabled ? "Скоро" : "Оформить подписку"}
-                    </CustomButton>
-                  </Stack>
+                  <ButtonsBuy
+                    disabled={disabled}
+                    id={id}
+                    price={price}
+                    title={title}
+                  />
                 </SC.ListItemST>
               )
             )}

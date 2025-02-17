@@ -3,7 +3,7 @@
 import { useDocsStore } from "@/store/docsStore";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import Image from "next/image";
-import React, { ReactElement, useMemo, useState } from "react";
+import React, { ReactElement, useCallback, useMemo, useState } from "react";
 import Container from "@/app/_components/Container/Container";
 import useIsMobile from "@/hooks/useIsMobile";
 import { Box, Stack, Typography } from "@mui/material";
@@ -13,39 +13,70 @@ import CustomButton from "@/ui/Button/CustomButton";
 import { useRouter } from "next/navigation";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import Tenge from "@/image/Account/icons/Tenge";
-import FormPodpiska from "@/app/documents/[id]/_components/FormPodpiska";
 import parse from "html-react-parser";
 import { motion } from "framer-motion";
-import ActPriemki from "@/app/documents/[id]/_components/ActPriemki";
-import Doverennost from "@/app/documents/[id]/_components/Doverennost";
-import Zaim from "@/app/documents/[id]/_components/Zaim";
 
+import { useAuthUser } from "@/store/authStore";
+import LoginModal from "@/app/(auth)/login/_components/LoginModal";
+import dynamic from "next/dynamic";
+const FormPodpiska = dynamic(
+  () => import("@/app/documents/[id]/_components/FormPodpiska")
+);
+const ActPriemki = dynamic(
+  () => import("@/app/documents/[id]/_components/ActPriemki")
+);
+const Doverennost = dynamic(
+  () => import("@/app/documents/[id]/_components/Doverennost")
+);
+const Zaim = dynamic(() => import("@/app/documents/[id]/_components/Zaim"));
+const Darenie = dynamic(
+  () => import("@/app/documents/[id]/_components/Darenie")
+);
 const DocsContent = ({ id }: { id: string }) => {
   const isMobile = useIsMobile();
   const isDesctopXS = useIsDesktopXS();
   const router = useRouter();
   const documents = useDocsStore((state) => state.docs);
+  const isAuth = useAuthUser((state) => state.isAuth);
   const [isActiveForm, setIsActiveForm] = useState(false);
   const documentById = useMemo(
     () => documents.filter((docs) => docs.id == id),
     [documents, id]
   );
-
+  console.log(documentById);
   const parseText = useMemo(
-    () => parse(documentById[0]?.description),
+    () => (documentById.length ? parse(documentById[0]?.description) : null),
     [documentById[0]?.description]
   );
+  const [isOpenAuthModal, setisOpenAuthModal] = useState(false);
+  const toggleVisibleDocs = () => {
+    setIsActiveForm(!isActiveForm);
+  };
+  const authOrVisibleDocs = () => {
+    if (isAuth) {
+      toggleVisibleDocs();
+    } else {
+      setisOpenAuthModal(true);
+    }
+  };
+  const returnDocsById = useCallback((id: string): ReactElement | null => {
+    const data: Record<string, ReactElement> = {
+      "3958": <FormPodpiska />,
+      "7642": <ActPriemki />,
+      "7650": <Doverennost />,
+      "7652": <Zaim />,
+      "7658": <Darenie />,
+    };
+
+    return data[id] || null;
+  }, []);
+
   if (!documentById.length || !documents) {
     return <Loading />;
   }
-  const returnDocsById = (id: string) => {
-    const data: Record<string, ReactElement> = {
-      3958: <FormPodpiska />,
-      7642: <ActPriemki />,
-      7650: <Doverennost />,
-      7652: <Zaim />,
-    };
-    return data[id];
+  const goBack = () => {
+    // window.scrollTo(0, 0); // Скроллим страницу наверх
+    router.back(); // Возвращаемся на предыдущую страницу
   };
   return (
     <MainCntainer sx={{ background: "#edf7ff" }}>
@@ -81,7 +112,7 @@ const DocsContent = ({ id }: { id: string }) => {
             variant="secondary"
             size="16"
             fullWidth={isMobile}
-            onClick={() => router.push("/documents")}
+            onClick={() => goBack()}
           >
             Назад
           </CustomButton>
@@ -98,7 +129,7 @@ const DocsContent = ({ id }: { id: string }) => {
             filter: "blur(0px)",
           }}
           style={{
-            marginLeft: "auto",
+            // marginLeft: "auto",
             display: "flex",
             gap: "24px",
             flexDirection: isMobile ? "column" : "row",
@@ -178,7 +209,7 @@ const DocsContent = ({ id }: { id: string }) => {
                 marginTop: "auto !important",
               }}
               variant="primary"
-              onClick={() => setIsActiveForm(!isActiveForm)}
+              onClick={() => authOrVisibleDocs()}
             >
               {isActiveForm ? "Скрыть документ" : "Заполнить документ"}
             </CustomButton>
@@ -228,6 +259,11 @@ const DocsContent = ({ id }: { id: string }) => {
           {returnDocsById(id)}
         </motion.div>
       </Container>
+      <LoginModal
+        isOpenModal={isOpenAuthModal}
+        setIsOpenModal={setisOpenAuthModal}
+        toggleVisibleDocs={toggleVisibleDocs}
+      />
     </MainCntainer>
   );
 };

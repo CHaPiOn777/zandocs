@@ -4,14 +4,16 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useAuthUser } from "@/store/authStore"; // Измените на актуальный путь
 import { useBasket } from "@/store/basketStore"; // Измените на актуальный путь
-import { getMyBasket, getMyInfo } from "@/api/authApi";
+import { getMyBasket, getMyInfo, getMyProducts } from "@/api/authApi";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
+import { useDocsStore } from "@/store/docsStore";
 
 const AuthAndCartLoader = () => {
   const setUser = useAuthUser((state) => state.setUser);
   const setCart = useBasket((state) => state.setCart);
   const setIsLoading = useAuthUser((state) => state.setIsLoading);
   const isAuth = useAuthUser((state) => state.isAuth);
+  const setMyDocs = useDocsStore((state) => state.setMyDocs);
 
   useEffect(() => {
     const getMyInfoData = async () => {
@@ -19,11 +21,13 @@ const AuthAndCartLoader = () => {
         setIsLoading(true); // Включаем индикатор загрузки
 
         // Параллельные запросы
-        const [userInfo, basketInfo] = await Promise.all([
+        const [userInfo, basketInfo, myProducts] = await Promise.all([
           getMyInfo(),
           getMyBasket(),
+          getMyProducts(),
         ]);
 
+        setMyDocs(myProducts.data.data);
         // Устанавливаем данные из запросов
         setUser(userInfo.data);
         setCart(basketInfo.data);

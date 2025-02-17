@@ -15,10 +15,12 @@ const Loader = ({
     <Box
       sx={{
         display: "flex",
+        // position: "absolute",
+        top: 0,
         justifyContent: "center",
         alignItems: "center",
         height: "auto",
-        minHeight: "60vh",
+        minHeight: "100vh",
         width: "100%",
         ...sx,
       }}

@@ -7,22 +7,20 @@ import Features from "@/app/main/_components/Features/Features";
 import Main from "@/app/main/_components/Main/Main";
 import Steps from "@/app/main/_components/Steps/Steps";
 import * as SC from "./Main.style";
-import useIsReady from "@/hooks/useIsReady";
 import Loader from "@/ui/Loader/Loader";
+import { Suspense } from "react";
 
 const Page = () => {
-  const ready = useIsReady();
-
   return (
     <SC.MainST>
-      <Loader sx={{ height: "100vh" }} isLoader={!ready}>
+      <Suspense fallback={<Loader isLoader={true} />}>
         <Main />
         <AboutCompany />
         <Features />
         <Documents />
         <Steps />
         <FAQ />
-      </Loader>
+      </Suspense>
     </SC.MainST>
   );
 };

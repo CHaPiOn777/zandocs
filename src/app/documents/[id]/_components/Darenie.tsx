@@ -2,13 +2,13 @@
 import { getDetails, getFlags } from "@/hooks/tabsDos";
 import CustomFormDocs from "@/ui/CustomFormDocs/CustomFormDocs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 const Inputs = z.object({
   place_of_conclusion: z.string(),
-  date_of_conclusion: z.any(), // Можно использовать z.date() при необходимости
+  date_of_conclusion: z.date(), // Можно использовать z.date() при необходимости
   lender_status: z.any(),
   borrower_status: z.any(),
   name1: z.string(),
@@ -17,20 +17,19 @@ const Inputs = z.object({
   name2: z.string(),
   passport2: z.string(),
   iin2: z.string(),
-  loan_amount: z.string(),
-  loan_return_days: z.string().regex(/^\d+$/, "Введите число"),
-  loan_provide_days: z.string().regex(/^\d+$/, "Введите число"),
-  penalty_rate: z
-    .string()
-    .regex(/^\d+(\.\d+)?$/, "Введите число или десятичное значение"),
+  gift_description: z.string(),
+  gift_basis: z.string(),
+  gift_characteristics: z.string(),
+  gift_value: z.string(),
+  gift_transfer_deadline: z.string(),
+  property_transfer_condition: z.string(),
   lender_requisites: z.string(),
   borrower_requisites: z.string(),
 });
+export type Darenie = z.infer<typeof Inputs>;
 
-export type ZaimForm = z.infer<typeof Inputs>;
-
-const Zaim = () => {
-  const { control, handleSubmit } = useForm<ZaimForm>({
+const Darenie = () => {
+  const { control, handleSubmit } = useForm<Darenie>({
     mode: "onChange",
     resolver: zodResolver(Inputs),
     defaultValues: {
@@ -38,16 +37,18 @@ const Zaim = () => {
       date_of_conclusion: new Date(),
       lender_status: "юридическое лицо",
       borrower_status: "юридическое лицо",
-      loan_amount: "",
-      loan_return_days: "",
-      loan_provide_days: "",
+      gift_description: "",
+      gift_basis: "",
+      gift_characteristics: "",
+      gift_value: "",
+      gift_transfer_deadline: "",
+      property_transfer_condition: "",
       name1: "",
       passport1: "",
       iin1: "",
       name2: "",
       passport2: "",
       iin2: "",
-      penalty_rate: "",
       lender_requisites: "",
       borrower_requisites: "",
     },
@@ -69,59 +70,72 @@ const Zaim = () => {
           variant: "input",
           name: "place_of_conclusion",
           type: "text",
-          label: "Укажите место заключения",
+          label: "Укажите город, в котором заключается договор",
         },
         {
           variant: "input",
           name: "date_of_conclusion",
           type: "date",
-          label: "Укажите дату",
+          label: "Введите дату заключения договора",
         },
 
         {
           variant: "input",
-          name: "loan_return_days",
+          name: "gift_description",
           type: "number",
           label:
-            "В течение скольки дней Заемщик обязуется вернуть сумму займа?",
+            "Какое имущество передается в дар? (Укажите подробное описание имущества, его характеристики, номер регистрации и прочее.)",
         },
         {
           variant: "input",
-          name: "loan_provide_days",
+          name: "gift_basis",
           type: "number",
           label:
-            "В течение скольких дней Займодатель обязуется предоставить указанную сумму денег Заемщику?",
+            "На основании какого документа имущество принадлежит Дарителю? (Укажите документ, подтверждающий право собственности, например, договор купли-продажи или свидетельство о праве собственности.). ",
         },
         {
           variant: "input",
-          name: "loan_amount",
+          name: "gift_characteristics",
+          type: "text",
+          label: "Перечислите характеристики передаваемого имущества",
+        },
+        {
+          variant: "input",
+          name: "gift_value",
+          type: "text",
+          label: "Укажите стоимость дара цифрами и прописью в тенге ",
+        },
+        {
+          variant: "input",
+          name: "gift_transfer_deadline",
+          type: "text",
+          label: "В какой срок необходимо передать имущество Одаряемому?",
+        },
+        {
+          variant: "input",
+          name: "property_transfer_condition",
           type: "text",
           label:
-            "Какую сумму Заимодатель передает в собственность Заемщику? (Указать в цифрах и прописью)",
-        },
-        {
-          variant: "input",
-          name: "penalty_rate",
-          type: "number",
-          label: "Какой размер неустойки за каждый день просрочки платежа?",
+            "Как определяется момент перехода права собственности на Дар от Дарителя к Одаряемому? (например, подписание акта приема-передачи, государственная регистрация Договора или подписание настоящего Договора).",
         },
       ],
 
       [
         {
           variant: "title",
-          name: "Займодатель",
+          name: "Даритель",
         },
         {
           variant: "input",
           name: "lender_requisites",
           type: "text",
-          label: "Укажите реквизиты Займодателя",
+          label: "Укажите реквизиты Дарителя",
         },
         {
           variant: "radio",
           name: "lender_status",
           type: "radio",
+          label: "Укажите статус Дарителя",
           radioVariant: [
             {
               value: "юридическое лицо",
@@ -133,26 +147,25 @@ const Zaim = () => {
               label: "Индивидуальный предприниматель",
             },
           ],
-          label: "Укажите статус Займодателя",
         },
         ...getDetails(lenderStatus, 1),
       ],
       [
         {
           variant: "title",
-          name: "Заемщик",
+          name: "Одаряемый",
         },
         {
           variant: "input",
           name: "borrower_requisites",
           type: "text",
-          label: "Укажите реквизиты Заемщика",
+          label: "Укажите реквизиты Одаряемого",
         },
         {
           variant: "radio",
           name: "borrower_status",
           type: "radio",
-          label: "Укажите статус Заемщика",
+          label: "Укажите статус Одаряемого",
           radioVariant: [
             {
               value: "юридическое лицо",
@@ -170,16 +183,15 @@ const Zaim = () => {
     ],
     [lenderStatus, borrowerStatus]
   );
-
   return (
     <CustomFormDocs
       flags={flags}
       control={control}
       handleSubmit={handleSubmit}
       formFields={formFields}
-      docsName={"zaim.docx"}
+      docsName={"darenie.docx"}
     />
   );
 };
 
-export default Zaim;
+export default Darenie;

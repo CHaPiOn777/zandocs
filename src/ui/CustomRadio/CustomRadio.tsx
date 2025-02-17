@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   FormControl,
   FormControlLabel,
@@ -8,7 +8,7 @@ import {
   SxProps,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import Radio from "@mui/material/Radio";
 import { Controller } from "react-hook-form";
 type TRadioProps = {
@@ -74,4 +74,4 @@ const CustomRadio = ({ data, control, name, label, sx }: TRadioProps) => {
   );
 };
 
-export default CustomRadio;
+export default memo(CustomRadio);

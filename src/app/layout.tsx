@@ -41,15 +41,15 @@ export default async function RootLayout({
       </Head>
       <body>
         <MUIThemeProvider>
-          <ToastProvider>
-            <Suspense fallback={<CircularProgress color={"info"} />}>
+          <Suspense fallback={<CircularProgress color={"info"} />}>
+            <ToastProvider>
               <Header />
               <AuthAndCartLoader />
               <DocumentsClient initialDocs={documents} />
               {children}
               <Footer />
-            </Suspense>
-          </ToastProvider>
+            </ToastProvider>
+          </Suspense>
         </MUIThemeProvider>
       </body>
     </html>

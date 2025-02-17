@@ -1,12 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CustomButton from "@/ui/Button/CustomButton";
 import CustomInput from "@/ui/Inputs/CustomInput";
-import { ReactElement, useState } from "react";
+import { memo, ReactElement, Suspense, useState } from "react";
 import useIsMobile from "@/hooks/useIsMobile";
 import { downloadFileFromResponse } from "@/hooks/downloadFile";
 import { Grid, Typography } from "@mui/material";
 import CustomRadio from "@/ui/CustomRadio/CustomRadio";
+import ButtonsBuy from "@/ui/ButtonsBuy/ButtonsBuy";
+import { useDocsStore } from "@/store/docsStore";
+import Loader from "@/ui/Loader/Loader";
+
 export type TFormFields = {
   variant?: string;
   name: string;
@@ -21,6 +25,8 @@ type TPropsDocs = {
   formFields: TFormFields[][];
   flags?: Record<string, boolean>;
 };
+
+// Ваш компонент
 const CustomFormDocs = <T,>({
   docsName,
   control,
@@ -28,6 +34,10 @@ const CustomFormDocs = <T,>({
   formFields,
   flags,
 }: TPropsDocs) => {
+  const { id, price, name } = useDocsStore((state) => state.activeDoc);
+  const myDocs = useDocsStore((state) => state.myDocs);
+  const isMyDocs = myDocs.some(({ products_id }) => products_id == id);
+
   const [loading, setLoading] = useState(false);
   const isMobile = useIsMobile();
 
@@ -62,6 +72,7 @@ const CustomFormDocs = <T,>({
       setLoading(false);
     }
   };
+
   const returnDataByType = ({ type, index, item }: any) => {
     const obj: Record<string, ReactElement<any, any>> = {
       title: (
@@ -92,12 +103,12 @@ const CustomFormDocs = <T,>({
     };
     return obj[type];
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       style={{
         width: "100%",
-
         display: "flex",
         flexDirection: "column",
         gap: "24px",
@@ -105,41 +116,51 @@ const CustomFormDocs = <T,>({
       }}
     >
       <Grid container spacing={6}>
-        {formFields.map((items, indexItems) => (
-          <Grid item xs={12} key={`group-${indexItems}`}>
-            <Grid container spacing={3}>
-              {items.map((item, index) => (
-                <Grid
-                  item
-                  xs={"xs" in item ? item.xs : 12} // Если дата — 50% (6 из 12), иначе 100% (12 из 12)
-                  key={index}
-                >
-                  {returnDataByType({
-                    type: item.variant,
-                    index: `${indexItems}${index}`,
-                    item,
-                  })}
-                </Grid>
-              ))}
+        <Suspense fallback={<Loader isLoader={true} />}>
+          {formFields?.map((items, indexItems) => (
+            <Grid item xs={12} key={`group-${indexItems}`}>
+              <Grid container spacing={3}>
+                {items.map((item, index) => (
+                  <Grid
+                    item
+                    xs={"xs" in item ? item.xs : 12} // Если дата — 50% (6 из 12), иначе 100% (12 из 12)
+                    key={index}
+                  >
+                    {returnDataByType({
+                      type: item.variant,
+                      index: `${indexItems}${index}`,
+                      item,
+                    })}
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
-          </Grid>
-        ))}
+          ))}
+        </Suspense>
       </Grid>
-
-      <CustomButton
-        sx={{
-          marginTop: "24px",
-          width: "100%",
-          opacity: loading ? 0.6 : 1,
-          gap: "12px",
-        }}
-        variant="primary"
-        disabled={loading}
-      >
-        Скачать документ
-      </CustomButton>
+      {price > 0 && !isMyDocs ? (
+        <ButtonsBuy
+          id={id}
+          price={price}
+          title={name}
+          nameBtnTwice="Купить документ"
+        />
+      ) : (
+        <CustomButton
+          sx={{
+            marginTop: "24px",
+            width: "100%",
+            opacity: loading ? 0.6 : 1,
+            gap: "12px",
+          }}
+          variant="primary"
+          disabled={loading}
+        >
+          Скачать документ
+        </CustomButton>
+      )}
     </form>
   );
 };
 
-export default CustomFormDocs;
+export default memo(CustomFormDocs);

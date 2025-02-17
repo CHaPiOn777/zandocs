@@ -5,7 +5,13 @@ import CustomTable, {
   Column,
 } from "@/app/account/orders/_components/CustomTable";
 import { useAuthUser } from "@/store/authStore";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useOrders } from "@/store/ordersStore";
 import axios from "axios";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
@@ -13,9 +19,11 @@ import { Box, Stack, Typography } from "@mui/material";
 import CustomButton from "@/ui/Button/CustomButton";
 import DocsIcon from "@/image/Account/Docs.png";
 import useIsMobile from "@/hooks/useIsMobile";
+import { useRouter } from "next/navigation";
 
 type TDataTableCollapse = {
   id: number;
+  product_id: number;
   price: number;
   link: string;
   date: Date | null;
@@ -116,16 +124,46 @@ const Orders = () => {
     }
   };
   const [rowsCollapse, setRowsCollapse] = useState<
-    (string | number | null)[][]
+    (string | number | React.JSX.Element | null)[][]
   >([]);
   const [prevScrollValue, setPrevScrollValue] = useState(0);
-
+  const router = useRouter();
   const openTableData = (line_items: TDataTableCollapse[]) => {
-    const rows = line_items?.map((item) => [
+    const rows = line_items?.map((item, index) => [
       item.name,
       item.price,
       null,
-      "Скачать",
+      <Typography
+        key={index}
+        component={"span"}
+        onClick={() => router.push(`/documents/${item.product_id}`)}
+        variant="body2"
+        sx={{
+          // margin: "0 40px",
+          justifyContent: "center",
+          display: "flex",
+          color: "#2640E3",
+          cursor: "pointer",
+          position: "relative", // Обязательно для использования ::after
+          transition: "all 0.2s ease",
+          "&::after": {
+            content: '""', // Добавляем пустое содержимое
+            position: "absolute",
+            bottom: "-4px", // Линия располагается под текстом
+            left: "50%", // Центрируем линию по горизонтали
+            width: "0%", // Изначальная ширина
+            height: "1px", // Толщина линии
+            backgroundColor: "#2640E3", // Цвет линии
+            transition: "all 0.2s ease", // Плавный переход
+            transform: "translateX(-50%)", // Сдвигаем к центру
+          },
+          "&:hover::after": {
+            width: "60%", // Линия расширяется до всей ширины текста
+          },
+        }}
+      >
+        Скачать
+      </Typography>,
     ]);
 
     setRowsCollapse(rows);

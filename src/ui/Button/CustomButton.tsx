@@ -11,7 +11,7 @@ type TBtnProps = {
   children: React.ReactNode;
   variant: ButtonVariant; // Указываем 6 вариантов
   sx?: SxProps<Theme>; // Дополнительные стили
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   size?: ButtonSize;
   disabled?: boolean;
   isCircular?: boolean;

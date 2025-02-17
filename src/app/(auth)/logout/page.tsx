@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useAuthUser } from "@/store/authStore";
 import Cookies from "js-cookie";
 import Loader from "@/ui/Loader/Loader";
-import { Stack } from "@mui/material";
 import { useOrders } from "@/store/ordersStore";
 
 const Logout = () => {
@@ -24,11 +23,7 @@ const Logout = () => {
     setIsFirstRender(true);
   }, [router]);
 
-  return (
-    <Stack height="100vh" justifyContent="center">
-      <Loader isLoader={true}>{null}</Loader>
-    </Stack>
-  );
+  return <Loader isLoader={true}>{null}</Loader>;
 };
 
 export default Logout;

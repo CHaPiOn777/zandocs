@@ -1,3 +1,5 @@
+// import DocsContent from "@/app/documents/[id]/DocsContent";
+
 import DocsContent from "@/app/documents/[id]/DocsContent";
 import Loader from "@/ui/Loader/Loader";
 import { Metadata } from "next";
