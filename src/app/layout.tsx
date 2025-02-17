@@ -15,7 +15,7 @@ import Head from "next/head";
 export const metadata: Metadata = {
   title: "Zandocs",
   description:
-    "Надёжный и удобный конструктор документов для бизнеса и частных лиц",
+    "Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs",
 };
 
 export default async function RootLayout({
@@ -31,7 +31,7 @@ export default async function RootLayout({
         <title>Zandocs</title>
         <meta
           name="description"
-          content="Zandocs — Конструктор документов. Зандокс, zandocs: создавайте и редактируйте документы онлайн."
+          content="Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs"
         />
         {/* Метатег keywords уже не оказывает существенного влияния на SEO, но его можно добавить */}
         <meta
