@@ -62,12 +62,12 @@ const DocsContent = ({ id }: { id: string }) => {
   };
   const returnDocsById = useCallback((id: string): ReactElement | null => {
     const data: Record<string, ReactElement> = {
-      // "3958": <FormPodpiska />,
-      // "7642": <ActPriemki />,
-      // "7650": <Doverennost />,
-      // "7652": <Zaim />,
+      "3958": <FormPodpiska />,
+      "7642": <ActPriemki />,
+      "7650": <Doverennost />,
+      "7652": <Zaim />,
       "7658": <Darenie />,
-      // "2320": <Arenda />,
+      "2320": <Arenda />,
     };
 
     return data[id] || null;
