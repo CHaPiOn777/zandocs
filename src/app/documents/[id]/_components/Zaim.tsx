@@ -35,7 +35,7 @@ const Zaim = () => {
     resolver: zodResolver(Inputs),
     defaultValues: {
       place_of_conclusion: "",
-      date_of_conclusion: new Date(),
+      date_of_conclusion: "",
       lender_status: "юридическое лицо",
       borrower_status: "юридическое лицо",
       loan_amount: "",

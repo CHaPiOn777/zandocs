@@ -86,7 +86,7 @@ const ButtonsBuy = ({
         </div>
       );
     }
-    if (isAlreadyThere) {
+    if (isAlreadyThere && isBusket) {
       return notify("error", "Вы уже добавили этот товар в корзину");
     }
     try {
@@ -113,7 +113,8 @@ const ButtonsBuy = ({
             },
           ],
         });
-        router.push(data.data.invoice_url);
+        window.open(data.data.invoice_url, "_blank");
+
         notify("success", data.message);
       }
 

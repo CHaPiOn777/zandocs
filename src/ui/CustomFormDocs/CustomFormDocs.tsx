@@ -7,8 +7,6 @@ import useIsMobile from "@/hooks/useIsMobile";
 import { downloadFileFromResponse } from "@/hooks/downloadFile";
 import { Grid, Typography } from "@mui/material";
 import CustomRadio from "@/ui/CustomRadio/CustomRadio";
-import ButtonsBuy from "@/ui/ButtonsBuy/ButtonsBuy";
-import { useDocsStore } from "@/store/docsStore";
 import Loader from "@/ui/Loader/Loader";
 
 export type TFormFields = {
@@ -33,10 +31,6 @@ const CustomFormDocs = <T,>({
   formFields,
   flags,
 }: TPropsDocs) => {
-  const activeDoc = useDocsStore((state) => state.activeDoc);
-  const myDocs = useDocsStore((state) => state.myDocs);
-  const isMyDocs = myDocs.some(({ product_id }) => product_id == activeDoc?.id);
-
   const [loading, setLoading] = useState(false);
   const isMobile = useIsMobile();
 
@@ -139,27 +133,18 @@ const CustomFormDocs = <T,>({
           ))}
         </Suspense>
       </Grid>
-      {Number(activeDoc?.price) > 0 && !isMyDocs ? (
-        <ButtonsBuy
-          id={activeDoc?.id}
-          price={activeDoc?.price}
-          title={activeDoc?.name}
-          nameBtnTwice="Купить документ"
-        />
-      ) : (
-        <CustomButton
-          sx={{
-            marginTop: "24px",
-            width: "100%",
-            opacity: loading ? 0.6 : 1,
-            gap: "12px",
-          }}
-          variant="primary"
-          disabled={loading}
-        >
-          Скачать документ
-        </CustomButton>
-      )}
+      <CustomButton
+        sx={{
+          marginTop: "24px",
+          width: "100%",
+          opacity: loading ? 0.6 : 1,
+          gap: "12px",
+        }}
+        variant="primary"
+        disabled={loading}
+      >
+        Скачать документ
+      </CustomButton>
     </form>
   );
 };

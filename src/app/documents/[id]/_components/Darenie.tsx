@@ -8,7 +8,7 @@ import { z } from "zod";
 
 const Inputs = z.object({
   place_of_conclusion: z.string(),
-  date_of_conclusion: z.date(), // Можно использовать z.date() при необходимости
+  date_of_conclusion: z.string(), // Можно использовать z.date() при необходимости
   lender_status: z.any(),
   borrower_status: z.any(),
   name1: z.string(),
@@ -34,7 +34,7 @@ const Darenie = () => {
     resolver: zodResolver(Inputs),
     defaultValues: {
       place_of_conclusion: "",
-      date_of_conclusion: new Date(),
+      date_of_conclusion: "",
       lender_status: "юридическое лицо",
       borrower_status: "юридическое лицо",
       gift_description: "",

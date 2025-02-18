@@ -157,7 +157,7 @@ const ActPriemki = () => {
     resolver: zodResolver(Inputs),
     defaultValues: {
       place_of_conclusion: "",
-      date_of_conclusion: new Date(),
+      date_of_conclusion: "",
       transferor_name: "",
       transferor_representative: "",
       transferor_authority_doc: "",

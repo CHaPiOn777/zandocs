@@ -7,7 +7,7 @@ import { z } from "zod";
 
 const Inputs = z.object({
   place_of_issue: z.string(),
-  date_of_issue: z.date(), // Можно использовать z.date() при необходимости
+  date_of_issue: z.string(), // Можно использовать z.date() при необходимости
   grantor_name: z.string(),
   grantor_iin: z.string().regex(/^\d{12}$/, "ИИН должен содержать 12 цифр"),
   grantor_address: z.string(),
@@ -107,7 +107,7 @@ const Doverennost = () => {
     resolver: zodResolver(Inputs),
     defaultValues: {
       place_of_issue: "",
-      date_of_issue: new Date(),
+      date_of_issue: "",
       grantor_name: "",
       grantor_iin: "",
       grantor_address: "",

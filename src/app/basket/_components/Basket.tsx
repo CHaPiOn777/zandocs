@@ -130,7 +130,7 @@ const Basket = () => {
         description: "Покупка товара из корзины",
         items: products,
       });
-      router.push(data.data.invoice_url);
+      window.open(data.data.invoice_url, "_blank");
       notify("success", data.message);
 
       setIsFirstRender(true);

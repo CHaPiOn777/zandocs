@@ -52,10 +52,8 @@ const FAQItem = ({
               : "22px 40px",
           }}
         >
-          <Typography variant="h4">{number}</Typography>
-          <Typography sx={{ textTransform: "uppercase" }} variant="h4">
-            {title}
-          </Typography>
+          <Typography variant="body1">{number}</Typography>
+          <Typography variant="body1">{title}</Typography>
         </Stack>
         {expanded === number && (
           <SC.IconWrapper
@@ -80,13 +78,13 @@ const FAQItem = ({
         <Typography
           width="90%"
           sx={{ paddingBottom: isTablet ? "10px" : "20px" }}
-          variant="body1"
+          variant="body2"
         >
           {desc}{" "}
           {span && (
             <Typography
               sx={{ color: "#0149E2" }}
-              variant="body1"
+              variant="body2"
               component="span"
             >
               {span}

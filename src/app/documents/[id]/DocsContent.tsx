@@ -30,6 +30,7 @@ import Doverennost from "@/app/documents/[id]/_components/Doverennost";
 import Zaim from "@/app/documents/[id]/_components/Zaim";
 import Darenie from "@/app/documents/[id]/_components/Darenie";
 import Arenda from "@/app/documents/[id]/_components/Arenda";
+import ButtonsBuy from "@/ui/ButtonsBuy/ButtonsBuy";
 const DocsContent = ({ id }: { id: string }) => {
   const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
   const isMobile = useIsMobile();
@@ -49,6 +50,10 @@ const DocsContent = ({ id }: { id: string }) => {
     () => (documentById.length ? parse(documentById[0]?.description) : null),
     [documentById[0]?.description]
   );
+  const activeDoc = useDocsStore((state) => state.activeDoc);
+  const myDocs = useDocsStore((state) => state.myDocs);
+  const isMyDocs = myDocs.some(({ product_id }) => product_id == activeDoc?.id);
+
   const [isOpenAuthModal, setisOpenAuthModal] = useState(false);
   const toggleVisibleDocs = () => {
     setIsActiveForm(!isActiveForm);
@@ -206,15 +211,24 @@ const DocsContent = ({ id }: { id: string }) => {
                 <Tenge color={"#2640E3"} size={isMobile ? 14 : 16} />
               )}
             </Stack>
-            <CustomButton
-              sx={{
-                marginTop: "auto !important",
-              }}
-              variant="primary"
-              onClick={() => authOrVisibleDocs()}
-            >
-              {isActiveForm ? "Скрыть документ" : "Заполнить документ"}
-            </CustomButton>
+            {Number(activeDoc?.price) > 0 && !isMyDocs ? (
+              <ButtonsBuy
+                id={activeDoc?.id}
+                price={activeDoc?.price}
+                title={activeDoc?.name}
+                nameBtnTwice="Купить документ"
+              />
+            ) : (
+              <CustomButton
+                sx={{
+                  marginTop: "auto !important",
+                }}
+                variant="primary"
+                onClick={() => authOrVisibleDocs()}
+              >
+                {isActiveForm ? "Скрыть документ" : "Заполнить документ"}
+              </CustomButton>
+            )}
           </Stack>
           {isMobile ? (
             <Box
@@ -264,7 +278,6 @@ const DocsContent = ({ id }: { id: string }) => {
       <LoginModal
         isOpenModal={isOpenAuthModal}
         setIsOpenModal={setisOpenAuthModal}
-        toggleVisibleDocs={toggleVisibleDocs}
       />
     </MainCntainer>
   );

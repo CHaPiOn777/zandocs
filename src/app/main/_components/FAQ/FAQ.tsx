@@ -55,10 +55,7 @@ const FAQ = () => {
   return (
     <>
       <TitleComponents>
-        <Typography
-          sx={{ textTransform: "uppercase", textAlign: "center" }}
-          variant={"h2"}
-        >
+        <Typography sx={{ textAlign: "center" }} variant={"h2"}>
           Часто{" "}
           <span
             style={{

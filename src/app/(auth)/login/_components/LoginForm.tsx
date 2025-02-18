@@ -26,7 +26,6 @@ const LoginForm = ({
   marginTop = "140px",
   isModal = false,
   setIsOpenAuthModal,
-  toggleVisibleDocs,
 }: {
   marginTop?: string;
   isModal?: boolean;
@@ -60,10 +59,6 @@ const LoginForm = ({
       isModal && !!setIsOpenAuthModal
         ? setIsOpenAuthModal(false)
         : router.push("/account/profile");
-
-      if (toggleVisibleDocs) {
-        toggleVisibleDocs();
-      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         notify("error", "Вы ввели неверный логин или пароль");

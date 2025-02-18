@@ -18,7 +18,6 @@ export type TToggleVisibleDocs = {
 const LoginModal = ({
   isOpenModal,
   setIsOpenModal,
-  toggleVisibleDocs,
 }: TOpenProps & TToggleVisibleDocs) => {
   const isDesktopXS = useIsDesktopXS();
 
@@ -49,7 +48,6 @@ const LoginModal = ({
         </Typography>
         <LoginForm
           isModal
-          toggleVisibleDocs={toggleVisibleDocs}
           setIsOpenAuthModal={setIsOpenModal}
           marginTop={"20px"}
         />
