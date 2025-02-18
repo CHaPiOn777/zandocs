@@ -1,15 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React, { useState } from "react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import TransitionsModal, { TOpenProps } from "@/ui/Modal/Modal";
 import { Stack, Typography } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { resetPassword, resetPassword2 } from "@/api/authApi";
-import { notify } from "@/ui/ToastProvider/ToastProvider";
-import CustomInput from "@/ui/Inputs/CustomInput";
-import CustomButton from "@/ui/Button/CustomButton";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import LoginForm from "@/app/(auth)/login/_components/LoginForm";
 export type TToggleVisibleDocs = {

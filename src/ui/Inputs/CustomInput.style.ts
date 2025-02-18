@@ -25,4 +25,11 @@ export const FieldText = styled(TextField)`
   & fieldset {
     border: none;
   }
+  .MuiInputAdornment-root {
+    position: absolute;
+    right: 25px;
+  }
+  .MuiOutlinedInput-root {
+    padding: 0;
+  }
 `;

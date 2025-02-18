@@ -3,13 +3,7 @@
 import { useDocsStore } from "@/store/docsStore";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import Image from "next/image";
-import React, {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
 import Container from "@/app/_components/Container/Container";
 import useIsMobile from "@/hooks/useIsMobile";
 import { Box, Stack, Typography } from "@mui/material";
@@ -22,8 +16,6 @@ import Tenge from "@/image/Account/icons/Tenge";
 import parse from "html-react-parser";
 import { motion } from "framer-motion";
 
-import { useAuthUser } from "@/store/authStore";
-import LoginModal from "@/app/(auth)/login/_components/LoginModal";
 import FormPodpiska from "@/app/documents/[id]/_components/FormPodpiska";
 import ActPriemki from "@/app/documents/[id]/_components/ActPriemki";
 import Doverennost from "@/app/documents/[id]/_components/Doverennost";
@@ -37,7 +29,6 @@ const DocsContent = ({ id }: { id: string }) => {
   const isDesctopXS = useIsDesktopXS();
   const router = useRouter();
   const documents = useDocsStore((state) => state.docs);
-  const isAuth = useAuthUser((state) => state.isAuth);
   const [isActiveForm, setIsActiveForm] = useState(false);
   const documentById = useMemo(
     () => documents.filter((docs) => docs.id == id),
@@ -54,17 +45,10 @@ const DocsContent = ({ id }: { id: string }) => {
   const myDocs = useDocsStore((state) => state.myDocs);
   const isMyDocs = myDocs.some(({ product_id }) => product_id == activeDoc?.id);
 
-  const [isOpenAuthModal, setisOpenAuthModal] = useState(false);
   const toggleVisibleDocs = () => {
     setIsActiveForm(!isActiveForm);
   };
-  const authOrVisibleDocs = () => {
-    if (isAuth) {
-      toggleVisibleDocs();
-    } else {
-      setisOpenAuthModal(true);
-    }
-  };
+
   const returnDocsById = useCallback((id: string): ReactElement | null => {
     const data: Record<string, ReactElement> = {
       "3958": <FormPodpiska />,
@@ -224,7 +208,7 @@ const DocsContent = ({ id }: { id: string }) => {
                   marginTop: "auto !important",
                 }}
                 variant="primary"
-                onClick={() => authOrVisibleDocs()}
+                onClick={() => toggleVisibleDocs()}
               >
                 {isActiveForm ? "Скрыть документ" : "Заполнить документ"}
               </CustomButton>
@@ -275,10 +259,6 @@ const DocsContent = ({ id }: { id: string }) => {
           {isActiveForm && returnDocsById(id)}
         </motion.div>
       </Container>
-      <LoginModal
-        isOpenModal={isOpenAuthModal}
-        setIsOpenModal={setisOpenAuthModal}
-      />
     </MainCntainer>
   );
 };

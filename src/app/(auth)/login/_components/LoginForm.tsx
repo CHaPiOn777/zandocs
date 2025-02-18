@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
+"use client";
 import { login } from "@/api/authApi";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import { Stack, Typography } from "@mui/material";

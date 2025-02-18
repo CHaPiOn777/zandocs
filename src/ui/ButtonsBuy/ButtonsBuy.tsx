@@ -1,14 +1,15 @@
-import { Stack, Typography } from "@mui/material";
+"use client";
+import { Stack } from "@mui/material";
 import { useState } from "react";
 import { addToCardByBasket, createInvoice, getMyBasket } from "@/api/authApi";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useOrders } from "@/store/ordersStore";
 import { useBasket } from "@/store/basketStore";
 import { useAuthUser } from "@/store/authStore";
 import CustomButton from "@/ui/Button/CustomButton";
 import useIsMobile from "@/hooks/useIsMobile";
+import LoginModal from "@/app/(auth)/login/_components/LoginModal";
 type TPropsBuy = {
   disabled?: boolean;
   id: number;
@@ -25,6 +26,7 @@ const ButtonsBuy = ({
 }: TPropsBuy) => {
   const isAuth = useAuthUser((state) => state.isAuth);
   const isMobile = useIsMobile();
+  const [isOpenAuthModal, setisOpenAuthModal] = useState(false);
 
   const setCart = useBasket((state) => state.setCart);
   const cart = useBasket((state) => state.cart);
@@ -37,7 +39,6 @@ const ButtonsBuy = ({
   const ordersPrice = useOrders((state) => state.ordersPrice);
   const [isLoadingBasket, setisLoadingBasket] = useState<boolean>(false);
   const [isLoadingByeCard, setIsLoadingByeCard] = useState<boolean>(false);
-  const router = useRouter();
 
   const addBusket = async ({
     id,
@@ -51,40 +52,7 @@ const ButtonsBuy = ({
     isBusket?: boolean;
   }) => {
     if (!isAuth) {
-      return notify(
-        "error",
-        <div>
-          <Typography variant="body2">
-            Сначала авторизуйтесь.{" "}
-            <Typography
-              variant="body2"
-              component="span"
-              onClick={() => router.push("login")}
-              sx={{
-                color: "#2640E3",
-                position: "relative",
-                cursor: "pointer",
-                "&::after": {
-                  content: '""', // Добавляем пустое содержимое
-                  position: "absolute",
-                  bottom: "-4px", // Линия располагается под текстом
-                  left: "50%", // Центрируем линию по горизонтали
-                  width: "0%", // Изначальная ширина
-                  height: "1px", // Толщина линии
-                  backgroundColor: "#2640E3", // Цвет линии
-                  transition: "all 0.2s ease", // Плавный переход
-                  transform: "translateX(-50%)", // Сдвигаем к центру
-                },
-                "&:hover::after": {
-                  width: "40px", // Линия расширяется до всей ширины текста
-                },
-              }}
-            >
-              Вход
-            </Typography>
-          </Typography>
-        </div>
-      );
+      return setisOpenAuthModal(true);
     }
     if (isAlreadyThere && isBusket) {
       return notify("error", "Вы уже добавили этот товар в корзину");
@@ -169,6 +137,10 @@ const ButtonsBuy = ({
       >
         {disabled ? "Скоро" : nameBtnTwice}
       </CustomButton>
+      <LoginModal
+        isOpenModal={isOpenAuthModal}
+        setIsOpenModal={setisOpenAuthModal}
+      />
     </Stack>
   );
 };
