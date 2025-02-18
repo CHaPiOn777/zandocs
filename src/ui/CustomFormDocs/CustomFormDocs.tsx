@@ -33,9 +33,9 @@ const CustomFormDocs = <T,>({
   formFields,
   flags,
 }: TPropsDocs) => {
-  const { id, price, name } = useDocsStore((state) => state.activeDoc);
+  const activeDoc = useDocsStore((state) => state.activeDoc);
   const myDocs = useDocsStore((state) => state.myDocs);
-  const isMyDocs = myDocs.some(({ product_id }) => product_id == id);
+  const isMyDocs = myDocs.some(({ product_id }) => product_id == activeDoc?.id);
 
   const [loading, setLoading] = useState(false);
   const isMobile = useIsMobile();
@@ -85,6 +85,7 @@ const CustomFormDocs = <T,>({
       ),
       input: (
         <CustomInput
+          key={index}
           name={item.name}
           type={item.type}
           control={control as any}
@@ -93,6 +94,7 @@ const CustomFormDocs = <T,>({
       ),
       radio: (
         <CustomRadio
+          key={index}
           name={item.name}
           data={item.radioVariant}
           control={control as any}
@@ -137,11 +139,11 @@ const CustomFormDocs = <T,>({
           ))}
         </Suspense>
       </Grid>
-      {Number(price) > 0 && !isMyDocs ? (
+      {Number(activeDoc?.price) > 0 && !isMyDocs ? (
         <ButtonsBuy
-          id={id}
-          price={price}
-          title={name}
+          id={activeDoc?.id}
+          price={activeDoc?.price}
+          title={activeDoc?.name}
           nameBtnTwice="Купить документ"
         />
       ) : (

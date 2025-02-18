@@ -24,21 +24,12 @@ import { motion } from "framer-motion";
 
 import { useAuthUser } from "@/store/authStore";
 import LoginModal from "@/app/(auth)/login/_components/LoginModal";
-import dynamic from "next/dynamic";
-const FormPodpiska = dynamic(
-  () => import("@/app/documents/[id]/_components/FormPodpiska")
-);
-const ActPriemki = dynamic(
-  () => import("@/app/documents/[id]/_components/ActPriemki")
-);
-const Doverennost = dynamic(
-  () => import("@/app/documents/[id]/_components/Doverennost")
-);
-const Zaim = dynamic(() => import("@/app/documents/[id]/_components/Zaim"));
-const Darenie = dynamic(
-  () => import("@/app/documents/[id]/_components/Darenie")
-);
-const Arenda = dynamic(() => import("@/app/documents/[id]/_components/Arenda"));
+import FormPodpiska from "@/app/documents/[id]/_components/FormPodpiska";
+import ActPriemki from "@/app/documents/[id]/_components/ActPriemki";
+import Doverennost from "@/app/documents/[id]/_components/Doverennost";
+import Zaim from "@/app/documents/[id]/_components/Zaim";
+import Darenie from "@/app/documents/[id]/_components/Darenie";
+import Arenda from "@/app/documents/[id]/_components/Arenda";
 const DocsContent = ({ id }: { id: string }) => {
   const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
   const isMobile = useIsMobile();
@@ -71,12 +62,12 @@ const DocsContent = ({ id }: { id: string }) => {
   };
   const returnDocsById = useCallback((id: string): ReactElement | null => {
     const data: Record<string, ReactElement> = {
-      "3958": <FormPodpiska />,
-      "7642": <ActPriemki />,
-      "7650": <Doverennost />,
-      "7652": <Zaim />,
+      // "3958": <FormPodpiska />,
+      // "7642": <ActPriemki />,
+      // "7650": <Doverennost />,
+      // "7652": <Zaim />,
       "7658": <Darenie />,
-      "2320": <Arenda />,
+      // "2320": <Arenda />,
     };
 
     return data[id] || null;
@@ -267,7 +258,7 @@ const DocsContent = ({ id }: { id: string }) => {
             // padding: isActiveForm ? "10px" : "0px",
           }} // overflow нужен, чтобы контент не вылезал
         >
-          {returnDocsById(id)}
+          {isActiveForm && returnDocsById(id)}
         </motion.div>
       </Container>
       <LoginModal

@@ -32,5 +32,7 @@ module.exports = {
     { loc: "/documents/7642", changefreq: "weekly", priority: 0.9 }, // Акт приема
     { loc: "/documents/7650", changefreq: "weekly", priority: 0.9 }, // Доверенность
     { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
+    { loc: "/documents/2320", changefreq: "weekly", priority: 0.9 }, // Договор займа
+    // { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
   ],
 };
