@@ -24,7 +24,7 @@ const page = () => {
         ease: "easeOut",
       }}
     >
-      <Orders />{" "}
+      <Orders />
     </motion.div>
   );
 };

@@ -26,7 +26,6 @@ type TPropsDocs = {
   flags?: Record<string, boolean>;
 };
 
-// Ваш компонент
 const CustomFormDocs = <T,>({
   docsName,
   control,
@@ -36,7 +35,7 @@ const CustomFormDocs = <T,>({
 }: TPropsDocs) => {
   const { id, price, name } = useDocsStore((state) => state.activeDoc);
   const myDocs = useDocsStore((state) => state.myDocs);
-  const isMyDocs = myDocs.some(({ products_id }) => products_id == id);
+  const isMyDocs = myDocs.some(({ product_id }) => product_id == id);
 
   const [loading, setLoading] = useState(false);
   const isMobile = useIsMobile();
@@ -138,7 +137,7 @@ const CustomFormDocs = <T,>({
           ))}
         </Suspense>
       </Grid>
-      {price > 0 && !isMyDocs ? (
+      {Number(price) > 0 && !isMyDocs ? (
         <ButtonsBuy
           id={id}
           price={price}

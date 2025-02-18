@@ -8,6 +8,8 @@ import Order from "@/image/Account/icons/Order";
 import Profile from "@/image/Account/icons/Profile";
 import Setting from "@/image/Account/icons/Setting";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
+import { useAuthUser } from "@/store/authStore";
+import Docs from "@/image/Account/icons/Docs";
 const MenuContent = ({
   setDrawerOpen,
 }: {
@@ -47,6 +49,11 @@ const MenuContent = ({
       icon: <Setting color={addColorByIndex(1)} />,
     },
     {
+      page: "/account/docs",
+      title: "Мои документы",
+      icon: <Docs color={addColorByIndex(2)} />,
+    },
+    {
       page: "/account/orders",
       title: "Мои заказы",
       icon: <Order color={addColorByIndex(3)} />,
@@ -57,6 +64,8 @@ const MenuContent = ({
       icon: <Exit color={addColorByIndex(5)} />,
     },
   ];
+  const user = useAuthUser((state) => state.user);
+
   return (
     <>
       <Typography
@@ -68,7 +77,7 @@ const MenuContent = ({
         }}
         variant="h5"
       >
-        Личный кабинет
+        {user?.name}
       </Typography>
       <List sx={{ display: "flex", flexDirection: "column", padding: "0" }}>
         {objData.map(({ title, icon, page }, index) => (

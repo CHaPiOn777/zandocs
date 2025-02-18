@@ -54,7 +54,11 @@ const MenuAccount = ({
         >
           <MenuPopover />
         </motion.div>
-        {children && <Loader isLoader={!user}>{children}</Loader>}
+        {children && (
+          <Loader sx={{ minHeight: "50vh" }} isLoader={!user}>
+            {children}
+          </Loader>
+        )}
       </Container>
     </MainCntainer>
   );

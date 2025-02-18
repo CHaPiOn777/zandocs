@@ -6,19 +6,21 @@ export const getDetails = (type: string, number: number) => {
           variant: "input",
           name: `name${number}`,
           type: "text",
-          label: "Введите наименование организации",
+          label:
+            "Введите наименование организации, БИК и зарегистрированный адрес юр.лица",
         },
         {
           variant: "input",
           name: `passport${number}`,
           type: "text",
-          label: "ФИО руководителя",
+          label:
+            "Укажите данные руководителя: ФИО, ИИН, год рождения, зарегистрированный адрес",
         },
         {
           variant: "input",
           name: `iin${number}`,
           type: "text",
-          label: "Документ, подтверждающий полномочия.",
+          label: "ИИН руководителя юридического лица",
         },
       ];
     case "физическое лицо":

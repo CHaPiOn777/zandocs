@@ -1,14 +1,14 @@
 import { CircularProgress } from "@mui/material";
 import React from "react";
 
-const Loading = () => {
+const Loading = ({ height = "100vh" }: { height?: string }) => {
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: height,
         width: "100%",
       }}
     >

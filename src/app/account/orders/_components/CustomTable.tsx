@@ -35,6 +35,7 @@ interface CustomTableProps<T> {
   iconTitle: StaticImageData;
   button?: JSX.Element;
 }
+
 function CustomTable<T>({
   title,
   columns,
@@ -49,12 +50,12 @@ function CustomTable<T>({
 }: CustomTableProps<T>): JSX.Element {
   const isMobile = useIsMobile();
   const lastIndex = columns.length - 1;
+
   return (
     <SC.SPaper
       sx={{
         maxWidth: "832px",
         padding: isMobile ? "30px 20px" : "40px 30px",
-        // background: isMobile ? "#F3F9FE" : "",
         ...sx,
       }}
     >
@@ -75,16 +76,17 @@ function CustomTable<T>({
           {button && button}
         </Stack>
       )}
-      <Loader sx={{ height: " 80%" }} isLoader={isLoadingTable}>
-        {isMobile ? (
-          // Мобильное отображение карточками
+      <Loader sx={{ minHeight: "60vh" }} isLoader={isLoadingTable}>
+        {!rows.length ? (
+          <Typography variant="h4">
+            Вы пока не совершили ни одного заказа!
+          </Typography>
+        ) : isMobile ? (
           <Stack spacing={4}>
             {rows.map((row, rowIndex) => (
               <Stack
-                // spacing={2}
                 key={rowIndex}
                 sx={{
-                  // padding: "10px 0",
                   backgroundColor: "#F3F9FE",
                   borderRadius: "8px",
                   border: "1px solid #8DBAFF80",
@@ -103,7 +105,6 @@ function CustomTable<T>({
                       borderBottom: colIndex === 0 ? "1px solid #8DBAFF80" : "",
                       borderTop:
                         colIndex === lastIndex ? "1px solid #8DBAFF80" : "",
-                      // marginBottom: "8px",
                       color:
                         colIndex === 0 || colIndex === lastIndex
                           ? "#2640E3"
@@ -111,7 +112,6 @@ function CustomTable<T>({
                     }}
                   >
                     <Typography variant="body2">{column.label}</Typography>
-
                     <Typography variant="body2">
                       {column.render
                         ? column.render(row[column.key], row)
@@ -123,59 +123,61 @@ function CustomTable<T>({
             ))}
           </Stack>
         ) : (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {columns.map((column, index) => (
-                    <SC.TableCellHead
-                      $isborder={!!isBorder}
-                      key={index}
-                      align={column.align || "left"}
-                    >
-                      <Typography variant="body1">{column.label}</Typography>
-                    </SC.TableCellHead>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row, rowIndex) => (
-                  <TableRow key={rowIndex}>
-                    {columns.map((column, colIndex) => (
-                      <SC.STableSell
+          <>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column, index) => (
+                      <SC.TableCellHead
                         $isborder={!!isBorder}
-                        key={colIndex}
+                        key={index}
                         align={column.align || "left"}
                       >
-                        <Typography variant="body2">
-                          {column.render
-                            ? column.render(row[column.key], row)
-                            : (row[column.key] as React.ReactNode)}
-                        </Typography>
-                      </SC.STableSell>
+                        <Typography variant="body1">{column.label}</Typography>
+                      </SC.TableCellHead>
                     ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-        {rows.length % 10 === 0 && !!loadNextPage && (
-          <CustomButton
-            sx={{
-              marginTop: "24px",
-              padding: "16px 64px",
-              opacity: isLoading ? 0.6 : 1,
-              gap: "12px",
-            }}
-            fullWidth={isMobile}
-            onClick={loadNextPage}
-            size="20"
-            variant="secondary"
-            disabled={isLoading}
-          >
-            Загрузить еще
-          </CustomButton>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row, rowIndex) => (
+                    <TableRow key={rowIndex}>
+                      {columns.map((column, colIndex) => (
+                        <SC.STableSell
+                          $isborder={!!isBorder}
+                          key={colIndex}
+                          align={column.align || "left"}
+                        >
+                          <Typography variant="body2">
+                            {column.render
+                              ? column.render(row[column.key], row)
+                              : (row[column.key] as React.ReactNode)}
+                          </Typography>
+                        </SC.STableSell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {rows.length % 10 === 0 && !!loadNextPage && (
+              <CustomButton
+                sx={{
+                  marginTop: "24px",
+                  padding: "16px 64px",
+                  opacity: isLoading ? 0.6 : 1,
+                  gap: "12px",
+                }}
+                fullWidth={isMobile}
+                onClick={loadNextPage}
+                size="20"
+                variant="secondary"
+                disabled={isLoading}
+              >
+                Загрузить еще
+              </CustomButton>
+            )}
+          </>
         )}
       </Loader>
     </SC.SPaper>

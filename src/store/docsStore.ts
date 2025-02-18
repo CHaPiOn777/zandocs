@@ -2,14 +2,14 @@
 import { create } from "zustand";
 // store/useStore.ts
 interface IMyDocs {
-  products_id: number;
-  products_name: string;
+  product_id: number;
+  product_name: string;
 }
 interface DocsStore {
   docs: any[];
   activeDoc: any;
   setDocs: (docs: any[]) => void;
-  seActiveDoc: (activeDoc: any) => void;
+  setActiveDoc: (activeDoc: any) => void;
   myDocs: IMyDocs[];
   setMyDocs: (docs: IMyDocs[]) => void;
 }
@@ -19,6 +19,6 @@ export const useDocsStore = create<DocsStore>((set) => ({
   myDocs: [],
   activeDoc: {},
   setDocs: (docs) => set({ docs }),
-  seActiveDoc: (activeDoc) => set({ activeDoc }),
+  setActiveDoc: (activeDoc) => set({ activeDoc }),
   setMyDocs: (myDocs) => set({ myDocs }),
 }));

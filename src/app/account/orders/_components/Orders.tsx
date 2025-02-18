@@ -20,6 +20,7 @@ import CustomButton from "@/ui/Button/CustomButton";
 import DocsIcon from "@/image/Account/Docs.png";
 import useIsMobile from "@/hooks/useIsMobile";
 import { useRouter } from "next/navigation";
+import ColumnsDocuments from "@/ui/ColumnsDocuments/ColumnsDocuments";
 
 type TDataTableCollapse = {
   id: number;
@@ -60,24 +61,7 @@ const Orders = () => {
       key: "4",
     },
   ];
-  const columnsCollapse = [
-    {
-      label: "Товар",
-      key: "0",
-    },
-    {
-      label: "Цена",
-      key: "1",
-    },
-    {
-      label: "Истекает",
-      key: "2",
-    },
-    {
-      label: isMobile ? "" : "Загрузка",
-      key: "3",
-    },
-  ];
+
   useEffect(() => {
     if (!user) return;
     const getMyOrders = async () => {
@@ -238,7 +222,7 @@ const Orders = () => {
       >
         <CustomTable
           iconTitle={DocsIcon}
-          isLoadingTable={!orders.length}
+          isLoadingTable={isLoading ? !orders.length : false}
           loadNextPage={loadNextPage}
           rows={rows}
           isLoading={isLoading}
@@ -275,7 +259,7 @@ const Orders = () => {
             }
             iconTitle={DocsIcon}
             rows={rowsCollapse}
-            columns={columnsCollapse as Column<any>[]}
+            columns={ColumnsDocuments() as Column<any>[]}
             title={"Товары в заказе"}
           />
         </Box>

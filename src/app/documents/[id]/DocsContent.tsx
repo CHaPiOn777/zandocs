@@ -3,7 +3,13 @@
 import { useDocsStore } from "@/store/docsStore";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import Image from "next/image";
-import React, { ReactElement, useCallback, useMemo, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import Container from "@/app/_components/Container/Container";
 import useIsMobile from "@/hooks/useIsMobile";
 import { Box, Stack, Typography } from "@mui/material";
@@ -32,7 +38,9 @@ const Zaim = dynamic(() => import("@/app/documents/[id]/_components/Zaim"));
 const Darenie = dynamic(
   () => import("@/app/documents/[id]/_components/Darenie")
 );
+const Arenda = dynamic(() => import("@/app/documents/[id]/_components/Arenda"));
 const DocsContent = ({ id }: { id: string }) => {
+  const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
   const isMobile = useIsMobile();
   const isDesctopXS = useIsDesktopXS();
   const router = useRouter();
@@ -43,7 +51,9 @@ const DocsContent = ({ id }: { id: string }) => {
     () => documents.filter((docs) => docs.id == id),
     [documents, id]
   );
-  console.log(documentById);
+  useEffect(() => {
+    setActiveDoc(documentById[0]);
+  }, [documentById]);
   const parseText = useMemo(
     () => (documentById.length ? parse(documentById[0]?.description) : null),
     [documentById[0]?.description]
@@ -66,6 +76,7 @@ const DocsContent = ({ id }: { id: string }) => {
       "7650": <Doverennost />,
       "7652": <Zaim />,
       "7658": <Darenie />,
+      "2320": <Arenda />,
     };
 
     return data[id] || null;
