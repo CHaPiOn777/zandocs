@@ -24,7 +24,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const documents = await getProducts();
-
   return (
     <html lang="ru">
       <Head>

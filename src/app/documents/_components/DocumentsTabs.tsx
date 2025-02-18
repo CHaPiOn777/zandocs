@@ -60,7 +60,6 @@ const DocumentsTabs = () => {
   const usersDocs = returnDataByType("документы для частных лиц");
   const freeDocs = returnDataByType("бесплатные документы");
   const allDocs = returnDataByType("документы");
-
   useEffect(() => {}, []);
   const visibleContent = (index: number | string): TDocument[] => {
     const returnData: Record<string, any> = {

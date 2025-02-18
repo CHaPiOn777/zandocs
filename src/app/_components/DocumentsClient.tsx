@@ -10,7 +10,6 @@ interface Props {
 
 export default function DocumentsClient({ initialDocs }: Props) {
   const setDocs = useDocsStore((state) => state.setDocs); // Zustand: функция для установки документов
-
   // Сохраняем данные из серверного компонента в стор при первой загрузке
   useEffect(() => {
     setDocs(initialDocs);

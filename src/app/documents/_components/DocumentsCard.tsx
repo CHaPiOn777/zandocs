@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 export type TDocument = {
   name: string;
   price: number;
+  regular_price: number;
   id: number;
 };
 const DocumentsCard = ({ document }: { document: TDocument }) => {
@@ -39,7 +40,7 @@ const DocumentsCard = ({ document }: { document: TDocument }) => {
         <Typography variant="body1">{document.name}</Typography>
         <Stack flexDirection="row" alignItems="stretch" gap="4px" width="100%">
           <Typography sx={{ color: "#2640E3" }} variant="body1">
-            {document.price}
+            {document.regular_price}
           </Typography>
           <Tenge size={16} color="#2640E3" />
         </Stack>
