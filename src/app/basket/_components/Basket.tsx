@@ -16,7 +16,6 @@ import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import { notify } from "@/ui/ToastProvider/ToastProvider";
 import { Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import Cart from "@/image/Basket/Cart.png";
 import useIsMobile from "@/hooks/useIsMobile";
@@ -45,7 +44,6 @@ const Basket = () => {
   }));
   const [isLoadingByeCard, setIsLoadingByeCard] = useState<boolean>(false);
   const [isLoadingDel, setIsLoadingDel] = useState<boolean>(false);
-  const router = useRouter();
   const setIsFirstRender = useOrders((state) => state.setIsFirstRender);
   const setCart = useBasket((state) => state.setCart);
 
