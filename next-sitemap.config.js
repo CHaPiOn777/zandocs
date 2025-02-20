@@ -2,27 +2,13 @@
 module.exports = {
   siteUrl: "https://zandocs.kz",
   generateRobotsTxt: true, // Генерируем robots.txt автоматически
-  exclude: [
-    "/account/*",
-    "/company/*",
-    "/register",
-    "/login",
-    "/logout",
-    "/basket",
-  ], // Исключаем личные страницы из sitemap
+  exclude: ["/account/*", "/register", "/login", "/logout", "/basket"], // Исключаем личные страницы из sitemap
   robotsTxtOptions: {
     policies: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/account/",
-          "/company/",
-          "/register",
-          "/login",
-          "/logout",
-          "/basket",
-        ],
+        disallow: ["/account/", "/register", "/login", "/logout", "/basket"],
       },
     ],
     sitemap: "https://zandocs.kz/sitemap.xml",
@@ -33,6 +19,8 @@ module.exports = {
     { loc: "/documents/7650", changefreq: "weekly", priority: 0.9 }, // Доверенность
     { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
     { loc: "/documents/2320", changefreq: "weekly", priority: 0.9 }, // Договор займа
+    { loc: "/documents/2360", changefreq: "weekly", priority: 0.9 }, // Договор возмездного оказания услуг
+    { loc: "/documents/2340", changefreq: "weekly", priority: 0.9 }, // Договор купли-продажи в рассрочку
     // { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
   ],
 };

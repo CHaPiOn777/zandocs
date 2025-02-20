@@ -40,7 +40,13 @@ export const getProducts = async (page = 1) => {
   const result = await api.get(getProductsURL, {
     params: {
       page, // Номер страницы
-      per_page: 100, // Количество заказов на странице (можно изменить)
+      per_page: 100, // Количество заказов на странице
+      nocache: Date.now(), // Уникальный параметр для обхода кеширования
+    },
+    headers: {
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
     },
   });
   return result.data;
