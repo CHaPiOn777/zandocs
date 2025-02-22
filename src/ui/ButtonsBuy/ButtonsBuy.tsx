@@ -10,6 +10,7 @@ import { useAuthUser } from "@/store/authStore";
 import CustomButton from "@/ui/Button/CustomButton";
 import useIsMobile from "@/hooks/useIsMobile";
 import LoginModal from "@/app/(auth)/login/_components/LoginModal";
+import { useRouter } from "next/navigation";
 type TPropsBuy = {
   disabled?: boolean;
   id: number;
@@ -39,6 +40,7 @@ const ButtonsBuy = ({
   const ordersPrice = useOrders((state) => state.ordersPrice);
   const [isLoadingBasket, setisLoadingBasket] = useState<boolean>(false);
   const [isLoadingByeCard, setIsLoadingByeCard] = useState<boolean>(false);
+  const router = useRouter();
 
   const addBusket = async ({
     id,
@@ -57,6 +59,7 @@ const ButtonsBuy = ({
     if (isAlreadyThere && isBusket) {
       return notify("error", "Вы уже добавили этот товар в корзину");
     }
+
     try {
       if (isBusket) {
         setisLoadingBasket(true);
@@ -81,7 +84,7 @@ const ButtonsBuy = ({
             },
           ],
         });
-        window.open(data.data.invoice_url, "_blank");
+        router.push(data.data.invoice_url);
 
         notify("success", data.message);
       }

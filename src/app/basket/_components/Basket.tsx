@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { createInvoice, getMyBasket, removeCartMyBasket } from "@/api/authApi";
+import {
+  createInvoice,
+  getMyBasket,
+  removeAllCartMyBasket,
+  removeCartMyBasket,
+} from "@/api/authApi";
 import Container from "@/app/_components/Container/Container";
 import CustomTable, {
   Column,
@@ -20,6 +25,7 @@ import { useMemo, useState } from "react";
 import Cart from "@/image/Basket/Cart.png";
 import useIsMobile from "@/hooks/useIsMobile";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export type TActiveDocs = {
   name: string;
@@ -43,6 +49,9 @@ const Basket = () => {
     key: index.toString(),
   }));
   const [isLoadingByeCard, setIsLoadingByeCard] = useState<boolean>(false);
+  const router = useRouter();
+  const [isLoadingClearBusket, setIsLoadingClearBusket] =
+    useState<boolean>(false);
   const [isLoadingDel, setIsLoadingDel] = useState<boolean>(false);
   const setIsFirstRender = useOrders((state) => state.setIsFirstRender);
   const setCart = useBasket((state) => state.setCart);
@@ -56,8 +65,8 @@ const Basket = () => {
   const sumPrice = useMemo(() => Number(basket?.totals?.total_price), [basket]);
 
   const removeItem = async (id: string) => {
-    setIsLoadingDel(true);
     try {
+      setIsLoadingDel(true);
       await removeCartMyBasket(id);
       const { data: cart } = await getMyBasket();
       setCart(cart);
@@ -128,7 +137,7 @@ const Basket = () => {
         description: "Покупка товара из корзины",
         items: products,
       });
-      window.open(data.data.invoice_url, "_blank");
+      router.push(data.data.invoice_url);
       notify("success", data.message);
 
       setIsFirstRender(true);
@@ -140,6 +149,23 @@ const Basket = () => {
       setIsLoadingByeCard(false);
     }
   };
+
+  const clearBusket = async () => {
+    try {
+      setIsLoadingClearBusket(true);
+      await removeAllCartMyBasket();
+      const { data: cart } = await getMyBasket();
+
+      setCart(cart);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        notify("error", error?.response?.data.message);
+      }
+    } finally {
+      setIsLoadingClearBusket(false);
+    }
+  };
+
   if (basket?.items_count === 0) {
     return (
       <MainCntainer sx={{ background: "#F3F9FE" }}>
@@ -183,6 +209,21 @@ const Basket = () => {
               ease: "easeOut",
             }}
           >
+            <CustomButton
+              sx={{
+                marginLeft: "auto",
+                // opacity: isLoadingClearBusket ? 0.6 : 1,
+                gap: "12px",
+                padding: "16px 64px",
+              }}
+              size="16"
+              variant="secondary"
+              // isLoading={isLoadingClearBusket}
+              onClick={() => clearBusket()}
+              disabled={isLoadingClearBusket}
+            >
+              Очистить корзину
+            </CustomButton>
             <CustomTable
               iconTitle={Cart}
               isBorder={false}

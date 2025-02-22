@@ -59,7 +59,7 @@ const LoginForm = ({
       setIsAuth(true);
       isModal && !!setIsOpenAuthModal
         ? setIsOpenAuthModal(false)
-        : router.push("/account/profile");
+        : router.push("/documents");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         notify("error", "Вы ввели неверный логин или пароль");

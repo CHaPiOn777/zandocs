@@ -71,7 +71,9 @@ export default function ToastProvider({
   children: React.ReactNode;
 }) {
   const isMobile = useIsMobile();
-  const defaultPosition: ToastPositions = isMobile ? "top-center" : "top-right";
+  const defaultPosition: ToastPositions = isMobile
+    ? "top-center"
+    : "bottom-right";
 
   return (
     <>

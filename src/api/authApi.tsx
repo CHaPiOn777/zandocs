@@ -152,3 +152,9 @@ export const removeCartMyBasket = (id: string) => {
   const newUrl = removeCartMyBasketURL.replace("{cartItemKey}", String(id));
   return api.delete<{ message: string }>(newUrl);
 };
+
+export const removeAllCartMyBasketURL = "/wp-json/custom/v1/clear-cart/";
+
+export const removeAllCartMyBasket = () => {
+  return api.post<{ message: string }>(removeAllCartMyBasketURL);
+};

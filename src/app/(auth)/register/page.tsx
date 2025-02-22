@@ -55,7 +55,7 @@ const Page = () => {
         last_name,
       });
       setIsAuth(true);
-      router.push("/account/profile");
+      router.push("/documents");
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {
