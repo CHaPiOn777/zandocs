@@ -22,6 +22,6 @@ module.exports = {
     { loc: "/documents/2360", changefreq: "weekly", priority: 0.9 }, // Договор возмездного оказания услуг
     { loc: "/documents/2340", changefreq: "weekly", priority: 0.9 }, // Договор купли-продажи в рассрочку
     { loc: "/documents/2368", changefreq: "weekly", priority: 0.9 }, // Договор гарантии
-    // { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
+    { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
   ],
 };
