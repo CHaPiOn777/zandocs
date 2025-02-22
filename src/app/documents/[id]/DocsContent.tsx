@@ -17,24 +17,33 @@ import parse from "html-react-parser";
 import { motion } from "framer-motion";
 
 // {#is_legal_entity1}
-// {name1} в лице {passport1}, действующего на основании {iin1}, с одной стороны, и
+// {name1} в лице {passport1}, действующего на основании {iin1}, именуемый в дальнейшем «Гарант» с одной стороны, и
 // {/is_legal_entity1}
 // {#is_individual1}
-// {name1} паспорт {passport1}, ИИН {iin1}, с одной стороны, и
+// {name1} паспорт {passport1}, ИИН {iin1}, именуемый в дальнейшем «Гарант» с одной стороны, и
 // {/is_individual1}
 // {#is_entrepreneur1}
-// {name1} паспорт {passport1}, ИИН {iin1}, с одной стороны, и
+// {name1} паспорт {passport1}, ИИН {iin1}, именуемый в дальнейшем «Гарант» с одной стороны, и
 // {/is_entrepreneur1}
 
 // {#is_legal_entity2}
-// {name2} в лице {passport2}, действующего на основании {iin2}, с другой стороны,
+// {name2} в лице {passport2}, действующего на основании {iin2}, именуемый в дальнейшем «Бенефициар» с одной стороны, и
 // {/is_legal_entity2}
 // {#is_individual2}
-// {name2} паспорт {passport2}, ИИН {iin2}, с другой стороны,
+// {name2} паспорт {passport2}, ИИН {iin2}, именуемый в дальнейшем «Бенефициар» с одной стороны, и
 // {/is_individual2}
 // {#is_entrepreneur2}
-// {name2} паспорт {passport2}, ИИН {iin2}, с другой стороны,
+// {name2} паспорт {passport2}, ИИН {iin2}, именуемый в дальнейшем «Бенефициар» с одной стороны, и
 // {/is_entrepreneur2}
+// {#is_legal_entity3}
+// {name3} в лице {passport3}, действующего на основании {iin3}, именуемый в дальнейшем «Должник» с другой стороны,
+// {/is_legal_entity3}
+// {#is_individual3}
+// {name3} паспорт {passport3}, ИИН {iin3}, именуемый в дальнейшем «Должник» с другой стороны,
+// {/is_individual3}
+// {#is_entrepreneur3}
+// {name3} паспорт {passport3}, ИИН {iin3}, именуемый в дальнейшем «Должник» с другой стороны,
+// {/is_entrepreneur3}
 
 import FormPodpiska from "@/app/documents/[id]/_components/FormPodpiska";
 import ActPriemki from "@/app/documents/[id]/_components/ActPriemki";
@@ -45,6 +54,7 @@ import Arenda from "@/app/documents/[id]/_components/Arenda";
 import ButtonsBuy from "@/ui/ButtonsBuy/ButtonsBuy";
 import Vozmezdnoe from "@/app/documents/[id]/_components/Vozmezdnoe";
 import KPRassrochka from "@/app/documents/[id]/_components/KPRassrochka";
+import Garantia from "@/app/documents/[id]/_components/Garantia";
 const DocsContent = ({ id }: { id: string }) => {
   const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
   const isMobile = useIsMobile();
@@ -81,6 +91,7 @@ const DocsContent = ({ id }: { id: string }) => {
       "2320": <Arenda />,
       "2360": <Vozmezdnoe />,
       "2340": <KPRassrochka />,
+      "2368": <Garantia />,
     };
 
     return data[id] || null;
