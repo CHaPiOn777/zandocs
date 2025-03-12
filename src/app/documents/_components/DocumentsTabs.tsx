@@ -27,15 +27,16 @@ const DocumentsTabs = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
   };
+  
   const tabsItems = [
     {
       icon: <DocsIcon />,
       label: "Все документы",
     },
-    {
-      icon: <BusinessIcon />,
-      label: "Документы для бизнеса",
-    },
+    // {
+    //   icon: <BusinessIcon />,
+    //   label: "Документы для бизнеса",
+    // },
     {
       icon: <UsersIcon />,
       label: "Документы для частных лиц",
@@ -64,9 +65,9 @@ const DocumentsTabs = () => {
   const visibleContent = (index: number | string): TDocument[] => {
     const returnData: Record<string, any> = {
       0: allDocs,
-      1: businessDocs,
-      2: usersDocs,
-      3: freeDocs,
+      // 1: businessDocs,
+      1: usersDocs,
+      2: freeDocs,
     };
     return returnData[index];
   };
@@ -111,7 +112,7 @@ const DocumentsTabs = () => {
         </Box>
         <Box sx={{ padding: "8px 16px", borderLeft: "2px solid #2640e3" }}>
           <Typography variant="body2">
-            {"Показано 1–13 из 13 шаблонов"}
+            {`Показано ${allDocs.length} шаблонов`}
           </Typography>
         </Box>
         <motion.div
