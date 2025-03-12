@@ -3,7 +3,6 @@
 import Container from "@/app/_components/Container/Container";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import useIsMobile from "@/hooks/useIsMobile";
-import BusinessIcon from "@/image/DocumentsPage/icons/BusinessIcon";
 import DocsIcon from "@/image/DocumentsPage/icons/DocsIcon";
 import GiftIcons from "@/image/DocumentsPage/icons/GiftIcons";
 import UsersIcon from "@/image/DocumentsPage/icons/UsersIcon";
