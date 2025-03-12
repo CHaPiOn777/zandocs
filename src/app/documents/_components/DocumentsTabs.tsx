@@ -56,7 +56,7 @@ const DocumentsTabs = () => {
     },
     [docs]
   );
-  const businessDocs = returnDataByType("документы для бизнеса");
+  // const businessDocs = returnDataByType("документы для бизнеса");
   const usersDocs = returnDataByType("документы для частных лиц");
   const freeDocs = returnDataByType("бесплатные документы");
   const allDocs = returnDataByType("документы");
