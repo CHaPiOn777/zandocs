@@ -76,10 +76,53 @@ export const getDetails = (type: string, number: number) => {
       ];
   }
 };
+
+export const getContributionDetails = (type: string, number: number) => {
+  switch (type) {
+    case "денежная":
+      return [
+        {
+          variant: "input",
+          name: `name${number}`,
+          type: "number",
+          label: `Сумма вклада в тенге (Участник ${number})`,
+        },
+      ];
+    case "неденежная":
+      return [
+        {
+          variant: "input",
+          name: `passport${number}`,
+          type: "text",
+          label: `Описание неденежного вклада (Участник ${number})`,
+        },
+        {
+          variant: "input",
+          name: `name${number}`,
+          type: "number",
+          label: `Оценочная стоимость вклада в тенге (Участник ${number})`,
+        },
+      ];
+    default:
+      return [
+        {
+          variant: "",
+          name: "",
+          type: "",
+          label: "",
+        },
+      ];
+  }
+};
+
 export const getFlags = (status: string, number: number) => ({
   [`is_legal_entity${number}`]: status === "юридическое лицо",
   [`is_individual${number}`]: status === "физическое лицо",
   [`is_entrepreneur${number}`]: status === "индивидуальный предприниматель",
+});
+export const getFlags2 = (status: string, number: number) => ({
+  [`is_legal_entity${number}`]: status === "денежная",
+  [`is_individual${number}`]: status === "неденежная",
 });
 
 // {/is_legal_entity1}

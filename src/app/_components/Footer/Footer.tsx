@@ -27,12 +27,12 @@ const Footer = () => {
   const router = useRouter();
 
   const obj: TPropsMenu[] = [
-    {
-      title: "Тарифы",
-      list: ["Пакет Стандарт", "Пакет Комфорт"],
-      link: "/tarif/#tarifPlan",
-      isLink: true,
-    },
+    // {
+    //   title: "Тарифы",
+    //   list: ["Пакет Стандарт", "Пакет Комфорт"],
+    //   link: "/tarif/#tarifPlan",
+    //   isLink: true,
+    // },
     // {
     //   title: "Личный кабинет",
     //   list: ["Оформление заказа", "Корзина", "Заказы"],
@@ -92,7 +92,7 @@ const Footer = () => {
           >
             <LogoComponent />
             <Stack direction="row">
-              <Insta />
+              {/* <Insta /> */}
               {/* <Telega /> */}
             </Stack>
           </Stack>

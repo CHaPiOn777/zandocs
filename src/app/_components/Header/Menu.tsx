@@ -21,10 +21,10 @@ const Menu = ({ onClick }: TOnClick) => {
       name: "Документы",
       link: "/documents",
     },
-    {
-      name: "Тарифы",
-      link: "/tarif",
-    },
+    // {
+    //   name: "Тарифы",
+    //   link: "/tarif",
+    // },
     {
       name: "О компании",
       link: "/company",
