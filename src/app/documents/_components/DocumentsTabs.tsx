@@ -4,7 +4,6 @@ import Container from "@/app/_components/Container/Container";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import useIsMobile from "@/hooks/useIsMobile";
 import DocsIcon from "@/image/DocumentsPage/icons/DocsIcon";
-import BusinessIcon from "@/image/DocumentsPage/icons/BusinessIcon";
 import GiftIcons from "@/image/DocumentsPage/icons/GiftIcons";
 import UsersIcon from "@/image/DocumentsPage/icons/UsersIcon";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
@@ -57,7 +56,7 @@ const DocumentsTabs = () => {
     },
     [docs]
   );
-  const businessDocs = returnDataByType("документы для бизнеса");
+  // const businessDocs = returnDataByType("документы для бизнеса");
   const usersDocs = returnDataByType("документы для частных лиц");
   const freeDocs = returnDataByType("бесплатные документы");
   const allDocs = returnDataByType("документы");

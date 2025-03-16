@@ -11,7 +11,6 @@ import Email from "@/image/Footer/Email";
 import Phone from "@/image/Footer/Phone";
 import MenuItemComponent from "@/app/_components/Footer/_components/MenuItem";
 import Location from "@/image/Footer/Location";
-import Insta from "@/image/icons/Insta";
 import useIsReady from "@/hooks/useIsReady";
 import useIsMobile from "@/hooks/useIsMobile";
 import { useRouter } from "next/navigation";
