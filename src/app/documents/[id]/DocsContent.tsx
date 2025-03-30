@@ -59,6 +59,7 @@ import Garantia from "@/app/documents/[id]/_components/Garantia";
 import Konsulting from "@/app/documents/[id]/_components/Konsulting";
 import DKP from "@/app/documents/[id]/_components/DKP";
 import Ustav from "@/app/documents/[id]/_components/Ustav";
+import UchDog from "./_components/UchDogovor";
 const DocsContent = ({ id }: { id: string }) => {
   const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
   const isMobile = useIsMobile();
@@ -99,6 +100,7 @@ const DocsContent = ({ id }: { id: string }) => {
       "2356": <Konsulting />,
       "2327": <DKP />,
       "2547": <Ustav />,
+      "1800": <UchDog />,
     };
 
     return data[id] || null;
@@ -208,7 +210,11 @@ const DocsContent = ({ id }: { id: string }) => {
             >
               {documentById[0]?.categories[0].name}
             </Typography>
-            <Typography variant={"h2"} sx={{ textTransform: "uppercase" }}>
+            <Typography
+              variant={"h2"}
+              component="h1"
+              sx={{ textTransform: "uppercase" }}
+            >
               {documentById[0]?.name}
             </Typography>
             <Line />
@@ -223,6 +229,7 @@ const DocsContent = ({ id }: { id: string }) => {
             >
               <Typography
                 variant={"h3"}
+                component="h2"
                 sx={{
                   color: "#2640E3",
                   lineHeight: "1rem !important",
@@ -237,7 +244,6 @@ const DocsContent = ({ id }: { id: string }) => {
               )}
             </Stack>
             {/* {false ? ( */}
-
             {Number(activeDoc?.price) > 0 && !isMyDocs ? (
               <ButtonsBuy
                 id={activeDoc?.id}
@@ -295,9 +301,7 @@ const DocsContent = ({ id }: { id: string }) => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           style={{
             overflow: "hidden",
-            // background: "lightblue",
-            // padding: isActiveForm ? "10px" : "0px",
-          }} // overflow нужен, чтобы контент не вылезал
+          }}
         >
           {isActiveForm && returnDocsById(id)}
         </motion.div>

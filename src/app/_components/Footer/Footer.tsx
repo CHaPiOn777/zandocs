@@ -14,6 +14,9 @@ import Location from "@/image/Footer/Location";
 import useIsReady from "@/hooks/useIsReady";
 import useIsMobile from "@/hooks/useIsMobile";
 import { useRouter } from "next/navigation";
+import Insta from "@/image/icons/Insta";
+import WhatsApp from "@/image/icons/WhatsApp";
+import Link from "next/link";
 export type TPropsMenu = {
   title: string;
   list: string[];
@@ -90,9 +93,21 @@ const Footer = () => {
             }}
           >
             <LogoComponent />
-            <Stack direction="row">
-              {/* <Insta /> */}
-              {/* <Telega /> */}
+            <Stack direction="row" gap="8px" alignItems="center">
+              <Link
+                href="https://www.instagram.com/zandocs.kz/profilecard/?igsh=eDdvbGVqdWs3Nmg1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Insta />
+              </Link>
+              <Link
+                href="https://wa.me/77713788039"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsApp />
+              </Link>
             </Stack>
           </Stack>
           {obj.map((item, index) => (

@@ -11,7 +11,7 @@ import { useEffect, useMemo } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
-const ustavSchema = z.object({
+const uschDogSchema = z.object({
   company_name: z.string(),
   participant_1_status: z.any(),
   participant_2_status: z.any(),
@@ -41,10 +41,12 @@ const ustavSchema = z.object({
   company_duration: z.string(),
   charter_capital: z.string(),
   participant_1_share: z.string(),
+  participant_1: z.string(),
   participant_1_contribution_type: z.any(),
   participant_1_contribution_description: z.string(),
   participant_1_contribution_value: z.string(),
   participant_2_share: z.string(),
+  participant_2: z.string(),
   participant_2_contribution_type: z.any(),
   participant_2_contribution_description: z.string(),
   participant_2_contribution_value: z.string(),
@@ -52,18 +54,22 @@ const ustavSchema = z.object({
   representation_rights: z.any(),
   voting_rules: z.any(),
   executive_structure: z.any(),
+  executive_structure1: z.any(),
+  executive_structure2: z.any(),
+  executive_structure3: z.any(),
+  executive_structure4: z.any(),
   executive_members_count: z.string(),
   participants_details1: z.string(),
   participants_details2: z.string(),
   isDirecеtion: z.boolean(),
 });
 
-export type UstavType = z.infer<typeof ustavSchema>;
+export type UchDogType = z.infer<typeof uschDogSchema>;
 
-const Ustav = () => {
-  const { control, handleSubmit, setValue } = useForm<UstavType>({
+const UchDog = () => {
+  const { control, handleSubmit, setValue } = useForm<UchDogType>({
     mode: "onChange",
-    resolver: zodResolver(ustavSchema),
+    resolver: zodResolver(uschDogSchema),
     defaultValues: {
       company_name: "",
       participant_1_status: "юридическое лицо",
@@ -92,19 +98,25 @@ const Ustav = () => {
       company_name_en_short: "",
       company_location: "",
       company_duration: "",
-      charter_capital: "",
+      charter_capital: "малое предпринимательство",
       participant_1_share: "",
+      participant_1: "",
       participant_1_contribution_type: "денежная",
       participant_1_contribution_description: "",
       participant_1_contribution_value: "",
       participant_2_share: "",
+      participant_2: "",
       participant_2_contribution_type: "денежная",
       participant_2_contribution_description: "",
       participant_2_contribution_value: "",
       control_body: "",
       representation_rights: "",
       voting_rules: "",
-      executive_structure: "Директор",
+      executive_structure: "",
+      executive_structure1: "",
+      executive_structure2: "",
+      executive_structure3: "",
+      executive_structure4: "",
       executive_members_count: "",
       participants_details1: "",
       participants_details2: "",
@@ -256,24 +268,65 @@ const Ustav = () => {
         },
       ],
       [
-        { variant: "title", name: "Уставной капитал и доли участия" },
+        { variant: "title", name: "Организационно-правовая информация" },
         {
-          variant: "input",
+          variant: "radio",
           name: "charter_capital",
-          type: "number",
-          label: "Укажите уставной капитал Товарищества (в тенге)",
+          type: "radio",
+          label: "К какому виду предпринимательства относится ТОО",
+          radioVariant: [
+            {
+              value: "малое предпринимательство",
+              label: "Малое предпринимательство",
+            },
+            {
+              value: "среднее предпринимательство",
+              label: "Среднее предпринимательство",
+            },
+            {
+              value: "крупное предпринимательство",
+              label: "Крупное предпринимательство",
+            },
+          ],
         },
         {
           variant: "input",
           name: "participant_1_share",
           type: "number",
-          label: "Укажите долю участия Участника 1 (%)",
+          label: "Какова численность работников товарищества в среднем за год?",
         },
         {
           variant: "input",
           name: "participant_2_share",
+          type: "string",
+          label:
+            "Каков среднегодовой доход товарищества в месячных расчетных показателях (МРП)?",
+        },
+      ],
+      [
+        {
+          variant: "input",
+          name: "executive_structure4",
+          type: "string",
+          label:
+            "Какие виды деятельности осуществляет Товарищество? (Выбор или ввод кодов и наименований по ОКЭД, ссылка: https://stat.gov.kz/ru/classifiers/statistical/21/)",
+        },
+      ],
+      [
+        { variant: "title", name: "Вклады участников" },
+        {
+          variant: "input",
+          name: "participant_1",
           type: "number",
-          label: "Укажите долю участия Участника 2 (%)",
+          label:
+            "Какой процент от общего Уставного капитала составляет вклад Участника 1? (Введите процент)",
+        },
+        {
+          variant: "input",
+          name: "participant_2",
+          type: "string",
+          label:
+            "Какой процент от общего Уставного капитала составляет вклад Участника 2? (Введите процент)",
         },
         {
           variant: "radio",
@@ -300,30 +353,53 @@ const Ustav = () => {
         ...participantContribution2Details,
       ],
       [
-        { variant: "title", name: "Органы управления и контроля" },
+        { variant: "title", name: "Сроки внесения вкладов" },
         {
           variant: "input",
           name: "control_body",
           type: "text",
           label:
-            "Какой орган является контролирующим в Товариществе? (Ревизионная комиссия, ревизор или иной орган)",
-        },
-        {
-          variant: "radio",
-          name: "executive_structure",
-          type: "radio",
-          label: "Выберите структуру исполнительного органа",
-          radioVariant: [
-            { value: "Директор", label: "Директор" },
-            { value: "Дирекция", label: "Дирекция" },
-            { value: "Директор и Дирекция", label: "Директор и Дирекция" },
-          ],
+            "В какие сроки участники должны внести вклады в уставный капитал Товарищества, Участник 1",
         },
         {
           variant: "input",
           name: "executive_members_count",
-          type: "number",
-          label: "Укажите количество членов Дирекции (если предусмотрено)",
+          type: "text",
+          label:
+            "В какие сроки участники должны внести вклады в уставный капитал Товарищества, Участник 2",
+        },
+      ],
+      [
+        { variant: "title", name: "Конфиденциальность и форс-мажор" },
+        {
+          variant: "input",
+          name: "executive_structure",
+          type: "text",
+          label:
+            "На какой срок устанавливается обязательство о неразглашении конфиденциальной информации?",
+        },
+        {
+          variant: "input",
+          name: "executive_structure1",
+          type: "text",
+          label:
+            "В течение какого срока участник обязан уведомить Общее собрание о наступлении форс-мажорных обстоятельств?",
+        },
+      ],
+      [
+        { variant: "title", name: "Урегулирование споров" },
+        {
+          variant: "input",
+          name: "executive_structure2",
+          type: "text",
+          label: "В течение какого срока должна быть рассмотрена претензия?",
+        },
+        {
+          variant: "input",
+          name: "executive_structure3",
+          type: "text",
+          label:
+            "В течение какого срока после получения претензии необходимо запросить недостающие документы? (Например, 3 рабочих дня)",
         },
       ],
       [
@@ -356,9 +432,9 @@ const Ustav = () => {
       control={control}
       handleSubmit={handleSubmit}
       formFields={formFields}
-      docsName={"Ustav.docx"}
+      docsName={"uchDogSchema.docx"}
     />
   );
 };
 
-export default Ustav;
+export default UchDog;
