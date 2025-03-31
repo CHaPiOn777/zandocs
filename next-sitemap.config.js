@@ -23,6 +23,7 @@ module.exports = {
     { loc: "/documents/2340", changefreq: "weekly", priority: 0.9 }, // Договор купли-продажи в рассрочку
     { loc: "/documents/2368", changefreq: "weekly", priority: 0.9 }, // Договор гарантии
     { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
+    { loc: "/documents/7658", changefreq: "weekly", priority: 0.9 }, // Договор дарения
     { loc: "/documents/2356", changefreq: "weekly", priority: 0.9 }, // Договор консультации
     { loc: "/documents/2327", changefreq: "weekly", priority: 0.9 }, // Договор купли-продажи недвижимого имущества без обременений
     { loc: "/documents/2547", changefreq: "weekly", priority: 0.9 }, // Устав ТОО образец Казахстан
