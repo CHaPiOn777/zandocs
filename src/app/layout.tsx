@@ -32,6 +32,10 @@ export default async function RootLayout({
           name="description"
           content="Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs"
         />
+        <meta
+          name="google-site-verification"
+          content="KFs_C3D17sGdal_CPABZpAlAHI2cS3XS8oLFVGxUIoI"
+        />
         {/* Метатег keywords уже не оказывает существенного влияния на SEO, но его можно добавить */}
         <meta
           name="keywords"
