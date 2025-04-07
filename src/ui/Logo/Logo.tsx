@@ -15,7 +15,7 @@ const LogoComponent = ({
   return (
     <Stack
       sx={{ cursor: "pointer" }}
-      onClick={() => router.push("/main")}
+      onClick={() => router.push("/")}
       width={width}
       height={height}
     >

@@ -15,7 +15,7 @@ const Menu = ({ onClick }: TOnClick) => {
   const menuItems: TMenuItems[] = [
     {
       name: "Главная",
-      link: "/main",
+      link: "/",
     },
     {
       name: "Документы",

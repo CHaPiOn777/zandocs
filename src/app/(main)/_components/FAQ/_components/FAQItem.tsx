@@ -1,6 +1,6 @@
 "use client";
 import * as SC from "./FAQItem.style";
-import { TDataFAQ } from "@/app/main/_components/FAQ/FAQ";
+import { TDataFAQ } from "@/app/(main)/_components/FAQ/FAQ";
 import {
   AccordionDetails,
   AccordionSummary,

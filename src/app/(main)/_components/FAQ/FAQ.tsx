@@ -1,5 +1,5 @@
 import Container from "@/app/_components/Container/Container";
-import FAQItem from "@/app/main/_components/FAQ/_components/FAQItem";
+import FAQItem from "@/app/(main)/_components/FAQ/_components/FAQItem";
 import ImageBG from "@/ui/ImageBG/ImageBG";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import TitleComponents from "@/ui/TitleComponents/TitleComponents";

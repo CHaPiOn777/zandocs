@@ -16,11 +16,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: "/",
-        destination: "/main", // Перенаправление на /main
-        permanent: true,
-      },
+      // {
+      //   source: "/",
+      //   destination: "/", // Перенаправление на /main
+      //   permanent: false,
+      // },
       // {
       //   source: "/logout",
       //   destination: "/main", // Перенаправление на /main
