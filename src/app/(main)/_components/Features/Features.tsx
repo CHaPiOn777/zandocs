@@ -1,5 +1,5 @@
 import Container from "@/app/_components/Container/Container";
-import Card from "@/app/main/_components/Features/Card/Card";
+import Card from "@/app/(main)/_components/Features/Card/Card";
 import useIsTablet from "@/hooks/useIsTablet";
 import { Availability } from "@/image/Features/Icons/Availability";
 import { Money } from "@/image/Features/Icons/Money";

@@ -1,4 +1,4 @@
-import { TDataFeatures } from "@/app/main/_components/Features/Features";
+import { TDataFeatures } from "@/app/(main)/_components/Features/Features";
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import styled from "@emotion/styled";

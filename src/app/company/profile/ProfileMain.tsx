@@ -24,7 +24,7 @@ const ProfileMain = () => {
       <TitleComponents height="74px">
         <Container sx={{ gap: "6px" }}>
           <Typography
-            onClick={() => router.push("/main")}
+            onClick={() => router.push("/")}
             sx={{
               cursor: "pointer",
               opacity: 1,

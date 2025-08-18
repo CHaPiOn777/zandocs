@@ -17,7 +17,7 @@ const Logout = () => {
   useEffect(() => {
     setUser(null);
     Cookies.remove("access_token");
-    router.push("/main");
+    router.push("/");
     setIsAuth(false);
     clearOrders();
     setIsFirstRender(true);

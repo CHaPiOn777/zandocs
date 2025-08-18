@@ -1,5 +1,5 @@
 "use client";
-import { TPropsSteps } from "@/app/main/_components/Steps/Steps";
+import { TPropsSteps } from "@/app/(main)/_components/Steps/Steps";
 import { Stack, Typography } from "@mui/material";
 import * as SC from "./StepsItem.style";
 

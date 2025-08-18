@@ -16,15 +16,16 @@ import Tenge from "@/image/Account/icons/Tenge";
 import parse from "html-react-parser";
 import { motion } from "framer-motion";
 
-// {#is_legal_entity1}
-// {name1} в лице {passport1}, действующего на основании {iin1}, с одной стороны, и
-// {/is_legal_entity1}
-// {#is_individual1}
-// {name1} паспорт {passport1}, ИИН {iin1}, с одной стороны, и
-// {/is_individual1}
-// {#is_entrepreneur1}
-// {name1} паспорт {passport1}, ИИН {iin1}, с одной стороны, и
-// {/is_entrepreneur1}
+// {#is_legal_entity2}
+// в денежной форме на сумму {name2} тенге.
+// {/is_legal_entity2}
+// {#is_individual2}
+// в виде {passport2} на сумму {name2} тенге.
+// {/is_individual2}
+
+// {#is_entrepreneur2}
+// {name2} паспорт {passport2}, ИИН {iin2}, далее по тексту – « Участник 2 ».
+// {/is_entrepreneur2}
 
 // {#is_legal_entity2}
 // {name2} в лице {passport2}, действующего на основании {iin2}, с другой стороны, заключили настоящий Договор купли-продажи товара в рассрочку (далее – «Договор» или «настоящий Договор») о нижеследующем:
@@ -57,6 +58,8 @@ import KPRassrochka from "@/app/documents/[id]/_components/KPRassrochka";
 import Garantia from "@/app/documents/[id]/_components/Garantia";
 import Konsulting from "@/app/documents/[id]/_components/Konsulting";
 import DKP from "@/app/documents/[id]/_components/DKP";
+import Ustav from "@/app/documents/[id]/_components/Ustav";
+import UchDog from "./_components/UchDogovor";
 const DocsContent = ({ id }: { id: string }) => {
   const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
   const isMobile = useIsMobile();
@@ -96,6 +99,8 @@ const DocsContent = ({ id }: { id: string }) => {
       "2368": <Garantia />,
       "2356": <Konsulting />,
       "2327": <DKP />,
+      "2547": <Ustav />,
+      "1800": <UchDog />,
     };
 
     return data[id] || null;
@@ -214,14 +219,17 @@ const DocsContent = ({ id }: { id: string }) => {
             >
               {documentById[0]?.categories[0].name}
             </Typography>
-            <Typography variant={"h2"} sx={{ textTransform: "uppercase" }}>
+            <Typography
+              variant={"h2"}
+              component="h1"
+              sx={{ textTransform: "uppercase" }}
+            >
               {documentById[0]?.name}
             </Typography>
             <Line />
             {/* <Typography variant={"body2"} component={"span"}> */}
             {parseText}
             {/* </Typography> */}
-
             <Stack
               direction={"row"}
               sx={{ paddingBottom: "24px" }}
@@ -230,6 +238,7 @@ const DocsContent = ({ id }: { id: string }) => {
             >
               <Typography
                 variant={"h3"}
+                component="h2"
                 sx={{
                   color: "#2640E3",
                   lineHeight: "1rem !important",
@@ -301,9 +310,7 @@ const DocsContent = ({ id }: { id: string }) => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           style={{
             overflow: "hidden",
-            // background: "lightblue",
-            // padding: isActiveForm ? "10px" : "0px",
-          }} // overflow нужен, чтобы контент не вылезал
+          }}
         >
           {isActiveForm && returnDocsById(id)}
         </motion.div>

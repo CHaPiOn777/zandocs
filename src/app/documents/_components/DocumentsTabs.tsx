@@ -3,7 +3,6 @@
 import Container from "@/app/_components/Container/Container";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import useIsMobile from "@/hooks/useIsMobile";
-import BusinessIcon from "@/image/DocumentsPage/icons/BusinessIcon";
 import DocsIcon from "@/image/DocumentsPage/icons/DocsIcon";
 import GiftIcons from "@/image/DocumentsPage/icons/GiftIcons";
 import UsersIcon from "@/image/DocumentsPage/icons/UsersIcon";
@@ -18,7 +17,7 @@ import DocumentsCard, {
   TDocument,
 } from "@/app/documents/_components/DocumentsCard";
 import { useDocsStore } from "@/store/docsStore";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import useTabQueryUpdater from "@/app/documents/_components/concatenatedSearchQueries";
 
 const DocumentsTabs = () => {
@@ -38,18 +37,18 @@ const DocumentsTabs = () => {
       setActiveTab(parseInt(tab, 10) || 0);
     }
   }, [searchParams]);
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const tabsItems = [
     {
       icon: <DocsIcon />,
       label: "Все документы",
       src: "#0",
     },
-    {
-      icon: <BusinessIcon />,
-      label: "Документы для бизнеса",
-      src: "#1",
-    },
+    // {
+    //   icon: <BusinessIcon />,
+    //   label: "Документы для бизнеса",
+    //   src: "#1",
+    // },
     {
       icon: <UsersIcon />,
       label: "Документы для частных лиц",
@@ -72,7 +71,7 @@ const DocumentsTabs = () => {
     },
     [docs]
   );
-  const businessDocs = returnDataByType("документы для бизнеса");
+  // const businessDocs = returnDataByType("документы для бизнеса");
   const usersDocs = returnDataByType("документы для частных лиц");
   const freeDocs = returnDataByType("бесплатные документы");
   const allDocs = returnDataByType("документы");
@@ -80,9 +79,9 @@ const DocumentsTabs = () => {
   const visibleContent = (index: number | string): TDocument[] => {
     const returnData: Record<string, any> = {
       0: allDocs,
-      1: businessDocs,
-      2: usersDocs,
-      3: freeDocs,
+      // 1: businessDocs,
+      1: usersDocs,
+      2: freeDocs,
     };
     return returnData[index];
   };
@@ -127,7 +126,7 @@ const DocumentsTabs = () => {
         </Box>
         <Box sx={{ padding: "8px 16px", borderLeft: "2px solid #2640e3" }}>
           <Typography variant="body2">
-            {"Показано 1–13 из 13 шаблонов"}
+            {`Показано ${allDocs.length} шаблонов`}
           </Typography>
         </Box>
         <motion.div

@@ -8,7 +8,7 @@ import React from "react";
 import bg from "@/image/Documents/BGDocuments.png";
 import image1 from "@/image/Documents/01.png";
 import image2 from "@/image/Documents/02.png";
-import ContentCard from "@/app/main/_components/Documents/_components/ContentCard";
+import ContentCard from "@/app/(main)/_components/Documents/_components/ContentCard";
 import { StaticImageData } from "next/image";
 import useIsTablet from "@/hooks/useIsTablet";
 import Container from "@/app/_components/Container/Container";

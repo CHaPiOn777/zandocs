@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "proxy": "https://zandocs.kz",
   "private": true,
-  "homepage": "/main",
+  "homepage": "/",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

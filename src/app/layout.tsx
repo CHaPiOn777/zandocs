@@ -10,12 +10,13 @@ import DocumentsClient from "@/app/_components/DocumentsClient";
 import AuthAndCartLoader from "@/app/_components/AuthAndCartLoader";
 import { Suspense } from "react";
 import { CircularProgress } from "@mui/material";
-import Head from "next/head";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Zandocs",
   description:
     "Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs",
+  keywords: ["Конструктор документов", "зандокс", "zandocs"],
 };
 
 export default async function RootLayout({
@@ -24,23 +25,58 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const documents = await getProducts();
+
   return (
     <html lang="ru">
-      <Head>
+      <head>
         <title>Zandocs</title>
         <meta
           name="description"
           content="Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs"
         />
-        {/* Метатег keywords уже не оказывает существенного влияния на SEO, но его можно добавить */}
         <meta
           name="keywords"
           content="Конструктор документов, зандокс, zandocs"
         />
-      </Head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-VDKRCYMVLS"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VDKRCYMVLS');
+          `}
+        </Script>
+
+        {/* 2. Google Tag Manager */}
+        <Script id="gtm-init" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});
+              var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+              j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+              f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-PQNK7MF8');
+          `}
+        </Script>
+      </head>
       <body>
+        {/* 3. Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PQNK7MF8"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
         <MUIThemeProvider>
-          <Suspense fallback={<CircularProgress color={"info"} />}>
+          <Suspense fallback={<CircularProgress color="info" />}>
             <ToastProvider>
               <Header />
               <AuthAndCartLoader />

@@ -8,7 +8,7 @@ import step1 from "@/image/Steps/step1.png";
 import step2 from "@/image/Steps/step2.png";
 import step3 from "@/image/Steps/step3.png";
 import Image from "next/image";
-import StepsItem from "@/app/main/_components/Steps/_components/StepsItem";
+import StepsItem from "@/app/(main)/_components/Steps/_components/StepsItem";
 import CustomButton from "@/ui/Button/CustomButton";
 import ImageBG from "@/ui/ImageBG/ImageBG";
 import bg from "@/image/Steps/BGSteps.png";

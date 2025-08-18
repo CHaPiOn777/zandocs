@@ -1,4 +1,4 @@
-import { TDataDocuments } from "@/app/main/_components/Documents/Documents";
+import { TDataDocuments } from "@/app/(main)/_components/Documents/Documents";
 import useIsDesktopXS from "@/hooks/useIsDesktopXS";
 import useIsMobile from "@/hooks/useIsMobile";
 import useIsTablet from "@/hooks/useIsTablet";

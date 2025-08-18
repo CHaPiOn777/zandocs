@@ -8,6 +8,7 @@ import { Stack, Typography } from "@mui/material";
 import CustomButton from "@/ui/Button/CustomButton";
 import Share from "@/image/DocumentsPage/icons/Share";
 import { useRouter } from "next/navigation";
+import { notify } from "@/ui/ToastProvider/ToastProvider";
 export type TDocument = {
   name: string;
   price: number;
@@ -17,6 +18,12 @@ export type TDocument = {
 const DocumentsCard = ({ document }: { document: TDocument }) => {
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
+  const copyToClipboard = (numberDocs: number) => {
+    const url = window.location.href; // Получаем текущий URL
+    navigator.clipboard.writeText(`${url}/${numberDocs}`)
+      .then(() => notify("success", "Ссылка скопирована!"))
+      .catch(() => notify("error", "Ошибка копирования" ))
+  };
   return (
     <SC.ListItemS
       onMouseLeave={() => setIsHover(false)}
@@ -85,7 +92,7 @@ const DocumentsCard = ({ document }: { document: TDocument }) => {
           pt={3}
         >
           <Share />
-          <Typography variant="body2">Поделиться</Typography>
+          <Typography onClick={() => copyToClipboard(document.id)} variant="body2">Поделиться</Typography>
         </Stack>
       </Stack>
     </SC.ListItemS>

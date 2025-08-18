@@ -15,16 +15,16 @@ const Menu = ({ onClick }: TOnClick) => {
   const menuItems: TMenuItems[] = [
     {
       name: "Главная",
-      link: "/main",
+      link: "/",
     },
     {
       name: "Документы",
       link: "/documents",
     },
-    {
-      name: "Тарифы",
-      link: "/tarif",
-    },
+    // {
+    //   name: "Тарифы",
+    //   link: "/tarif",
+    // },
     {
       name: "О компании",
       link: "/company",

@@ -69,6 +69,7 @@ const DocumentsPage = () => {
               textAlign: isMobile ? "center" : "left",
             }}
             variant="h2"
+            component="h1" 
           >
             <span
               style={{
