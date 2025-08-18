@@ -108,6 +108,14 @@ const DocsContent = ({ id }: { id: string }) => {
     // window.scrollTo(0, 0); // Скроллим страницу наверх
     router.back(); // Возвращаемся на предыдущую страницу
   };
+
+  const indexByData: Record<string, number> = {
+    "Все документы": 0,
+    "Документы для бизнеса": 1,
+    "Документы для частных лиц": 2,
+    "Бесплатные документы": 3,
+  };
+  const index = indexByData[documentById[0]?.categories[0].name];
   return (
     <MainCntainer sx={{ background: "#edf7ff" }}>
       <Container
@@ -182,6 +190,7 @@ const DocsContent = ({ id }: { id: string }) => {
           >
             <Typography
               variant={"body1"}
+              onClick={() => router.push(`/documents?tab=${index}`)}
               sx={{
                 color: "#2640E3",
                 position: "relative",

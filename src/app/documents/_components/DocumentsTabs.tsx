@@ -18,31 +18,47 @@ import DocumentsCard, {
   TDocument,
 } from "@/app/documents/_components/DocumentsCard";
 import { useDocsStore } from "@/store/docsStore";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import useTabQueryUpdater from "@/app/documents/_components/concatenatedSearchQueries";
 
 const DocumentsTabs = () => {
   const [activeTab, setActiveTab] = React.useState(0);
   const isMobile = useIsMobile();
   const docs = useDocsStore((state) => state.docs); // Zustand: функция для установки документов
   const isDesctopXS = useIsDesktopXS();
+  const searchParams = useSearchParams();
+  const updateTabQuery = useTabQueryUpdater();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setActiveTab(newValue);
+    // setActiveTab(newValue);
+    updateTabQuery(newValue);
   };
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab) {
+      setActiveTab(parseInt(tab, 10) || 0);
+    }
+  }, [searchParams]);
+  const pathname = usePathname();
   const tabsItems = [
     {
       icon: <DocsIcon />,
       label: "Все документы",
+      src: "#0",
     },
     {
       icon: <BusinessIcon />,
       label: "Документы для бизнеса",
+      src: "#1",
     },
     {
       icon: <UsersIcon />,
       label: "Документы для частных лиц",
+      src: "#2",
     },
     {
       icon: <GiftIcons />,
       label: "Бесплатные документы",
+      src: "#3",
     },
   ];
 
