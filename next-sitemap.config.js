@@ -14,19 +14,50 @@ module.exports = {
     sitemap: "https://zandocs.kz/sitemap.xml",
   },
   additionalPaths: async () => [
-    { loc: "/documents/3958", changefreq: "weekly", priority: 0.9 }, // Расписка
-    { loc: "/documents/7642", changefreq: "weekly", priority: 0.9 }, // Акт приема
-    { loc: "/documents/7650", changefreq: "weekly", priority: 0.9 }, // Доверенность
-    { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
-    { loc: "/documents/2320", changefreq: "weekly", priority: 0.9 }, // Договор займа
-    { loc: "/documents/2360", changefreq: "weekly", priority: 0.9 }, // Договор возмездного оказания услуг
-    { loc: "/documents/2340", changefreq: "weekly", priority: 0.9 }, // Договор купли-продажи в рассрочку
-    { loc: "/documents/2368", changefreq: "weekly", priority: 0.9 }, // Договор гарантии
-    { loc: "/documents/7652", changefreq: "weekly", priority: 0.9 }, // Договор займа
-    { loc: "/documents/7658", changefreq: "weekly", priority: 0.9 }, // Договор дарения
-    { loc: "/documents/2356", changefreq: "weekly", priority: 0.9 }, // Договор консультации
-    { loc: "/documents/2327", changefreq: "weekly", priority: 0.9 }, // Договор купли-продажи недвижимого имущества без обременений
-    { loc: "/documents/2547", changefreq: "weekly", priority: 0.9 }, // Устав ТОО образец Казахстан
-    { loc: "/documents/1800", changefreq: "weekly", priority: 0.9 }, // Учредительный договор
+    { loc: "/documents/raspiska", changefreq: "weekly", priority: 0.9 }, // Расписка
+    {
+      loc: "/documents/akt-priema-peredachi-imushchestva",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Акт приема
+    {
+      loc: "/documents/razovaya-doverennost",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Доверенность
+    {
+      loc: "/documents/dogovor-zaima-deneg",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Договор займа
+    { loc: "/documents/dogovor-arendy", changefreq: "weekly", priority: 0.9 }, // Договор займа
+    {
+      loc: "/documents/dogovor-vozmezdnogo-okazaniya-uslug",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Договор возмездного оказания услуг
+    {
+      loc: "/documents/dogovor-kupli-prodazhi-v-rassrochku",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Договор купли-продажи в рассрочку
+    { loc: "/documents/dogovor-garantii", changefreq: "weekly", priority: 0.9 }, // Договор гарантии
+    { loc: "/documents/dogovor-dareniya", changefreq: "weekly", priority: 0.9 }, // Договор дарения
+    {
+      loc: "/documents/dogovor-ob-okazanii-konsultacionnyh-uslug",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Договор консультации
+    {
+      loc: "/documents/dogovor-kupli-prodazhi-nedvizhimosti-bez-obremeneniy",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Договор купли-продажи недвижимого имущества без обременений
+    { loc: "/documents/ustav", changefreq: "weekly", priority: 0.9 }, // Устав ТОО образец Казахстан
+    {
+      loc: "/documents/uchreditelnyy-dogovor",
+      changefreq: "weekly",
+      priority: 0.9,
+    }, // Учредительный договор
   ],
 };

@@ -14,15 +14,18 @@ export type TDocument = {
   price: number;
   regular_price: number;
   id: number;
+  slug: string;
 };
+
+const URL_ZANDOCS = "https://zandocs.kz/documents";
 const DocumentsCard = ({ document }: { document: TDocument }) => {
   const [isHover, setIsHover] = useState(false);
   const router = useRouter();
-  const copyToClipboard = (numberDocs: number) => {
-    const url = window.location.href; // Получаем текущий URL
-    navigator.clipboard.writeText(`${url}/${numberDocs}`)
+  const copyToClipboard = (numberDocs: string) => {
+    navigator.clipboard
+      .writeText(`${URL_ZANDOCS}/${numberDocs}`)
       .then(() => notify("success", "Ссылка скопирована!"))
-      .catch(() => notify("error", "Ошибка копирования" ))
+      .catch(() => notify("error", "Ошибка копирования"));
   };
   return (
     <SC.ListItemS
@@ -74,7 +77,7 @@ const DocumentsCard = ({ document }: { document: TDocument }) => {
           sx={{ padding: "14px 32px" }}
           variant="primary"
           size={"16"}
-          onClick={() => router.push(`/documents/${document.id}`)}
+          onClick={() => router.push(`/documents/${document.slug}`)}
         >
           Выбрать шаблон
         </CustomButton>
@@ -92,7 +95,12 @@ const DocumentsCard = ({ document }: { document: TDocument }) => {
           pt={3}
         >
           <Share />
-          <Typography onClick={() => copyToClipboard(document.id)} variant="body2">Поделиться</Typography>
+          <Typography
+            onClick={() => copyToClipboard(document.slug)}
+            variant="body2"
+          >
+            Поделиться
+          </Typography>
         </Stack>
       </Stack>
     </SC.ListItemS>

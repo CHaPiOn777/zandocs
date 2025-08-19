@@ -19,16 +19,17 @@ import DocumentsCard, {
 import { useDocsStore } from "@/store/docsStore";
 import { useSearchParams } from "next/navigation";
 import useTabQueryUpdater from "@/app/documents/_components/concatenatedSearchQueries";
+import BusinessIcon from "@/image/DocumentsPage/icons/BusinessIcon";
 
 const DocumentsTabs = () => {
   const [activeTab, setActiveTab] = React.useState(0);
   const isMobile = useIsMobile();
-  const docs = useDocsStore((state) => state.docs); // Zustand: функция для установки документов
+  const docs = useDocsStore((state) => state.docs);
   const isDesctopXS = useIsDesktopXS();
   const searchParams = useSearchParams();
   const updateTabQuery = useTabQueryUpdater();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    // setActiveTab(newValue);
+    setActiveTab(newValue);
     updateTabQuery(newValue);
   };
   useEffect(() => {
@@ -44,11 +45,11 @@ const DocumentsTabs = () => {
       label: "Все документы",
       src: "#0",
     },
-    // {
-    //   icon: <BusinessIcon />,
-    //   label: "Документы для бизнеса",
-    //   src: "#1",
-    // },
+    {
+      icon: <BusinessIcon />,
+      label: "Документы для бизнеса",
+      src: "#1",
+    },
     {
       icon: <UsersIcon />,
       label: "Документы для частных лиц",
@@ -60,7 +61,7 @@ const DocumentsTabs = () => {
       src: "#3",
     },
   ];
-
+  console.log(docs);
   const returnDataByType = useCallback(
     (type: string) => {
       return docs?.filter((item: any) =>
@@ -69,23 +70,22 @@ const DocumentsTabs = () => {
         )
       );
     },
-    [docs]
+    [docs, activeTab]
   );
-  // const businessDocs = returnDataByType("документы для бизнеса");
+  const businessDocs = returnDataByType("для бизнеса");
   const usersDocs = returnDataByType("документы для частных лиц");
   const freeDocs = returnDataByType("бесплатные документы");
   const allDocs = returnDataByType("документы");
-  useEffect(() => {}, []);
   const visibleContent = (index: number | string): TDocument[] => {
     const returnData: Record<string, any> = {
       0: allDocs,
-      // 1: businessDocs,
-      1: usersDocs,
-      2: freeDocs,
+      1: businessDocs,
+      2: usersDocs,
+      3: freeDocs,
     };
     return returnData[index];
   };
-
+  console.log(visibleContent(activeTab));
   return (
     <MainCntainer
       sx={{
@@ -136,33 +136,35 @@ const DocumentsTabs = () => {
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <SC.ListS>
-            {visibleContent(activeTab).map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{
-                  opacity: 0,
-                  scale: 0.9,
-                  transformOrigin: "center center",
-                }}
-                style={{ transformOrigin: "center" }}
-                whileInView={{
-                  opacity: 1,
-                  scale: 1,
-                  transformOrigin: "center center",
-                }} // Анимация запускается при появлении
-                viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
-                transition={{
-                  duration: 0.4,
-                  delay: 0.1 * index,
-                  // delay: 0.2 * index,
-                  ease: "easeOut",
-                }}
-              >
-                <DocumentsCard document={item} />
-              </motion.div>
-            ))}
-          </SC.ListS>
+          {docs.length && (
+            <SC.ListS>
+              {visibleContent(activeTab).map((item, index) => (
+                <motion.div
+                  key={item.id ?? index}
+                  initial={{
+                    opacity: 0,
+                    scale: 0.9,
+                  }}
+                  style={{
+                    originX: 0.5,
+                    originY: 0.5,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.1 * index,
+                    ease: "easeOut",
+                  }}
+                >
+                  <DocumentsCard document={item} />
+                </motion.div>
+              ))}
+            </SC.ListS>
+          )}
         </motion.div>
       </Container>
     </MainCntainer>

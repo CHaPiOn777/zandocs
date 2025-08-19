@@ -4,6 +4,7 @@ import { create } from "zustand";
 interface IMyDocs {
   product_id: number;
   product_name: string;
+  slug: string;
 }
 interface DocsStore {
   docs: any[];

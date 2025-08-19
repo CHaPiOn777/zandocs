@@ -68,7 +68,7 @@ const DocsContent = ({ id }: { id: string }) => {
   const documents = useDocsStore((state) => state.docs);
   const [isActiveForm, setIsActiveForm] = useState(false);
   const documentById = useMemo(
-    () => documents.filter((docs) => docs.id == id),
+    () => documents.filter((docs) => docs.slug == id),
     [documents, id]
   );
   useEffect(() => {
@@ -88,19 +88,19 @@ const DocsContent = ({ id }: { id: string }) => {
 
   const returnDocsById = useCallback((id: string): ReactElement | null => {
     const data: Record<string, ReactElement> = {
-      "3958": <FormPodpiska />,
-      "7642": <ActPriemki />,
-      "7650": <Doverennost />,
-      "7652": <Zaim />,
-      "7658": <Darenie />,
-      "2320": <Arenda />,
-      "2360": <Vozmezdnoe />,
-      "2340": <KPRassrochka />,
-      "2368": <Garantia />,
-      "2356": <Konsulting />,
-      "2327": <DKP />,
-      "2547": <Ustav />,
-      "1800": <UchDog />,
+      raspiska: <FormPodpiska />,
+      "akt-priema-peredachi-imushchestva": <ActPriemki />,
+      "razovaya-doverennost": <Doverennost />,
+      "dogovor-zaima-deneg": <Zaim />,
+      "dogovor-dareniya": <Darenie />,
+      "dogovor-arendy": <Arenda />,
+      "dogovor-vozmezdnogo-okazaniya-uslug": <Vozmezdnoe />,
+      "dogovor-kupli-prodazhi-v-rassrochku": <KPRassrochka />,
+      "dogovor-garantii": <Garantia />,
+      "dogovor-ob-okazanii-konsultacionnyh-uslug": <Konsulting />,
+      "dogovor-kupli-prodazhi-nedvizhimosti-bez-obremeneniy": <DKP />,
+      ustav: <Ustav />,
+      "uchreditelnyy-dogovor": <UchDog />,
     };
 
     return data[id] || null;
@@ -114,13 +114,6 @@ const DocsContent = ({ id }: { id: string }) => {
     router.back(); // Возвращаемся на предыдущую страницу
   };
 
-  const indexByData: Record<string, number> = {
-    "Все документы": 0,
-    "Документы для бизнеса": 1,
-    "Документы для частных лиц": 2,
-    "Бесплатные документы": 3,
-  };
-  const index = indexByData[documentById[0]?.categories[0].name];
   return (
     <MainCntainer sx={{ background: "#edf7ff" }}>
       <Container
@@ -195,7 +188,6 @@ const DocsContent = ({ id }: { id: string }) => {
           >
             <Typography
               variant={"body1"}
-              onClick={() => router.push(`/documents?tab=${index}`)}
               sx={{
                 color: "#2640E3",
                 position: "relative",

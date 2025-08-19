@@ -29,6 +29,7 @@ type TDataTableCollapse = {
   link: string;
   date: Date | null;
   name: string;
+  slug: string;
 };
 const Orders = () => {
   const user = useAuthUser((state) => state.user);
@@ -120,7 +121,7 @@ const Orders = () => {
       <Typography
         key={index}
         component={"span"}
-        onClick={() => router.push(`/documents/${item.product_id}`)}
+        onClick={() => router.push(`/documents/${item.slug}`)}
         variant="body2"
         sx={{
           // margin: "0 40px",
@@ -211,7 +212,7 @@ const Orders = () => {
     <Stack
       ref={refContainer}
       direction="row"
-      sx={{ width: "100%", maxWidth: "832px",height: '100%' }}
+      sx={{ width: "100%", maxWidth: "832px", height: "100%" }}
     >
       <Box
         sx={{
@@ -235,10 +236,10 @@ const Orders = () => {
             position: "absolute",
             background:
               "linear-gradient(259.49deg, #FAFAFA 3.69%, #EFF8FF 110.74%)",
-              top: 0,
-              right: activeCollapseTable ? 0 : "-110%", // Скрыт за пределами экрана
-              width: "100%", // Ширина выезжающего блока
-              height: "100%",
+            top: 0,
+            right: activeCollapseTable ? 0 : "-110%", // Скрыт за пределами экрана
+            width: "100%", // Ширина выезжающего блока
+            height: "100%",
             backgroundColor: "#f5f5f5", // Цвет фона
             boxShadow: "-4px 0 8px rgba(0, 0, 0, 0.1)", // Тень
             zIndex: 1200, // Накладываемый поверх контента

@@ -18,7 +18,6 @@ const Page = () => {
     (string | number | React.JSX.Element | null)[][]
   >([]);
   const router = useRouter();
-
   useEffect(() => {
     const rows = myDocs?.map((item, index) => [
       item.product_name,
@@ -28,7 +27,7 @@ const Page = () => {
       <Typography
         key={index}
         component={"span"}
-        onClick={() => router.push(`/documents/${item.product_id}`)}
+        onClick={() => router.push(`/documents/${item.slug}`)}
         variant="body2"
         sx={{
           // margin: "0 40px",
