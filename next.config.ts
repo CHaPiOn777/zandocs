@@ -14,18 +14,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  trailingSlash: false, // корневая без слэша — /, а не // или /index
   async redirects() {
     return [
-      // {
-      //   source: "/",
-      //   destination: "/", // Перенаправление на /main
-      //   permanent: false,
-      // },
-      // {
-      //   source: "/logout",
-      //   destination: "/main", // Перенаправление на /main
-      //   permanent: false,
-      // },
+      // Явный редирект /index и /index.html → /
+      { source: "/index", destination: "/", permanent: true },
+      { source: "/index.html", destination: "/", permanent: true },
+
+      // www → без www (middleware тоже делает; оставляем как декларативную поддержку)
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.zandocs.kz" }],
+        destination: "https://zandocs.kz/:path*",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

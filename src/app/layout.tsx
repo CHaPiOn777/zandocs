@@ -14,8 +14,12 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Zandocs",
-  description:
-    "Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://zandocs.kz"
+  ),
+  alternates: { canonical: "/" }, // для главной
+  // description:
+  //   "Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs",
   keywords: ["Конструктор документов", "зандокс", "zandocs"],
 };
 
@@ -30,10 +34,10 @@ export default async function RootLayout({
     <html lang="ru">
       <head>
         <title>Zandocs</title>
-        <meta
+        {/* <meta
           name="description"
           content="Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs"
-        />
+        /> */}
         <meta
           name="keywords"
           content="Конструктор документов, зандокс, zandocs"
