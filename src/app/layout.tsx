@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://zandocs.kz"
   ),
   alternates: { canonical: "/" }, // для главной
-  // description:
-  //   "Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs",
+  description:
+    "Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs",
   keywords: ["Конструктор документов", "зандокс", "zandocs"],
 };
 
@@ -34,14 +34,6 @@ export default async function RootLayout({
     <html lang="ru">
       <head>
         <title>Zandocs</title>
-        {/* <meta
-          name="description"
-          content="Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs"
-        /> */}
-        <meta
-          name="keywords"
-          content="Конструктор документов, зандокс, zandocs"
-        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-VDKRCYMVLS"
           strategy="afterInteractive"
