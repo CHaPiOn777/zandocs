@@ -13,6 +13,7 @@ export const acumin = localFont({
       style: "normal",
     },
   ],
+
   variable: "--font-acumin",
   display: "swap",
 });
