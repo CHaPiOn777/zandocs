@@ -88,7 +88,7 @@ const DocsContent = ({ id }: { id: string }) => {
 
   const returnDocsById = useCallback((id: string): ReactElement | null => {
     const data: Record<string, ReactElement> = {
-      raspiska: <FormPodpiska />,
+      "raspiska": <FormPodpiska />,
       "akt-priema-peredachi-imushchestva": <ActPriemki />,
       "razovaya-doverennost": <Doverennost />,
       "dogovor-zaima-deneg": <Zaim />,
@@ -99,7 +99,7 @@ const DocsContent = ({ id }: { id: string }) => {
       "dogovor-garantii": <Garantia />,
       "dogovor-ob-okazanii-konsultacionnyh-uslug": <Konsulting />,
       "dogovor-kupli-prodazhi-nedvizhimosti-bez-obremeneniy": <DKP />,
-      ustav: <Ustav />,
+      "ustav": <Ustav />,
       "uchreditelnyy-dogovor": <UchDog />,
     };
 
