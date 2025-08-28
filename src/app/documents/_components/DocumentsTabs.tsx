@@ -61,7 +61,6 @@ const DocumentsTabs = () => {
       src: "#3",
     },
   ];
-  console.log(docs);
   const returnDataByType = useCallback(
     (type: string) => {
       return docs?.filter((item: any) =>

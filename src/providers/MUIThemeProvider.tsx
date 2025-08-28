@@ -11,7 +11,6 @@ const MUIThemeProvider = ({ children }: { children: ReactNode }) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={appTheme}>
         <CssBaseline />
-        {/* {appStyles} */}
         {children}
       </ThemeProvider>
     </StyledEngineProvider>

@@ -7,7 +7,8 @@ import DocumentsClient from "@/app/_components/DocumentsClient";
 import AuthAndCartLoader from "@/app/_components/AuthAndCartLoader";
 import Script from "next/script";
 import Providers from "./providers";
-
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { acumin } from "./fonts";
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +17,7 @@ export default async function RootLayout({
   const documents = await getProducts();
 
   return (
-    <html lang="ru">
+    <html lang="ru" className={acumin.variable}>
       <head>
         <title>Zandocs</title>
         <Script
@@ -56,13 +57,15 @@ export default async function RootLayout({
           />
         </noscript>
 
-        <Providers>
-          <Header />
-          <AuthAndCartLoader />
-          <DocumentsClient initialDocs={documents} />
-          {children}
-          <Footer />
-        </Providers>
+        <AppRouterCacheProvider options={{ key: "css" }}>
+          <Providers>
+            <Header />
+            <AuthAndCartLoader />
+            <DocumentsClient initialDocs={documents} />
+            {children}
+            <Footer />
+          </Providers>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

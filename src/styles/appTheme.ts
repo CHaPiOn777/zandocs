@@ -13,7 +13,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"AcuminPro", sans-serif',
+    fontFamily: `var(--font-acumin), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`,
     h1: {
       fontWeight: 500, // Используем Bold для h1
       fontSize: "52px",

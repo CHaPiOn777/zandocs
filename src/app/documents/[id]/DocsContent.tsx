@@ -3,7 +3,14 @@
 import { useDocsStore } from "@/store/docsStore";
 import MainCntainer from "@/ui/MainCntainer/MainCntainer";
 import Image from "next/image";
-import { ReactElement, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ReactElement,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import Container from "@/app/_components/Container/Container";
 import useIsMobile from "@/hooks/useIsMobile";
 import { Box, Stack, Typography } from "@mui/material";
@@ -60,6 +67,7 @@ import Konsulting from "@/app/documents/[id]/_components/Konsulting";
 import DKP from "@/app/documents/[id]/_components/DKP";
 import Ustav from "@/app/documents/[id]/_components/Ustav";
 import UchDog from "./_components/UchDogovor";
+import Loader from "@/ui/Loader/Loader";
 
 const DocsContent = ({ id }: { id: string }) => {
   const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
@@ -72,6 +80,7 @@ const DocsContent = ({ id }: { id: string }) => {
     () => documents.filter((docs) => docs.slug == id),
     [documents, id]
   );
+
   useEffect(() => {
     setActiveDoc(documentById[0]);
   }, [documentById]);
@@ -116,199 +125,201 @@ const DocsContent = ({ id }: { id: string }) => {
   };
 
   return (
-    <MainCntainer sx={{ background: "#edf7ff" }}>
-      <Container
-        sx={{ margin: isMobile ? "96px 0 " : "200px 0", gap: "24px" }}
-        column
-      >
-        <motion.div
-          initial={{
-            opacity: 0,
-            filter: "blur(10px)",
-            x: 200,
-          }}
-          style={{ marginLeft: "auto" }}
-          whileInView={{
-            opacity: 1,
-            filter: "blur(0px)",
+    <Suspense fallback={<Loader isLoader={true} />}>
+      <MainCntainer sx={{ background: "#edf7ff" }}>
+        <Container
+          sx={{ margin: isMobile ? "96px 0 " : "200px 0", gap: "24px" }}
+          column
+        >
+          <motion.div
+            initial={{
+              opacity: 0,
+              filter: "blur(10px)",
+              x: 200,
+            }}
+            style={{ marginLeft: "auto" }}
+            whileInView={{
+              opacity: 1,
+              filter: "blur(0px)",
 
-            x: 0,
-          }} // Анимация запускается при появлении
-          viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
-          transition={{
-            duration: 0.4,
-            // delay: 0.2 * index,
-            ease: "easeOut",
-          }}
-        >
-          <CustomButton
-            sx={{
-              padding: "12px 16px",
-              width: isMobile ? "calc(100vw - 32px)" : "200px",
-            }}
-            variant="secondary"
-            size="16"
-            fullWidth={isMobile}
-            onClick={() => goBack()}
-          >
-            Назад
-          </CustomButton>
-        </motion.div>
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0.8,
-            filter: "blur(10px)",
-          }}
-          whileInView={{
-            opacity: 1,
-            scale: 1,
-            filter: "blur(0px)",
-          }}
-          style={{
-            // marginLeft: "auto",
-            display: "flex",
-            gap: "24px",
-            flexDirection: isMobile ? "column" : "row",
-          }}
-          viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
-          transition={{
-            duration: 0.4,
-            // delay: 0.2 * index,
-            ease: "easeOut",
-          }}
-        >
-          <Stack
-            spacing={3}
-            sx={{
-              minHeight: isDesctopXS ? "400px" : "458px",
-              height: "auto",
-              maxWidth: "810px",
-              width: "100%",
+              x: 0,
+            }} // Анимация запускается при появлении
+            viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+            transition={{
+              duration: 0.4,
+              // delay: 0.2 * index,
+              ease: "easeOut",
             }}
           >
-            <Typography
-              variant={"body1"}
+            <CustomButton
               sx={{
-                color: "#2640E3",
-                position: "relative",
-                width: "max-content",
-                cursor: "pointer",
-                "&::after": {
-                  content: '""', // Добавляем пустое содержимое
-                  position: "absolute",
-                  bottom: "-4px", // Линия располагается под текстом
-                  left: "50%", // Центрируем линию по горизонтали
-                  width: "0%", // Изначальная ширина
-                  height: "1px", // Толщина линии
-                  backgroundColor: "#2640E3", // Цвет линии
-                  transition: "all 0.2s ease", // Плавный переход
-                  transform: "translateX(-50%)", // Сдвигаем к центру
-                },
-                "&:hover::after": {
-                  width: "100%", // Линия расширяется до всей ширины текста
-                },
+                padding: "12px 16px",
+                width: isMobile ? "calc(100vw - 32px)" : "200px",
+              }}
+              variant="secondary"
+              size="16"
+              fullWidth={isMobile}
+              onClick={() => goBack()}
+            >
+              Назад
+            </CustomButton>
+          </motion.div>
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.8,
+              filter: "blur(10px)",
+            }}
+            whileInView={{
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px)",
+            }}
+            style={{
+              // marginLeft: "auto",
+              display: "flex",
+              gap: "24px",
+              flexDirection: isMobile ? "column" : "row",
+            }}
+            viewport={{ once: true, amount: 0.1 }} // `once: true` - срабатывает 1 раз, `amount: 0.2` - 20% в видимости
+            transition={{
+              duration: 0.4,
+              // delay: 0.2 * index,
+              ease: "easeOut",
+            }}
+          >
+            <Stack
+              spacing={3}
+              sx={{
+                minHeight: isDesctopXS ? "400px" : "458px",
+                height: "auto",
+                maxWidth: "810px",
+                width: "100%",
               }}
             >
-              {documentById[0]?.categories[0].name}
-            </Typography>
-            <Typography
-              variant={"h2"}
-              component="h1"
-              sx={{ textTransform: "uppercase" }}
-            >
-              {documentById[0]?.name}
-            </Typography>
-            <Line />
-            {/* <Typography variant={"body2"} component={"span"}> */}
-            {parseText}
-            {/* </Typography> */}
-            <Stack
-              direction={"row"}
-              sx={{ paddingBottom: "24px" }}
-              spacing={1}
-              alignItems={"center"}
-            >
               <Typography
-                variant={"h3"}
-                component="h2"
+                variant={"body1"}
                 sx={{
                   color: "#2640E3",
-                  lineHeight: "1rem !important",
+                  position: "relative",
+                  width: "max-content",
+                  cursor: "pointer",
+                  "&::after": {
+                    content: '""', // Добавляем пустое содержимое
+                    position: "absolute",
+                    bottom: "-4px", // Линия располагается под текстом
+                    left: "50%", // Центрируем линию по горизонтали
+                    width: "0%", // Изначальная ширина
+                    height: "1px", // Толщина линии
+                    backgroundColor: "#2640E3", // Цвет линии
+                    transition: "all 0.2s ease", // Плавный переход
+                    transform: "translateX(-50%)", // Сдвигаем к центру
+                  },
+                  "&:hover::after": {
+                    width: "100%", // Линия расширяется до всей ширины текста
+                  },
                 }}
               >
-                {documentById[0]?.price === "0"
-                  ? "Бесплатно"
-                  : documentById[0]?.price}
+                {documentById[0]?.categories[0].name}
               </Typography>
-              {documentById[0]?.price !== "0" && (
-                <Tenge color={"#2640E3"} size={isMobile ? 14 : 16} />
+              <Typography
+                variant={"h2"}
+                component="h1"
+                sx={{ textTransform: "uppercase" }}
+              >
+                {documentById[0]?.name}
+              </Typography>
+              <Line />
+              {/* <Typography variant={"body2"} component={"span"}> */}
+              {parseText}
+              {/* </Typography> */}
+              <Stack
+                direction={"row"}
+                sx={{ paddingBottom: "24px" }}
+                spacing={1}
+                alignItems={"center"}
+              >
+                <Typography
+                  variant={"h3"}
+                  component="h2"
+                  sx={{
+                    color: "#2640E3",
+                    lineHeight: "1rem !important",
+                  }}
+                >
+                  {documentById[0]?.price === "0"
+                    ? "Бесплатно"
+                    : documentById[0]?.price}
+                </Typography>
+                {documentById[0]?.price !== "0" && (
+                  <Tenge color={"#2640E3"} size={isMobile ? 14 : 16} />
+                )}
+              </Stack>
+              {/* {false ? ( */}
+              {Number(activeDoc?.price) > 0 && !isMyDocs ? (
+                <ButtonsBuy
+                  id={activeDoc?.id}
+                  price={activeDoc?.price}
+                  title={activeDoc?.name}
+                  nameBtnTwice="Купить документ"
+                />
+              ) : (
+                <CustomButton
+                  sx={{
+                    marginTop: "auto !important",
+                  }}
+                  variant="primary"
+                  onClick={() => toggleVisibleDocs()}
+                >
+                  {isActiveForm ? "Скрыть документ" : "Заполнить документ"}
+                </CustomButton>
               )}
             </Stack>
-            {/* {false ? ( */}
-            {Number(activeDoc?.price) > 0 && !isMyDocs ? (
-              <ButtonsBuy
-                id={activeDoc?.id}
-                price={activeDoc?.price}
-                title={activeDoc?.name}
-                nameBtnTwice="Купить документ"
-              />
-            ) : (
-              <CustomButton
-                sx={{
-                  marginTop: "auto !important",
-                }}
-                variant="primary"
-                onClick={() => toggleVisibleDocs()}
+            {isMobile ? (
+              <Box
+                position={"relative"}
+                width={"calc(100vw - 32px)"}
+                height={"calc(100vw)"}
               >
-                {isActiveForm ? "Скрыть документ" : "Заполнить документ"}
-              </CustomButton>
-            )}
-          </Stack>
-          {isMobile ? (
-            <Box
-              position={"relative"}
-              width={"calc(100vw - 32px)"}
-              height={"calc(100vw)"}
-            >
+                <Image
+                  style={{
+                    border: "1px solid #2640E3",
+                    borderRadius: "4px",
+                    // position: "relative",
+                  }}
+                  objectFit={"cover"}
+                  fill
+                  src={documentById[0]?.images[0].src}
+                  alt={documentById[0]?.images[0].alt}
+                />
+              </Box>
+            ) : (
               <Image
-                style={{
-                  border: "1px solid #2640E3",
-                  borderRadius: "4px",
-                  // position: "relative",
-                }}
-                objectFit={"cover"}
-                fill
+                style={{ border: "1px solid #2640E3", borderRadius: "4px" }}
+                width={isDesctopXS ? 320 : 388}
+                height={isDesctopXS ? 400 : 458}
                 src={documentById[0]?.images[0].src}
                 alt={documentById[0]?.images[0].alt}
               />
-            </Box>
-          ) : (
-            <Image
-              style={{ border: "1px solid #2640E3", borderRadius: "4px" }}
-              width={isDesctopXS ? 320 : 388}
-              height={isDesctopXS ? 400 : 458}
-              src={documentById[0]?.images[0].src}
-              alt={documentById[0]?.images[0].alt}
-            />
-          )}
-        </motion.div>
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={
-            isActiveForm
-              ? { height: "auto", opacity: 1 }
-              : { height: 0, opacity: 0 }
-          }
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          style={{
-            overflow: "hidden",
-          }}
-        >
-          {isActiveForm && returnDocsById(id)}
-        </motion.div>
-      </Container>
-    </MainCntainer>
+            )}
+          </motion.div>
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={
+              isActiveForm
+                ? { height: "auto", opacity: 1 }
+                : { height: 0, opacity: 0 }
+            }
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            style={{
+              overflow: "hidden",
+            }}
+          >
+            {isActiveForm && returnDocsById(id)}
+          </motion.div>
+        </Container>
+      </MainCntainer>
+    </Suspense>
   );
 };
 
