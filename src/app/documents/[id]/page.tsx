@@ -89,7 +89,8 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://zandocs.kz";
+  const base =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://zandocs.kz/documents";
   const meta = documentMetaData[id];
   if (meta) {
     return {
