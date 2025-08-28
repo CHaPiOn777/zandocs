@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/app/_components/Container/Container";
 import FAQItem from "@/app/(main)/_components/FAQ/_components/FAQItem";
 import ImageBG from "@/ui/ImageBG/ImageBG";

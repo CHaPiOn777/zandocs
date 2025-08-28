@@ -60,6 +60,7 @@ import Konsulting from "@/app/documents/[id]/_components/Konsulting";
 import DKP from "@/app/documents/[id]/_components/DKP";
 import Ustav from "@/app/documents/[id]/_components/Ustav";
 import UchDog from "./_components/UchDogovor";
+
 const DocsContent = ({ id }: { id: string }) => {
   const setActiveDoc = useDocsStore((state) => state.setActiveDoc);
   const isMobile = useIsMobile();
@@ -88,7 +89,7 @@ const DocsContent = ({ id }: { id: string }) => {
 
   const returnDocsById = useCallback((id: string): ReactElement | null => {
     const data: Record<string, ReactElement> = {
-      "raspiska": <FormPodpiska />,
+      raspiska: <FormPodpiska />,
       "akt-priema-peredachi-imushchestva": <ActPriemki />,
       "razovaya-doverennost": <Doverennost />,
       "dogovor-zaima-deneg": <Zaim />,
@@ -99,7 +100,7 @@ const DocsContent = ({ id }: { id: string }) => {
       "dogovor-garantii": <Garantia />,
       "dogovor-ob-okazanii-konsultacionnyh-uslug": <Konsulting />,
       "dogovor-kupli-prodazhi-nedvizhimosti-bez-obremeneniy": <DKP />,
-      "ustav": <Ustav />,
+      ustav: <Ustav />,
       "uchreditelnyy-dogovor": <UchDog />,
     };
 

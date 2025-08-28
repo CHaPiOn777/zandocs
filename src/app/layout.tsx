@@ -1,27 +1,12 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import "../styles/fonts.css";
-import MUIThemeProvider from "@/providers/MUIThemeProvider";
 import Footer from "@/app/_components/Footer/Footer";
 import Header from "@/app/_components/Header/Header";
-import ToastProvider from "@/ui/ToastProvider/ToastProvider";
 import { getProducts } from "@/api/authApi";
 import DocumentsClient from "@/app/_components/DocumentsClient";
 import AuthAndCartLoader from "@/app/_components/AuthAndCartLoader";
-import { Suspense } from "react";
-import { CircularProgress } from "@mui/material";
 import Script from "next/script";
-
-export const metadata: Metadata = {
-  title: "Zandocs",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://zandocs.kz"
-  ),
-  alternates: { canonical: "/" }, // для главной
-  description:
-    "Zandocs — Конструктор документов. Зандокс. Конструктор документов. Создать документ онлайн. зандокс. zandocs",
-  keywords: ["Конструктор документов", "зандокс", "zandocs"],
-};
+import Providers from "./providers";
 
 export default async function RootLayout({
   children,
@@ -71,17 +56,13 @@ export default async function RootLayout({
           />
         </noscript>
 
-        <MUIThemeProvider>
-          <Suspense fallback={<CircularProgress color="info" />}>
-            <ToastProvider>
-              <Header />
-              <AuthAndCartLoader />
-              <DocumentsClient initialDocs={documents} />
-              {children}
-              <Footer />
-            </ToastProvider>
-          </Suspense>
-        </MUIThemeProvider>
+        <Providers>
+          <Header />
+          <AuthAndCartLoader />
+          <DocumentsClient initialDocs={documents} />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
