@@ -89,21 +89,20 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const base =
-    (process.env.NEXT_PUBLIC_SITE_URL || "https://zandocs.kz") + "/documents";
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://zandocs.kz";
   const meta = documentMetaData[id];
   if (meta) {
     return {
       title: meta.title,
       description: meta.description,
-      alternates: { canonical: new URL(`/${id}`, base).toString() },
+      alternates: { canonical: new URL(`/documents/${id}`, base).toString() },
     };
   }
 
   return {
     title: "Документ – Скачать бесплатно",
     description: "Официальный бланк документа для скачивания.",
-    alternates: { canonical: new URL(`/${id}`, base).toString() },
+    alternates: { canonical: new URL(`/documents/${id}`, base).toString() },
   };
 }
 
